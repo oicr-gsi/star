@@ -25,7 +25,7 @@ public class STARWorkflow extends SemanticWorkflow {
     String read2_adapterTrim = null;
     String trimmedFile_1;
     String trimmedFile_2;
-    //BWA parameters
+    //RG and STAR parameters
     String star;
     String RGID;
     String RGLB;
