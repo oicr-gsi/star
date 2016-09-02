@@ -1,0 +1,116 @@
+{
+  "workflowRunCount" : 1,
+  "studies" : [ "DCIS" ],
+  "sequencerRuns" : [ "150728_D00355_0090_BC6BREANXX" ],
+  "lanes" : [ "150728_D00355_0090_BC6BREANXX_lane_1" ],
+  "samples" : [ "DCIS_0001_Br_P_PE_255_TS", "DCIS_0001_Br_R_PE_255_TS" ],
+  "workflows" : [ "BWA" ],
+  "processingAlgorithms" : [ "ProvisionFiles" ],
+  "fileMetaTypes" : [ "application/bam" ],
+  "maxInputFiles" : 2,
+  "minInputFiles" : 2,
+  "totalInputFiles" : 2,
+  "workflowRuns" : [ {
+    "workflowIni" : {
+      "chromosome_length" : "chr1:249250621,chr2:243199373,chr3:198022430,chr4:191154276,chr5:180915260,chr6:171115067,chr7:159138663,chr8:146364022,chr9:141213431,chr10:135534747,chr11:135006516,chr12:133851895,chr13:115169878,chr14:107349540,chr15:102531392,chr16:90354753,chr17:81195210,chr18:78077248,chr19:59128983,chr20:63025520,chr21:48129895,chr22:51304566,chrX:155270560,chrY:59373566,chrM:16571",
+      "cosmic_vcf" : "/.mounts/labs/PDE/data/MutectStrelka/cosmic/hg19_cosmic_v54_120711.vcf",
+      "data_dir" : "data",
+      "dbsnp_vcf" : "/.mounts/labs/PDE/data/MutectStrelka/dbSNP/dbsnp_138.hg19.leftAligned.vcf.gz",
+      "do_sort" : "true",
+      "external_name" : "NA",
+      "force_crosscheck" : "true",
+      "group_id" : "1",
+      "group_id_description" : "DCIS: Non-recurrence",
+      "input_files_normal" : "/oicr/data/archive/seqware/seqware_analysis_8/hsqwprod/seqware-results/BWA_1.4/88751059/SWID_2483326_DCIS_0001_Br_R_PE_255_TS_1_150728_D00355_0090_BC6BREANXX_TGACCA_L001_001.annotated.bam",
+      "input_files_tumor" : "/oicr/data/archive/seqware/seqware_analysis_8/hsqwprod/seqware-results/BWA_1.4/79067560/SWID_2483308_DCIS_0001_Br_P_PE_255_TS_1_150728_D00355_0090_BC6BREANXX_CGATGT_L001_001.annotated.bam",
+      "jre-version" : "1.7.0_51",
+      "manual_output" : "false",
+      "metadata" : "metadata",
+      "mutect_dcov" : "",
+      "mutect_dfrac" : "",
+      "mutect_dt" : "NONE",
+      "mutect_jre" : "/oicr/x86_64/lib/jvm/jdk1.6.0_25/jre",
+      "mutect_memory" : "6000",
+      "mutect_version" : "1.1.4",
+      "output_dir" : "seqware-results",
+      "picard_memory" : "6000",
+      "picard_version" : "1.72",
+      "queue" : "",
+      "reference_fasta" : "/.mounts/labs/PDE/data/MutectStrelka/hg19/hg19_random.fa",
+      "sample_name" : "TEST",
+      "samtools_version" : "0.1.19",
+      "tabix_version" : "0.2.6",
+      "tumor_type" : "P",
+      "vcftools_version" : "0.1.10"
+    },
+    "files" : [ {
+      "studyTitle" : [ "DCIS" ],
+      "studyAttributes" : {
+        "study.geo_lab_group_id" : [ [ "184" ] ]
+      },
+      "experimentName" : [ "Geo_DCIS_ILLUMINA_TS_{F*126}{..}{R*126}" ],
+      "experimentAttributes" : { },
+      "sampleName" : [ "DCIS_0001_Br_P_PE_255_TS" ],
+      "sampleAttributes" : {
+        "sample.geo_library_source_template_type" : [ [ "TS" ] ],
+        "sample.geo_prep_kit" : [ [ "AmpliSeq-Illumina V1" ] ],
+        "sample.geo_run_id_and_position_and_slot" : [ [ "2301_1_2" ] ],
+        "sample.geo_targeted_resequencing" : [ [ "BART_IAD40521_23" ] ],
+        "sample.geo_template_id" : [ [ "79326" ] ],
+        "sample.geo_template_type" : [ [ "Illumina PE Library Seq" ] ],
+        "sample.geo_tissue_origin" : [ [ "Br" ] ],
+        "sample.geo_tissue_type" : [ [ "P" ] ]
+      },
+      "sequencerRunName" : [ "150728_D00355_0090_BC6BREANXX" ],
+      "sequencerRunAttributes" : {
+        "sequencerrun.geo_instrument_run_id" : [ [ "2301" ] ]
+      },
+      "laneName" : [ "150728_D00355_0090_BC6BREANXX_lane_1" ],
+      "laneAttributes" : {
+        "lane.geo_lane" : [ [ "1" ] ]
+      },
+      "iusTag" : [ "CGATGT" ],
+      "iusAttributes" : { },
+      "workflowName" : [ "BWA" ],
+      "processingAlgorithm" : [ "ProvisionFiles" ],
+      "processingAttributes" : { },
+      "fileMetaType" : [ "application/bam" ],
+      "fileAttributes" : { },
+      "fileId" : 108042280
+    }, {
+      "studyTitle" : [ "DCIS" ],
+      "studyAttributes" : {
+        "study.geo_lab_group_id" : [ [ "184" ] ]
+      },
+      "experimentName" : [ "Geo_DCIS_ILLUMINA_TS_{F*126}{..}{R*126}" ],
+      "experimentAttributes" : { },
+      "sampleName" : [ "DCIS_0001_Br_R_PE_255_TS" ],
+      "sampleAttributes" : {
+        "sample.geo_library_source_template_type" : [ [ "TS" ] ],
+        "sample.geo_prep_kit" : [ [ "AmpliSeq-Illumina V1" ] ],
+        "sample.geo_run_id_and_position_and_slot" : [ [ "2301_1_2" ] ],
+        "sample.geo_targeted_resequencing" : [ [ "BART_IAD40521_23" ] ],
+        "sample.geo_template_id" : [ [ "79327" ] ],
+        "sample.geo_template_type" : [ [ "Illumina PE Library Seq" ] ],
+        "sample.geo_tissue_origin" : [ [ "Br" ] ],
+        "sample.geo_tissue_type" : [ [ "R" ] ]
+      },
+      "sequencerRunName" : [ "150728_D00355_0090_BC6BREANXX" ],
+      "sequencerRunAttributes" : {
+        "sequencerrun.geo_instrument_run_id" : [ [ "2301" ] ]
+      },
+      "laneName" : [ "150728_D00355_0090_BC6BREANXX_lane_1" ],
+      "laneAttributes" : {
+        "lane.geo_lane" : [ [ "1" ] ]
+      },
+      "iusTag" : [ "TGACCA" ],
+      "iusAttributes" : { },
+      "workflowName" : [ "BWA" ],
+      "processingAlgorithm" : [ "ProvisionFiles" ],
+      "processingAttributes" : { },
+      "fileMetaType" : [ "application/bam" ],
+      "fileAttributes" : { },
+      "fileId" : 183873600
+    } ]
+  } ]
+}

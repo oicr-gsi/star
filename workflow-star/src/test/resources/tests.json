@@ -1,0 +1,15 @@
+{
+    "defaults": {
+        "description": "STAR workflow test",
+	"metrics_calculate": "calculate.sh",
+        "metrics_compare": "compare.sh",
+        "input_config_dir": "/.mounts/labs/PDE/data/RegressionTests/STAR/workflow/input_config/${project.version}/",
+        "output_metrics_dir": "/.mounts/labs/PDE/data/RegressionTests/STAR/workflow/output_expectation/${project.version}/"
+    },
+    "tests": [
+        {
+	    "description": "Runs the default workflow.ini",
+            "input_config": "workflow.ini"
+        }
+    ]
+}
