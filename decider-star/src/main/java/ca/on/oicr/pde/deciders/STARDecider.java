@@ -13,10 +13,10 @@ import net.sourceforge.seqware.common.util.Log;
  * @author rtahir
  */
 public class STARDecider extends OicrDecider {
-    private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+    private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
     private Map<String, BeSmall> fileSwaToSmall;
 
-    private String [][] readMateFlags = {{"_R1_","1_sequence.txt",".1.fastq"},{"_R2_","2_sequence.txt",".2.fastq"}};    
+    private final String [][] readMateFlags = {{"_R1_","1_sequence.txt",".1.fastq"},{"_R2_","2_sequence.txt",".2.fastq"}};    
     
     private String index_dir;
     private String output_prefix = "./";
@@ -250,80 +250,81 @@ public class STARDecider extends OicrDecider {
         return super.checkFileDetails(returnValue, fm);
     }
 
-     protected Map<String, String> modifyIniFile(String commaSeparatedFilePaths, String commaSeparatedParentAccessions) {
+    @Override
+    protected Map<String, String> modifyIniFile(String commaSeparatedFilePaths, String commaSeparatedParentAccessions) {
         Log.debug("INI FILE:" + commaSeparatedFilePaths);
 
-       //reset test mode
+        //reset test mode
         if (!this.options.has("test")) {
             this.setTest(false);
         }
         String[] filePaths = commaSeparatedFilePaths.split(",");
-        int [] indexes = {0,1};
-        
+        int[] indexes = {0, 1};
+
         Set fqInputs_end1 = new HashSet();
-	Set fqInputs_end2 = new HashSet();
-	Set [] fqInputFiles = {fqInputs_end1,fqInputs_end2};
-	String fastq_inputs_end_1 = "";
-	String fastq_inputs_end_2 = "";
-        
-         for (String p : filePaths) {
-             for (BeSmall bs : fileSwaToSmall.values()) {
-                 if (!bs.getPath().equals(p)) {
-                     continue;
-                 }
+        Set fqInputs_end2 = new HashSet();
+        Set[] fqInputFiles = {fqInputs_end1, fqInputs_end2};
+        String fastq_inputs_end_1 = "";
+        String fastq_inputs_end_2 = "";
 
-                 for (int i:indexes) {
-		   for (int j=0; j < readMateFlags[i].length; j++) {
-		     if (p.contains(readMateFlags[i][j])) {
-			fqInputFiles[i].add(p);
-			break;
-		     }
-		   }
-		}
-             }
-         }
+        for (String p : filePaths) {
+            for (BeSmall bs : fileSwaToSmall.values()) {
+                if (!bs.getPath().equals(p)) {
+                    continue;
+                }
 
-         // Format input strings
-	 if (fqInputFiles[0].size() == 0 || fqInputFiles[1].size() == 0) {
-	    Log.error("Was not able to retrieve fastq files for either one or two subsets of paired reads, setting mode to test");
-	    this.setTest(true);
-	 } else {
-	    fastq_inputs_end_1 = _join(",",fqInputFiles[0]);
-	    fastq_inputs_end_2 = _join(",",fqInputFiles[1]);
-	 }
-        
-	Map<String, String> iniFileMap = new TreeMap<String, String>();
-	iniFileMap.put("input_file_1",fastq_inputs_end_1);
-	iniFileMap.put("input_file_2",fastq_inputs_end_2);
-	iniFileMap.put("index_dir", this.index_dir);
-        iniFileMap.put("output_prefix",this.output_prefix);
-	iniFileMap.put("output_dir", this.output_dir);
+                for (int i : indexes) {
+                    for (int j = 0; j < this.readMateFlags[i].length; j++) {
+                        if (p.contains(this.readMateFlags[i][j])) {
+                            fqInputFiles[i].add(p);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Format input strings
+        if (fqInputFiles[0].size() == 0 || fqInputFiles[1].size() == 0) {
+            Log.error("Was not able to retrieve fastq files for either one or two subsets of paired reads, setting mode to test");
+            this.setTest(true);
+        } else {
+            fastq_inputs_end_1 = _join(",", fqInputFiles[0]);
+            fastq_inputs_end_2 = _join(",", fqInputFiles[1]);
+        }
+
+        Map<String, String> iniFileMap = new TreeMap<String, String>();
+        iniFileMap.put("input_file_1", fastq_inputs_end_1);
+        iniFileMap.put("input_file_2", fastq_inputs_end_2);
+        iniFileMap.put("index_dir", this.index_dir);
+        iniFileMap.put("output_prefix", this.output_prefix);
+        iniFileMap.put("output_dir", this.output_dir);
         iniFileMap.put("manual_output", this.manual_output);
         //For RG setting
         iniFileMap.put("rg_library", this.RGLB);
         iniFileMap.put("rg_platform", this.RGPL);
         iniFileMap.put("rg_platform_unit", this.RGPU);
-	iniFileMap.put("rg_sample_name", this.RGSM);
+        iniFileMap.put("rg_sample_name", this.RGSM);
         iniFileMap.put("rg_organization", this.RGCM);
-	iniFileMap.put("additionalStarParams", this.additionalStarParams);
-        
+        iniFileMap.put("additionalStarParams", this.additionalStarParams);
+
         iniFileMap.put("r1_adapter_trim", this.read1_adapterTrim);
         iniFileMap.put("r2_adapter_trim", this.read2_adapterTrim);
         iniFileMap.put("star_aln_threads", this.numOfThreads);
         iniFileMap.put("star_aln_mem_mb", this.starMemory);
-        
+
         iniFileMap.put("ius_accession", this.ius_accession);
         iniFileMap.put("sequencer_run_name", this.sequencer_run_name);
-        iniFileMap.put("lane", this.lane);        
+        iniFileMap.put("lane", this.lane);
         iniFileMap.put("barcode", this.barcode);
-        
+
         if (!this.queue.isEmpty()) {
             iniFileMap.put("queue", this.queue);
         } else {
             iniFileMap.put("queue", " ");
         }
         return iniFileMap;
-	}
+    }
 
    //Join function
    public static String _join(String separator, Set items) {
