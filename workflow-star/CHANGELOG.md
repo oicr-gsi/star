@@ -1,2 +1,2 @@
 ## 1.0 - 2016-09-05
-- Initial import
+- Initial import of STAR code
