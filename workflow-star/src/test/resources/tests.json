@@ -9,8 +9,7 @@
     "tests": [
         {
 	    "description": "Runs the default workflow.ini",
-            "input_config": "workflow.ini",
-            "index_dir": "/.mounts/labs/PDE/data/reference/hg19_random/star2.5/155b"
+            "input_config": "workflow.ini"
         }
     ]
 }
