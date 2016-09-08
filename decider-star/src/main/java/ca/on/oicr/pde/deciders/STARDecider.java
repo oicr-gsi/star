@@ -44,8 +44,9 @@ public class STARDecider extends OicrDecider {
 
     public STARDecider() {
         super();
+        fileSwaToSmall = new HashMap<String, BeSmall>();
         parser.accepts("ini-file", "Optional: the location of the INI file.").withRequiredArg();
-        parser.accepts("index-dir", "reference index dir");
+        parser.accepts("index-dir", "reference index dir").withRequiredArg();
         parser.accepts("verbose", "Optional: output all SeqWare info.").withRequiredArg();
         parser.accepts("output-prefix", "Optional: the path where the files should be copied to after analysis. output-prefix in INI file.").withRequiredArg();
         parser.accepts("output-dir", "Optional: the folder to put the output into relative to the output-path. Corresponds to output-dir in INI file.").withRequiredArg();
@@ -61,7 +62,7 @@ public class STARDecider extends OicrDecider {
         parser.accepts("rg-platform", "Optional: RG Platform, default illumina.").withRequiredArg();
         parser.accepts("rg-platform-unit", "Optional: RG Platform unit (PU).").withRequiredArg();
         parser.accepts("rg-sample-name", "Optional: RG Sample name (SM).").withRequiredArg();
-        
+        parser.accepts("template-type", "Optional: limit the run to only specified template type").withRequiredArg();
         //Trimming
         parser.accepts("read1-adapter-trim", "Optional: Barcode, default is empty string.").withRequiredArg();
         parser.accepts("read2-adapter-trim", "Optional: Sequencing platform, will be set to production if no value passed.").withRequiredArg();
@@ -72,12 +73,14 @@ public class STARDecider extends OicrDecider {
     public ReturnValue init() {
         Log.debug("INIT");
         this.setMetaType(Arrays.asList("chemical/seq-na-fastq-gzip"));
+        this.setGroupingStrategy(FindAllTheFiles.Header.FILE_SWA);
 
         //allows anything defined on the command line to override the defaults here.
         if (this.options.has("index-dir")){
             this.index_dir = options.valueOf("index-dir").toString();
         } else {
             Log.error("index-dir needs to be set");
+            System.exit(1);
         }
         if (this.options.has("output-path")) {
             output_prefix = options.valueOf("output-path").toString();
@@ -389,16 +392,19 @@ public class STARDecider extends OicrDecider {
             lane = fa.getLane().toString();
             RGLB = fa.getLibrarySample();
             RGPU = fa.getSequencerRun() + "_" + lane + "_" + fa.getBarcode();
-            //RGID = RGPU;
-            RGSM = fa.getDonor() + "_" + tissueType + "_" + groupID;
+            RGSM = fa.getDonor() + "_" + tissueType;
+            if (!groupID.equals("NA")) {
+                RGSM = RGSM + "_" + groupID;
+            }
             
-            iusDetails = RGLB + RGPU;
+            iusDetails = RGLB + RGPU + rv.getAttribute(FindAllTheFiles.Header.FILE_SWA.getTitle());
             ius_accession = rv.getAttribute(FindAllTheFiles.Header.IUS_SWA.getTitle());
             sequencer_run_name = fa.getSequencerRun();
             barcode = fa.getBarcode();
             
             StringBuilder gba = new StringBuilder(fa.getDonor());
             gba.append(":").append(fa.getLimsValue(Lims.LIBRARY_TEMPLATE_TYPE));
+            gba.append(":").append(ius_accession);
 
             String trs = fa.getLimsValue(Lims.TARGETED_RESEQUENCING);
             if (null != trs && !trs.isEmpty()) {
