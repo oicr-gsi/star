@@ -36,6 +36,11 @@
             <version>${star-version}</version>
             <type>zip</type>
         </dependency>
+                <dependency>
+            <groupId>ca.on.oicr.pde</groupId>
+            <artifactId>common-utilities</artifactId>
+            <version>1.6.5</version>
+        </dependency>
         <dependency>
             <groupId>ca.on.oicr.pde</groupId>
             <artifactId>workflow-utilities</artifactId>
