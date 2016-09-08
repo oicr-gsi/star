@@ -9,7 +9,7 @@
     "tests": [
         {
 	    "description": "Runs the default workflow.ini",
-            "input_config": "${workflow_bundle_dir}/Workflow_Bundle_STAR/${project.version}/config/workflow.ini"
+            "input_config": "workflow.ini"
         }
     ]
 }
