@@ -27,7 +27,7 @@ public class STARDecider extends OicrDecider {
     private String RGPL = "Test";
     private String RGPU = "Values";
     private String RGSM = "ADJUST";
-    private String RGCM = "OICR";
+    private String RGCM = "";
     private String additionalStarParams = "";
     private String read1_adapterTrim = "AGATCGGAAGAGCGGTTCAGCAGGAATGCCGAGACCG";
     private String read2_adapterTrim = "AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT";
@@ -40,6 +40,7 @@ public class STARDecider extends OicrDecider {
     private String queue = "";
     
     private static final String FASTQ_GZ_METATYPE = "chemical/seq-na-fastq-gzip";
+    private static final String OICR = "OICR";
   
 
     public STARDecider() {
@@ -62,6 +63,7 @@ public class STARDecider extends OicrDecider {
         parser.accepts("rg-platform", "Optional: RG Platform, default illumina.").withRequiredArg();
         parser.accepts("rg-platform-unit", "Optional: RG Platform unit (PU).").withRequiredArg();
         parser.accepts("rg-sample-name", "Optional: RG Sample name (SM).").withRequiredArg();
+        parser.accepts("rg-organization", "Optional: RG Organization (CM).").withRequiredArg();
         parser.accepts("template-type", "Optional: limit the run to only specified template type").withRequiredArg();
         //Trimming
         parser.accepts("read1-adapter-trim", "Optional: Barcode, default is empty string.").withRequiredArg();
@@ -121,6 +123,8 @@ public class STARDecider extends OicrDecider {
         }
         if (this.options.has("rg-organization")) {
             this.RGCM = options.valueOf("rg-organization").toString();
+        } else {
+            this.RGCM = OICR;
         }
         
         //star
@@ -368,36 +372,36 @@ public class STARDecider extends OicrDecider {
 
         public BeSmall(ReturnValue rv) {
             try {
-                date = format.parse(rv.getAttribute(FindAllTheFiles.Header.PROCESSING_DATE.getTitle()));
+                this.date = format.parse(rv.getAttribute(FindAllTheFiles.Header.PROCESSING_DATE.getTitle()));
             } catch (ParseException ex) {
                 Log.error("Bad date!", ex);
                 ex.printStackTrace();
             }
             
             FileAttributes fa = new FileAttributes(rv, rv.getFiles().get(0));
-            tissueType = fa.getLimsValue(Lims.TISSUE_TYPE);
-            tubeID = fa.getLimsValue(Lims.TUBE_ID);
-            if (null == tubeID || tubeID.isEmpty()) {
-                tubeID = "NA";
+            this.tissueType = fa.getLimsValue(Lims.TISSUE_TYPE);
+            this.tubeID = fa.getLimsValue(Lims.TUBE_ID);
+            if (null == this.tubeID || this.tubeID.isEmpty()) {
+                this.tubeID = "NA";
             }
-            groupID = fa.getLimsValue(Lims.GROUP_ID);
-            if (null == groupID || groupID.isEmpty()) {
-                groupID = "NA";
+            this.groupID = fa.getLimsValue(Lims.GROUP_ID);
+            if (null == this.groupID || this.groupID.isEmpty()) {
+                this.groupID = "NA";
             }
-            groupDescription = fa.getLimsValue(Lims.GROUP_DESC);
-            if (null == groupDescription || groupDescription.isEmpty()) {
-                groupDescription = "NA";
+            this.groupDescription = fa.getLimsValue(Lims.GROUP_DESC);
+            if (null == this.groupDescription || this.groupDescription.isEmpty()) {
+                this.groupDescription = "NA";
             }  
             
             lane = fa.getLane().toString();
             RGLB = fa.getLibrarySample();
             RGPU = fa.getSequencerRun() + "_" + lane + "_" + fa.getBarcode();
             RGSM = fa.getDonor() + "_" + tissueType;
-            if (!groupID.equals("NA")) {
-                RGSM = RGSM + "_" + groupID;
+            if (!this.groupID.equals("NA")) {
+                RGSM = RGSM + "_" + this.groupID;
             }
             
-            iusDetails = RGLB + RGPU + rv.getAttribute(FindAllTheFiles.Header.FILE_SWA.getTitle());
+            this.iusDetails = RGLB + RGPU + rv.getAttribute(FindAllTheFiles.Header.FILE_SWA.getTitle());
             ius_accession = rv.getAttribute(FindAllTheFiles.Header.IUS_SWA.getTitle());
             sequencer_run_name = fa.getSequencerRun();
             barcode = fa.getBarcode();
@@ -411,12 +415,12 @@ public class STARDecider extends OicrDecider {
                 gba.append(":").append(trs);
             }
 
-            groupByAttribute = gba.toString();
-            path = rv.getFiles().get(0).getFilePath() + "";
+            this.groupByAttribute = gba.toString();
+            this.path = rv.getFiles().get(0).getFilePath() + "";
         }
 
         public Date getDate() {
-            return date;
+            return this.date;
         }
 
         public void setDate(Date date) {
@@ -424,7 +428,7 @@ public class STARDecider extends OicrDecider {
         }
 
         public String getGroupByAttribute() {
-            return groupByAttribute;
+            return this.groupByAttribute;
         }
 
         public void setGroupByAttribute(String groupByAttribute) {
@@ -432,11 +436,11 @@ public class STARDecider extends OicrDecider {
         }
 
         public String getTissueType() {
-            return tissueType;
+            return this.tissueType;
         }
 
         public String getIusDetails() {
-            return iusDetails;
+            return this.iusDetails;
         }
 
         public void setIusDetails(String iusDetails) {
@@ -444,19 +448,19 @@ public class STARDecider extends OicrDecider {
         }
 
         public String getPath() {
-            return path;
+            return this.path;
         }
 
         public String getTubeId() {
-            return tubeID;
+            return this.tubeID;
         }
 
         public String getGroupID() {
-            return groupID;
+            return this.groupID;
         }
 
         public String getGroupDescription() {
-            return groupDescription;
+            return this.groupDescription;
         }
 
         public void setPath(String path) {
