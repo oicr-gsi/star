@@ -1,116 +1,110 @@
 {
   "workflowRunCount" : 1,
-  "studies" : [ "DCIS" ],
-  "sequencerRuns" : [ "150728_D00355_0090_BC6BREANXX" ],
-  "lanes" : [ "150728_D00355_0090_BC6BREANXX_lane_1" ],
-  "samples" : [ "DCIS_0001_Br_P_PE_255_TS", "DCIS_0001_Br_R_PE_255_TS" ],
-  "workflows" : [ "BWA" ],
+  "studies" : [ "extracellularRNA" ],
+  "sequencerRuns" : [ "160330_D00331_0185_BC8L1CANXX" ],
+  "lanes" : [ "160330_D00331_0185_BC8L1CANXX_lane_6" ],
+  "samples" : [ "ERNA_0079_nn_C_PE_320_WT" ],
+  "workflows" : [ "CASAVA" ],
   "processingAlgorithms" : [ "ProvisionFiles" ],
-  "fileMetaTypes" : [ "application/bam" ],
+  "fileMetaTypes" : [ "chemical/seq-na-fastq-gzip" ],
   "maxInputFiles" : 2,
   "minInputFiles" : 2,
   "totalInputFiles" : 2,
   "workflowRuns" : [ {
     "workflowIni" : {
-      "chromosome_length" : "chr1:249250621,chr2:243199373,chr3:198022430,chr4:191154276,chr5:180915260,chr6:171115067,chr7:159138663,chr8:146364022,chr9:141213431,chr10:135534747,chr11:135006516,chr12:133851895,chr13:115169878,chr14:107349540,chr15:102531392,chr16:90354753,chr17:81195210,chr18:78077248,chr19:59128983,chr20:63025520,chr21:48129895,chr22:51304566,chrX:155270560,chrY:59373566,chrM:16571",
-      "cosmic_vcf" : "/.mounts/labs/PDE/data/MutectStrelka/cosmic/hg19_cosmic_v54_120711.vcf",
+      "additionalStarParams" : "",
+      "barcode" : "GCCAAT",
+      "bundled_jre" : "${workflow_bundle_dir}/Workflow_Bundle_STAR/1.0/bin/jre1.7.0_51/bin/java",
+      "bundled_seqware" : "seqware-distribution-1.1.0-full.jar",
       "data_dir" : "data",
-      "dbsnp_vcf" : "/.mounts/labs/PDE/data/MutectStrelka/dbSNP/dbsnp_138.hg19.leftAligned.vcf.gz",
-      "do_sort" : "true",
-      "external_name" : "NA",
-      "force_crosscheck" : "true",
-      "group_id" : "1",
-      "group_id_description" : "DCIS: Non-recurrence",
-      "input_files_normal" : "/oicr/data/archive/seqware/seqware_analysis_8/hsqwprod/seqware-results/BWA_1.4/88751059/SWID_2483326_DCIS_0001_Br_R_PE_255_TS_1_150728_D00355_0090_BC6BREANXX_TGACCA_L001_001.annotated.bam",
-      "input_files_tumor" : "/oicr/data/archive/seqware/seqware_analysis_8/hsqwprod/seqware-results/BWA_1.4/79067560/SWID_2483308_DCIS_0001_Br_P_PE_255_TS_1_150728_D00355_0090_BC6BREANXX_CGATGT_L001_001.annotated.bam",
-      "jre-version" : "1.7.0_51",
+      "index_dir" : "/.mount/labs/PDE/data/reference/Star100b",
+      "input_file_1" : "/oicr/data/archive/seqware/seqware_analysis_8/hsqwprod/results/CASAVA_2.7/47674109/SWID_4013294_ERNA_0079_nn_C_PE_320_WT_NoGroup_160330_D00331_0185_BC8L1CANXX_GCCAAT_L006_R1_001.fastq.gz",
+      "input_file_2" : "/oicr/data/archive/seqware/seqware_analysis_8/hsqwprod/results/CASAVA_2.7/47674109/SWID_4013294_ERNA_0079_nn_C_PE_320_WT_NoGroup_160330_D00331_0185_BC8L1CANXX_GCCAAT_L006_R2_001.fastq.gz",
+      "ius_accession" : "4013294",
+      "lane" : "6",
       "manual_output" : "false",
       "metadata" : "metadata",
-      "mutect_dcov" : "",
-      "mutect_dfrac" : "",
-      "mutect_dt" : "NONE",
-      "mutect_jre" : "/oicr/x86_64/lib/jvm/jdk1.6.0_25/jre",
-      "mutect_memory" : "6000",
-      "mutect_version" : "1.1.4",
       "output_dir" : "seqware-results",
-      "picard_memory" : "6000",
-      "picard_version" : "1.72",
+      "picard_dir" : "${workflow_bundle_dir}/Workflow_Bundle_STAR/1.0/bin/picard-tools-1.89/",
       "queue" : "",
-      "reference_fasta" : "/.mounts/labs/PDE/data/MutectStrelka/hg19/hg19_random.fa",
-      "sample_name" : "TEST",
-      "samtools_version" : "0.1.19",
-      "tabix_version" : "0.2.6",
-      "tumor_type" : "P",
-      "vcftools_version" : "0.1.10"
+      "r1_adapter_trim" : "AGATCGGAAGAGCGGTTCAGCAGGAATGCCGAGACCG",
+      "r2_adapter_trim" : "AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT",
+      "rg_library" : "ERNA_0079_nn_C_PE_320_WT",
+      "rg_organization" : "OICR",
+      "rg_platform" : "Test",
+      "rg_platform_unit" : "160330_D00331_0185_BC8L1CANXX_6_GCCAAT",
+      "rg_sample_name" : "ERNA_0079_C",
+      "sequencer_run_name" : "160330_D00331_0185_BC8L1CANXX",
+      "star" : "${workflow_bundle_dir}/Workflow_Bundle_STAR/1.0/bin/STAR-2.5.1b/bin/Linux_x86_64_static/STAR",
+      "star_aln_mem_mb" : "16000",
+      "star_aln_threads" : "6"
     },
     "files" : [ {
-      "studyTitle" : [ "DCIS" ],
+      "studyTitle" : [ "extracellularRNA" ],
       "studyAttributes" : {
-        "study.geo_lab_group_id" : [ [ "184" ] ]
+        "study.geo_lab_group_id" : [ [ "176" ] ]
       },
-      "experimentName" : [ "Geo_DCIS_ILLUMINA_TS_{F*126}{..}{R*126}" ],
+      "experimentName" : [ "Geo_extracellularRNA_ILLUMINA_WT_{F*126}{..}{R*126}" ],
       "experimentAttributes" : { },
-      "sampleName" : [ "DCIS_0001_Br_P_PE_255_TS" ],
+      "sampleName" : [ "ERNA_0079_nn_C_PE_320_WT" ],
       "sampleAttributes" : {
-        "sample.geo_library_source_template_type" : [ [ "TS" ] ],
-        "sample.geo_prep_kit" : [ [ "AmpliSeq-Illumina V1" ] ],
-        "sample.geo_run_id_and_position_and_slot" : [ [ "2301_1_2" ] ],
-        "sample.geo_targeted_resequencing" : [ [ "BART_IAD40521_23" ] ],
-        "sample.geo_template_id" : [ [ "79326" ] ],
-        "sample.geo_template_type" : [ [ "Illumina PE Library Seq" ] ],
-        "sample.geo_tissue_origin" : [ [ "Br" ] ],
-        "sample.geo_tissue_type" : [ [ "P" ] ]
+        "sample.geo_library_source_template_type" : [ [ "WT" ] ],
+        "sample.geo_prep_kit" : [ [ "TruSeq_Stranded_TotalRNA" ] ],
+        "sample.geo_run_id_and_position_and_slot" : [ [ "2403_6_2" ] ],
+        "sample.geo_template_id" : [ [ "100744" ] ],
+        "sample.geo_template_type" : [ [ "Illumina PE Library Seq", "Illumina WT Library Seq" ] ],
+        "sample.geo_tissue_origin" : [ [ "nn" ] ],
+        "sample.geo_tissue_type" : [ [ "C" ] ]
       },
-      "sequencerRunName" : [ "150728_D00355_0090_BC6BREANXX" ],
+      "sequencerRunName" : [ "160330_D00331_0185_BC8L1CANXX" ],
       "sequencerRunAttributes" : {
-        "sequencerrun.geo_instrument_run_id" : [ [ "2301" ] ]
+        "sequencerrun.geo_instrument_run_id" : [ [ "2403" ] ]
       },
-      "laneName" : [ "150728_D00355_0090_BC6BREANXX_lane_1" ],
+      "laneName" : [ "160330_D00331_0185_BC8L1CANXX_lane_6" ],
       "laneAttributes" : {
-        "lane.geo_lane" : [ [ "1" ] ]
+        "lane.geo_lane" : [ [ "6" ] ]
       },
-      "iusTag" : [ "CGATGT" ],
+      "iusTag" : [ "GCCAAT" ],
       "iusAttributes" : { },
-      "workflowName" : [ "BWA" ],
+      "workflowName" : [ "CASAVA" ],
       "processingAlgorithm" : [ "ProvisionFiles" ],
       "processingAttributes" : { },
-      "fileMetaType" : [ "application/bam" ],
+      "fileMetaType" : [ "chemical/seq-na-fastq-gzip" ],
       "fileAttributes" : { },
-      "fileId" : 108042280
+      "fileId" : 1020660779
     }, {
-      "studyTitle" : [ "DCIS" ],
+      "studyTitle" : [ "extracellularRNA" ],
       "studyAttributes" : {
-        "study.geo_lab_group_id" : [ [ "184" ] ]
+        "study.geo_lab_group_id" : [ [ "176" ] ]
       },
-      "experimentName" : [ "Geo_DCIS_ILLUMINA_TS_{F*126}{..}{R*126}" ],
+      "experimentName" : [ "Geo_extracellularRNA_ILLUMINA_WT_{F*126}{..}{R*126}" ],
       "experimentAttributes" : { },
-      "sampleName" : [ "DCIS_0001_Br_R_PE_255_TS" ],
+      "sampleName" : [ "ERNA_0079_nn_C_PE_320_WT" ],
       "sampleAttributes" : {
-        "sample.geo_library_source_template_type" : [ [ "TS" ] ],
-        "sample.geo_prep_kit" : [ [ "AmpliSeq-Illumina V1" ] ],
-        "sample.geo_run_id_and_position_and_slot" : [ [ "2301_1_2" ] ],
-        "sample.geo_targeted_resequencing" : [ [ "BART_IAD40521_23" ] ],
-        "sample.geo_template_id" : [ [ "79327" ] ],
-        "sample.geo_template_type" : [ [ "Illumina PE Library Seq" ] ],
-        "sample.geo_tissue_origin" : [ [ "Br" ] ],
-        "sample.geo_tissue_type" : [ [ "R" ] ]
+        "sample.geo_library_source_template_type" : [ [ "WT" ] ],
+        "sample.geo_prep_kit" : [ [ "TruSeq_Stranded_TotalRNA" ] ],
+        "sample.geo_run_id_and_position_and_slot" : [ [ "2403_6_2" ] ],
+        "sample.geo_template_id" : [ [ "100744" ] ],
+        "sample.geo_template_type" : [ [ "Illumina PE Library Seq", "Illumina WT Library Seq" ] ],
+        "sample.geo_tissue_origin" : [ [ "nn" ] ],
+        "sample.geo_tissue_type" : [ [ "C" ] ]
       },
-      "sequencerRunName" : [ "150728_D00355_0090_BC6BREANXX" ],
+      "sequencerRunName" : [ "160330_D00331_0185_BC8L1CANXX" ],
       "sequencerRunAttributes" : {
-        "sequencerrun.geo_instrument_run_id" : [ [ "2301" ] ]
+        "sequencerrun.geo_instrument_run_id" : [ [ "2403" ] ]
       },
-      "laneName" : [ "150728_D00355_0090_BC6BREANXX_lane_1" ],
+      "laneName" : [ "160330_D00331_0185_BC8L1CANXX_lane_6" ],
       "laneAttributes" : {
-        "lane.geo_lane" : [ [ "1" ] ]
+        "lane.geo_lane" : [ [ "6" ] ]
       },
-      "iusTag" : [ "TGACCA" ],
+      "iusTag" : [ "GCCAAT" ],
       "iusAttributes" : { },
-      "workflowName" : [ "BWA" ],
+      "workflowName" : [ "CASAVA" ],
       "processingAlgorithm" : [ "ProvisionFiles" ],
       "processingAttributes" : { },
-      "fileMetaType" : [ "application/bam" ],
+      "fileMetaType" : [ "chemical/seq-na-fastq-gzip" ],
       "fileAttributes" : { },
-      "fileId" : 183873600
+      "fileId" : 1526219404
     } ]
   } ]
 }
