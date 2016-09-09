@@ -11,21 +11,13 @@
         {
             "id": "General sample test 1",
             "parameters": {
-                "--root-sample-name": "TGL_0001",
-                "--index-dir": "/.mount/labs/PDE/data/reference/Star100b",
-                "--template-type": "EX"
-            }
-        },
-        {
-            "id": "General sample test 2",
-            "parameters": {
-                "--root-sample-name": "PCSI_646",
+                "--root-sample-name": "PCSI_0646",
                 "--index-dir": "/.mount/labs/PDE/data/reference/Star100b",
                 "--template-type": "MR"
             }
         },
         {
-            "id": "General sample test 3",
+            "id": "General sample test 2",
             "parameters": {
                 "--root-sample-name": "ERNA_0079",
                 "--index-dir": "/.mount/labs/PDE/data/reference/Star100b",
