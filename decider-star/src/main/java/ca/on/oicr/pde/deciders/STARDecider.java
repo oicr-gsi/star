@@ -212,6 +212,10 @@ public class STARDecider extends OicrDecider {
     @Override
     protected ReturnValue doFinalCheck(String commaSeparatedFilePaths, String commaSeparatedParentAccessions) {
         String[] filePaths = commaSeparatedFilePaths.split(",");
+        if (filePaths.length != 2) {
+            Log.error("This Decider supports only cases where we have only 2 files per lane, WON'T RUN");
+            return new ReturnValue(ReturnValue.INVALIDPARAMETERS);
+        }
         boolean haveFirstMate = false;
         boolean haveSecondMate = false;
 
