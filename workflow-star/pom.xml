@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>ca.on.oicr.pde.config</groupId>
+        <artifactId>workflows</artifactId>
+        <version>3.1</version>
+    </parent>
+
+    <groupId>ca.on.oicr.pde.workflows</groupId>
+    <artifactId>STAR</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+
+    <name>${display-name}</name>
+
+    <properties>
+        <workflow-name>STAR</workflow-name>
+        <picard-version>1.89</picard-version>
+        <star-version>2.5.1b</star-version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>picard</groupId>
+            <artifactId>picard-tools</artifactId>
+            <version>${picard-version}</version>
+            <type>zip</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>STAR</groupId>
+            <artifactId>STAR</artifactId>
+            <version>${star-version}</version>
+            <type>zip</type>
+        </dependency>
+                <dependency>
+            <groupId>ca.on.oicr.pde</groupId>
+            <artifactId>common-utilities</artifactId>
+            <version>1.6.5</version>
+        </dependency>
+        <dependency>
+            <groupId>ca.on.oicr.pde</groupId>
+            <artifactId>workflow-utilities</artifactId>
+            <version>1.7</version>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.pyx4j</groupId>
+                <artifactId>maven-junction-plugin</artifactId>
+                <configuration>
+                    <links>
+                        <link>
+                            <dst>${project.build.directory}/Workflow_Bundle_${workflow-name}_${project.version}_SeqWare_${seqware-version}/Workflow_Bundle_${workflow-directory-name}/${project.version}/data</dst>
+                            <src>${basedir}/links</src>
+                        </link>
+                    </links>
+                    <packages>
+                        <package>
+                            <name>symlinks</name>
+                            <src>${basedir}/workflow/links</src>
+                        </package>
+                    </packages>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -1,0 +1,112 @@
+{
+  "workflowRunCount" : 1,
+  "studies" : [ "PCSI" ],
+  "sequencerRuns" : [ "160405_D00343_0116_BC8W17ANXX" ],
+  "lanes" : [ "160405_D00343_0116_BC8W17ANXX_lane_7" ],
+  "samples" : [ "PCSI_0646_Lv_M_PE_314_MR" ],
+  "workflows" : [ "CASAVA" ],
+  "processingAlgorithms" : [ "ProvisionFiles" ],
+  "fileMetaTypes" : [ "chemical/seq-na-fastq-gzip" ],
+  "maxInputFiles" : 2,
+  "minInputFiles" : 2,
+  "totalInputFiles" : 2,
+  "workflowRuns" : [ {
+    "workflowIni" : {
+      "additionalStarParams" : "",
+      "barcode" : "GTTTCG",
+      "bundled_jre" : "${workflow_bundle_dir}/Workflow_Bundle_STAR/1.0/bin/jre1.7.0_51/bin/java",
+      "bundled_seqware" : "seqware-distribution-1.1.0-full.jar",
+      "data_dir" : "data",
+      "index_dir" : "/.mount/labs/PDE/data/reference/Star100b",
+      "input_file_1" : "/oicr/data/archive/seqware/seqware_analysis_8/hsqwprod/results/CASAVA_2.7/42986506/SWID_4071861_PCSI_0646_Lv_M_PE_314_MR_NoGroup_160405_D00343_0116_BC8W17ANXX_AGTCAA_L007_R1_001.fastq.gz",
+      "input_file_2" : "/oicr/data/archive/seqware/seqware_analysis_8/hsqwprod/results/CASAVA_2.7/42986506/SWID_4071861_PCSI_0646_Lv_M_PE_314_MR_NoGroup_160405_D00343_0116_BC8W17ANXX_AGTCAA_L007_R2_001.fastq.gz",
+      "ius_accession" : "4013279",
+      "lane" : "1",
+      "manual_output" : "false",
+      "metadata" : "metadata",
+      "output_dir" : "seqware-results",
+      "picard_dir" : "${workflow_bundle_dir}/Workflow_Bundle_STAR/1.0/bin/picard-tools-1.89/",
+      "queue" : "",
+      "r1_adapter_trim" : "AGATCGGAAGAGCGGTTCAGCAGGAATGCCGAGACCG",
+      "r2_adapter_trim" : "AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT",
+      "rg_library" : "PCSI_0646_Ly_R_PE_671_WG",
+      "rg_organization" : "OICR",
+      "rg_platform" : "Test",
+      "rg_platform_unit" : "160330_D00331_0185_BC8L1CANXX_1_GTTTCG",
+      "rg_sample_name" : "PCSI_0646_R_526",
+      "sequencer_run_name" : "160330_D00331_0185_BC8L1CANXX",
+      "star" : "${workflow_bundle_dir}/Workflow_Bundle_STAR/1.0/bin/STAR-2.5.1b/bin/Linux_x86_64_static/STAR",
+      "star_aln_mem_mb" : "16000",
+      "star_aln_threads" : "6"
+    },
+    "files" : [ {
+      "studyTitle" : [ "PCSI" ],
+      "studyAttributes" : {
+        "study.geo_lab_group_id" : [ [ "33" ] ]
+      },
+      "experimentName" : [ "Geo_PCSI_ILLUMINA_MR_{F*126}{..}{R*126}" ],
+      "experimentAttributes" : { },
+      "sampleName" : [ "PCSI_0646_Lv_M_PE_314_MR" ],
+      "sampleAttributes" : {
+        "sample.geo_library_source_template_type" : [ [ "MR" ] ],
+        "sample.geo_prep_kit" : [ [ "TruSeq RNA Access " ] ],
+        "sample.geo_run_id_and_position_and_slot" : [ [ "2405_7_2" ] ],
+        "sample.geo_targeted_resequencing" : [ [ "TruSeq RNA Access RS-301-2001" ] ],
+        "sample.geo_template_id" : [ [ "101998" ] ],
+        "sample.geo_template_type" : [ [ "Illumina mRNA Library Seq" ] ],
+        "sample.geo_tissue_origin" : [ [ "Lv" ] ],
+        "sample.geo_tissue_type" : [ [ "M" ] ]
+      },
+      "sequencerRunName" : [ "160405_D00343_0116_BC8W17ANXX" ],
+      "sequencerRunAttributes" : {
+        "sequencerrun.geo_instrument_run_id" : [ [ "2405" ] ]
+      },
+      "laneName" : [ "160405_D00343_0116_BC8W17ANXX_lane_7" ],
+      "laneAttributes" : {
+        "lane.geo_lane" : [ [ "7" ] ]
+      },
+      "iusTag" : [ "AGTCAA" ],
+      "iusAttributes" : { },
+      "workflowName" : [ "CASAVA" ],
+      "processingAlgorithm" : [ "ProvisionFiles" ],
+      "processingAttributes" : { },
+      "fileMetaType" : [ "chemical/seq-na-fastq-gzip" ],
+      "fileAttributes" : { },
+      "fileId" : -459640168
+    }, {
+      "studyTitle" : [ "PCSI" ],
+      "studyAttributes" : {
+        "study.geo_lab_group_id" : [ [ "33" ] ]
+      },
+      "experimentName" : [ "Geo_PCSI_ILLUMINA_MR_{F*126}{..}{R*126}" ],
+      "experimentAttributes" : { },
+      "sampleName" : [ "PCSI_0646_Lv_M_PE_314_MR" ],
+      "sampleAttributes" : {
+        "sample.geo_library_source_template_type" : [ [ "MR" ] ],
+        "sample.geo_prep_kit" : [ [ "TruSeq RNA Access " ] ],
+        "sample.geo_run_id_and_position_and_slot" : [ [ "2405_7_2" ] ],
+        "sample.geo_targeted_resequencing" : [ [ "TruSeq RNA Access RS-301-2001" ] ],
+        "sample.geo_template_id" : [ [ "101998" ] ],
+        "sample.geo_template_type" : [ [ "Illumina mRNA Library Seq" ] ],
+        "sample.geo_tissue_origin" : [ [ "Lv" ] ],
+        "sample.geo_tissue_type" : [ [ "M" ] ]
+      },
+      "sequencerRunName" : [ "160405_D00343_0116_BC8W17ANXX" ],
+      "sequencerRunAttributes" : {
+        "sequencerrun.geo_instrument_run_id" : [ [ "2405" ] ]
+      },
+      "laneName" : [ "160405_D00343_0116_BC8W17ANXX_lane_7" ],
+      "laneAttributes" : {
+        "lane.geo_lane" : [ [ "7" ] ]
+      },
+      "iusTag" : [ "AGTCAA" ],
+      "iusAttributes" : { },
+      "workflowName" : [ "CASAVA" ],
+      "processingAlgorithm" : [ "ProvisionFiles" ],
+      "processingAttributes" : { },
+      "fileMetaType" : [ "chemical/seq-na-fastq-gzip" ],
+      "fileAttributes" : { },
+      "fileId" : -965198793
+    } ]
+  } ]
+}
