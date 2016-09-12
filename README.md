@@ -24,8 +24,8 @@ After compilation, [test](http://seqware.github.io/docs/3-getting-started/develo
 Input/Output:
 
         input_file_1    string  input file with the first mate reads. Presently only one file is allowed
-	input_file_2	string  input file with the second mate reads. Presently only one file is allowed
-	index_dir	string  directory with STAR indexes, workflow needs it to align reads of specific length
+        input_file_2    string  input file with the second mate reads. Presently only one file is allowed
+        index_dir       string  directory with STAR indexes, workflow needs it to align reads of specific length
 
         output_prefix   string  a root directory for outputting the results
         output_dir      string  specifies a subdirectory for outputting files
@@ -85,6 +85,7 @@ Input/Output:
         verbose         Request more to output more information when running the Decider
 
 STAR Parameters:
+
         star-aln-threads      integer  Threads (Cores) allocated to STAR job
         star-aln-mem-mb       integer  Memory in Mb allocated to STAR SeqWare job
         additionalStarParams  string   User may supply additional STAR parameters
