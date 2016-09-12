@@ -22,6 +22,7 @@ After compilation, [test](http://seqware.github.io/docs/3-getting-started/develo
 ###Workflow Parameters
 
 Input/Output:
+
         input_file_1    string  input file with the first mate reads. Presently only one file is allowed
 	input_file_2	string  input file with the second mate reads. Presently only one file is allowed
 	index_dir	string  directory with STAR indexes, workflow needs it to align reads of specific length
@@ -36,20 +37,6 @@ Input/Output:
                                 [false]Determines if randomly named subdir will be created in output directory tree
 
         queue           string  SGE cluster queue
-
-
-
-Input/output:
-
-    output_prefix      dir          The root output directory
-    output_dir         string       The sub-directory of output_prefix where
-                                    the output files will be moved
-    manual_output      true|false   When false, a random integer will be
-                                    inserted into the path of the final file
-                                    in order to ensure uniqueness. When true,
-                                    the output files will be moved to the
-                                    location of output_prefix/output_dir
-                                    [false]
 
 Read Group Information (Supported so that User could override these if needed):
 
@@ -85,6 +72,7 @@ Read Group Data*
 Arguments to the decider
 
 Input/Output:
+
         manual-output   Specifies how the output subtree is created (random number subdirectories created or not)
         index-dir       This should be supplied each time
         template-type   It is recommended to use WT, MR and other RNAseq template type(s)
@@ -107,6 +95,7 @@ STAR Parameters:
                                       i.e. TruSeq Universal Adapter (AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT)
 
 Read Group Data:
+
         rg-platform-unit    PU in Read Group annotation
         rg-library          LB in Read Group annotation
         rg-platform         PL in Read Group annotation
@@ -125,6 +114,7 @@ Read Group Data:
 File basename is constructed using Meta-data information obtained via Decider and includes File SeqWare ID, Donor, sequencer run, library, barcode and lane information.
 
  *FILE_BASENAME.Aligned.sortedByCoord.out.report.bam*
+
  *FILE_BASENAME.Aligned.sortedByCoord.out.report.bai*
 
 Alignment file and it's index with Read Group information added, sorted by coordinate
