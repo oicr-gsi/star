@@ -70,7 +70,9 @@ Read Group Information (Supported so that User could override these if needed):
         star_aln_threads integer  Threads (Cores) requested for STAR on SGE cluster
         star-aln-mem-mb  integer  Memory (in Mb) allocated to STAR SeqWare job
         uniqMapQ         integer  Score assigned to reads aligned to a unique location (Unique mappers)
-        multimap_max     integer  This is to ensure we get all multi-mappers, may be customized to limit number of reads mapped to multiple locations in the final bam
+        multimap_max     integer  This is to ensure we get all multi-mappers, 
+                                  may be customized to limit number of reads 
+                                  mapped to multiple locations in the final bam
         sa_sparsed       integer  this is a memory-optimization parameter, we use the same as PMH folks are using
         
         additionalStarParams      If needed, user may supply additional STAR parameters
@@ -82,23 +84,27 @@ Read Group Data*
 ###Decider Parameters
 Arguments to the decider
 
-Inout/Output:
-        manual-output	Specifies how the output subtree is created (random number subdirectories created or not)	No	FALSE
-        index-dir	This should be supplied each time, the indexes are located in /.mounts/labs/PDE/data/reference/hg19_random/star{star version}/ directory	Yes	 
-        template-type	It is recommended to use WT, MR and other RNAseq template type(s)	No	 
-        output-dir	subdirectory for outputting the results, will be created automatically if does not exist	No	seqware-results
-        output-prefix	where do we want the results	No	./
-        queue	SGE queue, normally not set but for STAR we need a queue that would be able to reserve multi-core nodes for parallel processing	No	 
-        manual-output	Provision files into directory subtree with randomly named subdirectory (when set to FALSE)	No	FALSE
-        verbose	Request more to output more information when running the Decider	No	FALSE
+Input/Output:
+        manual-output   Specifies how the output subtree is created (random number subdirectories created or not)
+        index-dir       This should be supplied each time
+        template-type   It is recommended to use WT, MR and other RNAseq template type(s)
+        output-dir      subdirectory for outputting the results, will be created automatically if does not exist
+        output-prefix   where do we want the results
+        queue           SGE queue, normally not set but for STAR we need a queue that would be able 
+                        to reserve multi-core nodes for parallel processing
+        manual-output   Provision files into directory subtree with randomly named subdirectory 
+                        (when set to FALSE)
+        verbose         Request more to output more information when running the Decider
 
 STAR Parameters:
-        star-aln-threads	Threads (Cores) allocated to STAR job	
-        star-aln-mem-mb	Memory in Mb allocated to STAR SeqWare job	No	16000
-        additionalStarParams	User may supply additional STAR parameters	No	 
+        star-aln-threads      integer  Threads (Cores) allocated to STAR job
+        star-aln-mem-mb       integer  Memory in Mb allocated to STAR SeqWare job
+        additionalStarParams  string   User may supply additional STAR parameters
 
-        read1-adapter-trim      string      Adapter trimming: i.e. TruSeq Universal Adapter (AGATCGGAAGAGCGGTTCAGCAGGAATGCCGAGACCG)
-        read2-adapter-trim      string      Adapter trimming: i.e. TruSeq Universal Adapter (AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT)
+        read1-adapter-trim    string  Adapter trimming 
+                                      i.e. TruSeq Universal Adapter (AGATCGGAAGAGCGGTTCAGCAGGAATGCCGAGACCG)
+        read2-adapter-trim    string  Adapter trimming
+                                      i.e. TruSeq Universal Adapter (AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT)
 
 Read Group Data:
         rg-platform-unit    PU in Read Group annotation
@@ -111,17 +117,18 @@ Read Group Data:
         twopassMode      type of two-pass alignment [Basic]
         readFilesCommand Command for assisting with reading the input files [zcat]
         outSAMmultNmax   Defines how multimapped reads are handled
-        outSAMmapqUnique STAR uses 255 mapq for uniquely mapped reads. This is not good for downstream analysis (GATK disregards reads with mapq 255) [60]
+        outSAMmapqUnique STAR uses 255 mapq for uniquely mapped reads. 
+                         This is not good for downstream analysis (GATK disregards reads with mapq 255) [60]
         outSAMtype       May be Unsorted, SortedByCoordinate or both (two files per alignment will be produced)
 
 ###Output files
 File basename is constructed using Meta-data information obtained via Decider and includes File SeqWare ID, Donor, sequencer run, library, barcode and lane information.
 
-**FILE_BASENAME.Aligned.sortedByCoord.out.report.bam**
-**FILE_BASENAME.Aligned.sortedByCoord.out.report.bai**
+ *FILE_BASENAME.Aligned.sortedByCoord.out.report.bam*
+ *FILE_BASENAME.Aligned.sortedByCoord.out.report.bai*
 
 Alignment file and it's index with Read Group information added, sorted by coordinate
 
 ###Support
 
-For support, please file an issue on the [Github project](https://github.com/oicr-gsi) or send an email to gsi@oicr.on.ca .
+For support, please file an issue on the [Github project](https://github.com/oicr-gsi) or send an email to gsi@oicr.on.ca.
