@@ -27,7 +27,7 @@
       "output_dir" : "seqware-results",
       "picard_dir" : "${workflow_bundle_dir}/Workflow_Bundle_STAR/1.0/bin/picard-tools-1.89/",
       "queue" : "",
-      "r1_adapter_trim" : "AGATCGGAAGAGCGGTTCAGCAGGAATGCCGAGACCG",
+      "r1_adapter_trim" : "AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC",
       "r2_adapter_trim" : "AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT",
       "rg_library" : "PCSI_0646_Lv_M_PE_314_MR",
       "rg_organization" : "OICR",
