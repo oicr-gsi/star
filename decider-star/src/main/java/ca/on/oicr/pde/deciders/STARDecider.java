@@ -24,7 +24,7 @@ public class STARDecider extends OicrDecider {
     private String manual_output = "false";
     private String RGCM = "";
     private String additionalStarParams = "";
-    private String read1_adapterTrim = "AGATCGGAAGAGCGGTTCAGCAGGAATGCCGAGACCG";
+    private String read1_adapterTrim = "AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC";
     private String read2_adapterTrim = "AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT";
     private String numOfThreads = "6";
     private String starMemory   = "16000";
