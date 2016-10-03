@@ -22,6 +22,7 @@ public class STARDecider extends OicrDecider {
     private String output_prefix = "./";
     private String output_dir = "seqware-results";
     private String manual_output = "false";
+    private String produce_transcriptome_bam = "true";
     private String RGCM = "";
     private String additionalStarParams = "";
     private String read1_adapterTrim = "AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC";
@@ -44,6 +45,7 @@ public class STARDecider extends OicrDecider {
         parser.accepts("output-prefix", "Optional: the path where the files should be copied to after analysis. output-prefix in INI file.").withRequiredArg();
         parser.accepts("output-dir", "Optional: the folder to put the output into relative to the output-path. Corresponds to output-dir in INI file.").withRequiredArg();
         parser.accepts("manual-output", "Optional*. Set the manual output either to true or false").withRequiredArg();
+        parser.accepts("produce-transcriptome-bam", "Optional*. Set either to true or false for production of additional files").withRequiredArg();
         parser.accepts("queue", "Queue on SGE cluster.").withRequiredArg();
         
         //star aln
@@ -93,6 +95,10 @@ public class STARDecider extends OicrDecider {
 
         if (this.options.has("manual-output")) {
             this.manual_output = options.valueOf("manual-output").toString();
+        }
+        
+        if (this.options.has("produce-transcriptome-bam")) {
+            this.produce_transcriptome_bam = options.valueOf("produce-transcriptome-bam").toString();
         }
         
         if (this.options.has("queue")) {
@@ -296,6 +302,7 @@ public class STARDecider extends OicrDecider {
         iniFileMap.put("output_prefix", this.output_prefix);
         iniFileMap.put("output_dir", this.output_dir);
         iniFileMap.put("manual_output", this.manual_output);
+        iniFileMap.put("produce_transcriptome_bam", this.produce_transcriptome_bam);
         //For RG setting
         String RGLB = this.options.has("rg-library") ? options.valueOf("rg-library").toString() : currentBs.getRGLB();
         String RGPL = this.options.has("rg-platform") ? options.valueOf("rg-platform").toString() : ILLUMINA; 

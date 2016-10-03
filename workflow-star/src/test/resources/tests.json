@@ -8,8 +8,15 @@
     },
     "tests": [
         {
+            "id":"DefaultTest",
 	    "description": "Runs the default workflow.ini",
             "input_config": "workflow.ini"
+        },
+        {
+            "id": "MakingTransBam",
+            "description": "Runs the default workflow.ini with additional files produced",
+            "input_config": "workflow.ini",
+            "produce_transcriptome_bam": "true"
         }
     ]
 }
