@@ -202,13 +202,6 @@ public class STARWorkflow extends SemanticWorkflow {
             this.attachCVterms(geneReadFile, EDAM, "Text,Gene expression");
 	    job01.addFile(geneReadFile);
             
-	    SqwFile transBamFileIndex = createOutputFile(this.dataDir + outputFileName + "." + TRANSCRIPTOME_SUFFIX + ".bai", "application/bam-index", manualOutput);          
-            Job job03 = this.indexBamJob(this.dataDir + outputFileName + "." + TRANSCRIPTOME_SUFFIX);
-            job03.addParent(job01);
-            
-            this.attachCVterms(transBamFileIndex, EDAM, "BAI,Sequence alignment,Alignment format");
-	    job03.addFile(transBamFileIndex);
-            
         }
 
     }
