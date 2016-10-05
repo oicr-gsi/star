@@ -21,6 +21,7 @@ public class STARWorkflow extends SemanticWorkflow {
     String dataDir = null;
     String outputFileName = null;
     boolean manualOutput;
+    boolean produceTranscriptomeBam;
     String read1_adapterTrim = null;
     String read2_adapterTrim = null;
     String trimmedFile_1;
@@ -51,14 +52,16 @@ public class STARWorkflow extends SemanticWorkflow {
     private final static String DEFAULT_SASPARSED = "2";
     private final static String DEFAULT_THREADS = "6";
     private final static String STAR_SUFFIX = "Aligned.sortedByCoord.out";
+    private final static String TRANSCRIPTOME_SUFFIX = "Aligned.toTranscriptome.out";
+    private final static String GENEREAD_SUFFIX = "ReadsPerGene.out";
     //Ontology-related variables
     private static final String EDAM = "EDAM";
     private static final Map<String, Set<String>> cvTerms;
     
         static {
         cvTerms = new HashMap<String, Set<String>>();
-        cvTerms.put(EDAM, new HashSet<String>(Arrays.asList("BAM", "BAI","Alignment format",
-                                                            "Sequence alignment")));
+        cvTerms.put(EDAM, new HashSet<String>(Arrays.asList("BAM", "BAI","Text","Alignment format",
+                                                            "Sequence alignment","Gene expression")));
     }
         
     /**
@@ -86,6 +89,7 @@ public class STARWorkflow extends SemanticWorkflow {
             star = getProperty("star");
            
             manualOutput = Boolean.valueOf(getOptionalProperty("manual_output", "false"));
+            produceTranscriptomeBam = Boolean.valueOf(getOptionalProperty("produce_transcriptome_bam","true"));
             numOfThreads = Integer.valueOf(getOptionalProperty("star_aln_threads", DEFAULT_THREADS));
             uniqMAPQ     = Integer.valueOf(getOptionalProperty("uniqMapQ", DEFAULT_UMAPQ));
             multiMax     = Integer.valueOf(getOptionalProperty("multimap_max", DEFAULT_MULTI));
@@ -188,6 +192,17 @@ public class STARWorkflow extends SemanticWorkflow {
         
         this.attachCVterms(outputFileIndex, EDAM, "BAI,Sequence alignment,Alignment format");
 	job02.addFile(outputFileIndex);
+        
+        if (this.produceTranscriptomeBam) {
+            
+            SqwFile transBamFile = createOutputFile(this.dataDir + outputFileName + "." + TRANSCRIPTOME_SUFFIX + ".bam", "application/bam", manualOutput);
+            this.attachCVterms(transBamFile, EDAM, "BAM,Sequence alignment,Alignment format");
+	    job01.addFile(transBamFile);
+            SqwFile geneReadFile = createOutputFile(this.dataDir + outputFileName + "." + GENEREAD_SUFFIX + ".tab", "text/plain", manualOutput);
+            this.attachCVterms(geneReadFile, EDAM, "Text,Gene expression");
+	    job01.addFile(geneReadFile);
+            
+        }
 
     }
     
@@ -252,6 +267,11 @@ public class STARWorkflow extends SemanticWorkflow {
                     a.append(" ");
                     a.append("--clip3pAdapterSeq ");
                     a.append(clipSeq.toString());
+                }
+                
+                if (this.produceTranscriptomeBam) {
+                    a.append(" ");
+                    a.append("--quantMode TranscriptomeSAM GeneCounts");
                 }
         
                 paramCommand = a.toString();

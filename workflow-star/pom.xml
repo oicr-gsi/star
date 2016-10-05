@@ -11,7 +11,7 @@
 
     <groupId>ca.on.oicr.pde.workflows</groupId>
     <artifactId>STAR</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <packaging>jar</packaging>
 
     <name>${display-name}</name>
