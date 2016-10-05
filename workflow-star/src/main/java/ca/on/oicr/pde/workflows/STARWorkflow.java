@@ -277,8 +277,8 @@ public class STARWorkflow extends SemanticWorkflow {
                 }
                 
                 if (this.produceTranscriptomeBam) {
-                    a.append("--quantMode TranscriptomeSAM GeneCounts ");
-                    a.append(clipSeq.toString());
+                    a.append(" ");
+                    a.append("--quantMode TranscriptomeSAM GeneCounts");
                 }
         
                 paramCommand = a.toString();
