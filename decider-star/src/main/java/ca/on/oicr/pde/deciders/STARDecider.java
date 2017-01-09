@@ -220,10 +220,6 @@ public class STARDecider extends OicrDecider {
     protected Map<String, String> modifyIniFile(String commaSeparatedFilePaths, String commaSeparatedParentAccessions) {
         Log.debug("INI FILE:" + commaSeparatedFilePaths);
 
-        //reset test mode
-        if (!this.options.has("test")) {
-            this.setTest(false);
-        }
         String[] filePaths = commaSeparatedFilePaths.split(",");
         int[] indexes = {0, 1};
 
@@ -252,20 +248,20 @@ public class STARDecider extends OicrDecider {
         }
         // Refuse to continue if we don't have an object with metadta for one of the files
         if (null == currentBs) {
-            Log.error("Was not able to retrieve fastq files for either one or two subsets of paired reads, setting mode to test");
-            this.setTest(true);
+            Log.error("Was not able to retrieve fastq files for either one or two subsets of paired reads, not scheduling current workflow run");
+            this.abortSchedulingOfCurrentWorkflowRun();
         }
         
         // Format input strings
         if (fqInputFiles[0].size() == 0 || fqInputFiles[1].size() == 0) {
-            Log.error("Was not able to retrieve fastq files for either one or two subsets of paired reads, setting mode to test");
-            this.setTest(true);
+            Log.error("Was not able to retrieve fastq files for either one or two subsets of paired reads, not scheduling current workflow run");
+            this.abortSchedulingOfCurrentWorkflowRun();
         } else {
             fastq_inputs_end_1 = _join(",", fqInputFiles[0]);
             fastq_inputs_end_2 = _join(",", fqInputFiles[1]);
         }
 
-        Map<String, String> iniFileMap = new TreeMap<String, String>();
+        Map<String, String> iniFileMap = super.modifyIniFile(commaSeparatedFilePaths, commaSeparatedParentAccessions);
         iniFileMap.put("input_file_1", fastq_inputs_end_1);
         iniFileMap.put("input_file_2", fastq_inputs_end_2);
         iniFileMap.put("index_dir", this.index_dir);
