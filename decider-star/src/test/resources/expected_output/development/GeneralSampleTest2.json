@@ -51,6 +51,7 @@
       "sampleAttributes" : {
         "geo_external_name" : [ [ "EW656" ] ],
         "geo_library_source_template_type" : [ [ "WT" ] ],
+        "geo_organism" : [ [ "Homo sapiens" ] ],
         "geo_prep_kit" : [ [ "TruSeq_Stranded_TotalRNA" ] ],
         "geo_run_id_and_position_and_slot" : [ [ "2403_6_2" ] ],
         "geo_template_id" : [ [ "100696", "100708", "100720", "100732", "100744" ] ],
@@ -85,6 +86,7 @@
       "sampleAttributes" : {
         "geo_external_name" : [ [ "EW656" ] ],
         "geo_library_source_template_type" : [ [ "WT" ] ],
+        "geo_organism" : [ [ "Homo sapiens" ] ],
         "geo_prep_kit" : [ [ "TruSeq_Stranded_TotalRNA" ] ],
         "geo_run_id_and_position_and_slot" : [ [ "2403_6_2" ] ],
         "geo_template_id" : [ [ "100696", "100708", "100720", "100732", "100744" ] ],
