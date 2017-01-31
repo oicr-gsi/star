@@ -20,7 +20,7 @@
       "index_dir" : "/.mount/labs/PDE/data/reference/Star100b",
       "input_file_1" : "/oicr/data/archive/seqware/seqware_analysis_8/hsqwprod/results/CASAVA_2.7/47674109/SWID_4013294_ERNA_0079_nn_C_PE_320_WT_NoGroup_160330_D00331_0185_BC8L1CANXX_GCCAAT_L006_R1_001.fastq.gz",
       "input_file_2" : "/oicr/data/archive/seqware/seqware_analysis_8/hsqwprod/results/CASAVA_2.7/47674109/SWID_4013294_ERNA_0079_nn_C_PE_320_WT_NoGroup_160330_D00331_0185_BC8L1CANXX_GCCAAT_L006_R2_001.fastq.gz",
-      "ius_accession" : "4013294",
+      "ius_accession" : "5413665",
       "lane" : "6",
       "manual_output" : "false",
       "metadata" : "metadata",
@@ -43,27 +43,29 @@
     "files" : [ {
       "studyTitle" : [ "extracellularRNA" ],
       "studyAttributes" : {
-        "study.geo_lab_group_id" : [ [ "176" ] ]
+        "geo_lab_group_id" : [ [ "176" ] ]
       },
-      "experimentName" : [ "Geo_extracellularRNA_ILLUMINA_WT_{F*126}{..}{R*126}" ],
+      "experimentName" : [ ],
       "experimentAttributes" : { },
       "sampleName" : [ "ERNA_0079_nn_C_PE_320_WT" ],
       "sampleAttributes" : {
-        "sample.geo_library_source_template_type" : [ [ "WT" ] ],
-        "sample.geo_prep_kit" : [ [ "TruSeq_Stranded_TotalRNA" ] ],
-        "sample.geo_run_id_and_position_and_slot" : [ [ "2403_6_2" ] ],
-        "sample.geo_template_id" : [ [ "100744" ] ],
-        "sample.geo_template_type" : [ [ "Illumina PE Library Seq", "Illumina WT Library Seq" ] ],
-        "sample.geo_tissue_origin" : [ [ "nn" ] ],
-        "sample.geo_tissue_type" : [ [ "C" ] ]
+        "geo_external_name" : [ [ "EW656" ] ],
+        "geo_library_source_template_type" : [ [ "WT" ] ],
+        "geo_organism" : [ [ "Homo sapiens" ] ],
+        "geo_prep_kit" : [ [ "TruSeq_Stranded_TotalRNA" ] ],
+        "geo_run_id_and_position_and_slot" : [ [ "2403_6_2" ] ],
+        "geo_template_id" : [ [ "100696", "100708", "100720", "100732", "100744" ] ],
+        "geo_template_type" : [ [ "Identity", "Illumina PE Library Seq", "Illumina WT Library", "Illumina WT Library Seq", "rRNA_depleted", "whole RNA" ] ],
+        "geo_tissue_origin" : [ [ "nn" ] ],
+        "geo_tissue_type" : [ [ "C" ] ]
       },
       "sequencerRunName" : [ "160330_D00331_0185_BC8L1CANXX" ],
       "sequencerRunAttributes" : {
-        "sequencerrun.geo_instrument_run_id" : [ [ "2403" ] ]
+        "geo_instrument_run_id" : [ [ "2403" ] ]
       },
       "laneName" : [ "160330_D00331_0185_BC8L1CANXX_lane_6" ],
       "laneAttributes" : {
-        "lane.geo_lane" : [ [ "6" ] ]
+        "geo_lane" : [ [ "6" ] ]
       },
       "iusTag" : [ "GCCAAT" ],
       "iusAttributes" : { },
@@ -76,27 +78,29 @@
     }, {
       "studyTitle" : [ "extracellularRNA" ],
       "studyAttributes" : {
-        "study.geo_lab_group_id" : [ [ "176" ] ]
+        "geo_lab_group_id" : [ [ "176" ] ]
       },
-      "experimentName" : [ "Geo_extracellularRNA_ILLUMINA_WT_{F*126}{..}{R*126}" ],
+      "experimentName" : [ ],
       "experimentAttributes" : { },
       "sampleName" : [ "ERNA_0079_nn_C_PE_320_WT" ],
       "sampleAttributes" : {
-        "sample.geo_library_source_template_type" : [ [ "WT" ] ],
-        "sample.geo_prep_kit" : [ [ "TruSeq_Stranded_TotalRNA" ] ],
-        "sample.geo_run_id_and_position_and_slot" : [ [ "2403_6_2" ] ],
-        "sample.geo_template_id" : [ [ "100744" ] ],
-        "sample.geo_template_type" : [ [ "Illumina PE Library Seq", "Illumina WT Library Seq" ] ],
-        "sample.geo_tissue_origin" : [ [ "nn" ] ],
-        "sample.geo_tissue_type" : [ [ "C" ] ]
+        "geo_external_name" : [ [ "EW656" ] ],
+        "geo_library_source_template_type" : [ [ "WT" ] ],
+        "geo_organism" : [ [ "Homo sapiens" ] ],
+        "geo_prep_kit" : [ [ "TruSeq_Stranded_TotalRNA" ] ],
+        "geo_run_id_and_position_and_slot" : [ [ "2403_6_2" ] ],
+        "geo_template_id" : [ [ "100696", "100708", "100720", "100732", "100744" ] ],
+        "geo_template_type" : [ [ "Identity", "Illumina PE Library Seq", "Illumina WT Library", "Illumina WT Library Seq", "rRNA_depleted", "whole RNA" ] ],
+        "geo_tissue_origin" : [ [ "nn" ] ],
+        "geo_tissue_type" : [ [ "C" ] ]
       },
       "sequencerRunName" : [ "160330_D00331_0185_BC8L1CANXX" ],
       "sequencerRunAttributes" : {
-        "sequencerrun.geo_instrument_run_id" : [ [ "2403" ] ]
+        "geo_instrument_run_id" : [ [ "2403" ] ]
       },
       "laneName" : [ "160330_D00331_0185_BC8L1CANXX_lane_6" ],
       "laneAttributes" : {
-        "lane.geo_lane" : [ [ "6" ] ]
+        "geo_lane" : [ [ "6" ] ]
       },
       "iusTag" : [ "GCCAAT" ],
       "iusAttributes" : { },

@@ -19,9 +19,6 @@ public class STARDecider extends OicrDecider {
     private final String [][] readMateFlags = {{"_R1_","1_sequence.txt",".1.fastq"},{"_R2_","2_sequence.txt",".2.fastq"}};    
     
     private String index_dir;
-    private String output_prefix = "./";
-    private String output_dir = "seqware-results";
-    private String manual_output = "false";
     private String produce_transcriptome_bam = "true";
     private String RGCM = "";
     private String additionalStarParams = "";
@@ -41,12 +38,7 @@ public class STARDecider extends OicrDecider {
         fileSwaToSmall = new HashMap<String, BeSmall>();
         parser.accepts("ini-file", "Optional: the location of the INI file.").withRequiredArg();
         parser.accepts("index-dir", "reference index dir").withRequiredArg();
-        parser.accepts("verbose", "Optional: output all SeqWare info.").withRequiredArg();
-        parser.accepts("output-prefix", "Optional: the path where the files should be copied to after analysis. output-prefix in INI file.").withRequiredArg();
-        parser.accepts("output-dir", "Optional: the folder to put the output into relative to the output-path. Corresponds to output-dir in INI file.").withRequiredArg();
-        parser.accepts("manual-output", "Optional*. Set the manual output either to true or false").withRequiredArg();
         parser.accepts("produce-transcriptome-bam", "Optional*. Set either to true or false for production of additional files").withRequiredArg();
-        parser.accepts("queue", "Queue on SGE cluster.").withRequiredArg();
         
         //star aln
         parser.accepts("star-aln-threads", "Optional: STAR threads, default is 6.").withRequiredArg();
@@ -78,31 +70,9 @@ public class STARDecider extends OicrDecider {
             Log.error("index-dir needs to be set");
             System.exit(1);
         }
-        if (this.options.has("output-path")) {
-            output_prefix = options.valueOf("output-path").toString();
-            if (!output_prefix.endsWith("/")) {
-                output_prefix += "/";
-            }
-        }
-        
-        if (this.options.has("output-dir")) {
-            output_dir = options.valueOf("output-dir").toString();
-        }
-
-        if (this.options.has("verbose")) {
-            Log.setVerbose(true);
-        }
-
-        if (this.options.has("manual-output")) {
-            this.manual_output = options.valueOf("manual-output").toString();
-        }
         
         if (this.options.has("produce-transcriptome-bam")) {
             this.produce_transcriptome_bam = options.valueOf("produce-transcriptome-bam").toString();
-        }
-        
-        if (this.options.has("queue")) {
-            this.queue = options.valueOf("queue").toString();
         }
 
         //RG parameters populated at the end     
@@ -250,10 +220,6 @@ public class STARDecider extends OicrDecider {
     protected Map<String, String> modifyIniFile(String commaSeparatedFilePaths, String commaSeparatedParentAccessions) {
         Log.debug("INI FILE:" + commaSeparatedFilePaths);
 
-        //reset test mode
-        if (!this.options.has("test")) {
-            this.setTest(false);
-        }
         String[] filePaths = commaSeparatedFilePaths.split(",");
         int[] indexes = {0, 1};
 
@@ -282,26 +248,23 @@ public class STARDecider extends OicrDecider {
         }
         // Refuse to continue if we don't have an object with metadta for one of the files
         if (null == currentBs) {
-            Log.error("Was not able to retrieve fastq files for either one or two subsets of paired reads, setting mode to test");
-            this.setTest(true);
+            Log.error("Was not able to retrieve fastq files for either one or two subsets of paired reads, not scheduling current workflow run");
+            this.abortSchedulingOfCurrentWorkflowRun();
         }
         
         // Format input strings
         if (fqInputFiles[0].size() == 0 || fqInputFiles[1].size() == 0) {
-            Log.error("Was not able to retrieve fastq files for either one or two subsets of paired reads, setting mode to test");
-            this.setTest(true);
+            Log.error("Was not able to retrieve fastq files for either one or two subsets of paired reads, not scheduling current workflow run");
+            this.abortSchedulingOfCurrentWorkflowRun();
         } else {
             fastq_inputs_end_1 = _join(",", fqInputFiles[0]);
             fastq_inputs_end_2 = _join(",", fqInputFiles[1]);
         }
 
-        Map<String, String> iniFileMap = new TreeMap<String, String>();
+        Map<String, String> iniFileMap = super.modifyIniFile(commaSeparatedFilePaths, commaSeparatedParentAccessions);
         iniFileMap.put("input_file_1", fastq_inputs_end_1);
         iniFileMap.put("input_file_2", fastq_inputs_end_2);
         iniFileMap.put("index_dir", this.index_dir);
-        iniFileMap.put("output_prefix", this.output_prefix);
-        iniFileMap.put("output_dir", this.output_dir);
-        iniFileMap.put("manual_output", this.manual_output);
         iniFileMap.put("produce_transcriptome_bam", this.produce_transcriptome_bam);
         //For RG setting
         String RGLB = this.options.has("rg-library") ? options.valueOf("rg-library").toString() : currentBs.getRGLB();
@@ -326,11 +289,6 @@ public class STARDecider extends OicrDecider {
         iniFileMap.put("lane", currentBs.getLane());
         iniFileMap.put("barcode", currentBs.getBarcode());
 
-        if (!this.queue.isEmpty()) {
-            iniFileMap.put("queue", this.queue);
-        } else {
-            iniFileMap.put("queue", " ");
-        }
         return iniFileMap;
     }
 

@@ -20,7 +20,7 @@
       "index_dir" : "/.mount/labs/PDE/data/reference/Star100b",
       "input_file_1" : "/oicr/data/archive/seqware/seqware_analysis_8/hsqwprod/results/CASAVA_2.7/42986506/SWID_4071861_PCSI_0646_Lv_M_PE_314_MR_NoGroup_160405_D00343_0116_BC8W17ANXX_AGTCAA_L007_R1_001.fastq.gz",
       "input_file_2" : "/oicr/data/archive/seqware/seqware_analysis_8/hsqwprod/results/CASAVA_2.7/42986506/SWID_4071861_PCSI_0646_Lv_M_PE_314_MR_NoGroup_160405_D00343_0116_BC8W17ANXX_AGTCAA_L007_R2_001.fastq.gz",
-      "ius_accession" : "4071861",
+      "ius_accession" : "5420321",
       "lane" : "7",
       "manual_output" : "false",
       "metadata" : "metadata",
@@ -43,28 +43,31 @@
     "files" : [ {
       "studyTitle" : [ "PCSI" ],
       "studyAttributes" : {
-        "study.geo_lab_group_id" : [ [ "33" ] ]
+        "geo_lab_group_id" : [ [ "33" ] ]
       },
-      "experimentName" : [ "Geo_PCSI_ILLUMINA_MR_{F*126}{..}{R*126}" ],
+      "experimentName" : [ ],
       "experimentAttributes" : { },
       "sampleName" : [ "PCSI_0646_Lv_M_PE_314_MR" ],
       "sampleAttributes" : {
-        "sample.geo_library_source_template_type" : [ [ "MR" ] ],
-        "sample.geo_prep_kit" : [ [ "TruSeq RNA Access " ] ],
-        "sample.geo_run_id_and_position_and_slot" : [ [ "2405_7_2" ] ],
-        "sample.geo_targeted_resequencing" : [ [ "TruSeq RNA Access RS-301-2001" ] ],
-        "sample.geo_template_id" : [ [ "101998" ] ],
-        "sample.geo_template_type" : [ [ "Illumina mRNA Library Seq" ] ],
-        "sample.geo_tissue_origin" : [ [ "Lv" ] ],
-        "sample.geo_tissue_type" : [ [ "M" ] ]
+        "geo_external_name" : [ [ "1_67454", "1_67454 COMP-0010" ] ],
+        "geo_library_source_template_type" : [ [ "MR" ] ],
+        "geo_organism" : [ [ "Homo sapiens" ] ],
+        "geo_prep_kit" : [ [ "TruSeq RNA Access " ] ],
+        "geo_receive_date" : [ [ "2016-03-14" ] ],
+        "geo_run_id_and_position_and_slot" : [ [ "2405_7_2" ] ],
+        "geo_targeted_resequencing" : [ [ "TruSeq RNA Access RS-301-2001" ] ],
+        "geo_template_id" : [ [ "100565", "100567", "100654", "100655", "101990", "101994", "101998" ] ],
+        "geo_template_type" : [ [ "Identity", "Illumina mRNA Library", "Illumina mRNA Library Seq", "Metastatic Tumor Tissue", "mRNA", "whole RNA" ] ],
+        "geo_tissue_origin" : [ [ "Lv" ] ],
+        "geo_tissue_type" : [ [ "M" ] ]
       },
       "sequencerRunName" : [ "160405_D00343_0116_BC8W17ANXX" ],
       "sequencerRunAttributes" : {
-        "sequencerrun.geo_instrument_run_id" : [ [ "2405" ] ]
+        "geo_instrument_run_id" : [ [ "2405" ] ]
       },
       "laneName" : [ "160405_D00343_0116_BC8W17ANXX_lane_7" ],
       "laneAttributes" : {
-        "lane.geo_lane" : [ [ "7" ] ]
+        "geo_lane" : [ [ "7" ] ]
       },
       "iusTag" : [ "AGTCAA" ],
       "iusAttributes" : { },
@@ -77,28 +80,31 @@
     }, {
       "studyTitle" : [ "PCSI" ],
       "studyAttributes" : {
-        "study.geo_lab_group_id" : [ [ "33" ] ]
+        "geo_lab_group_id" : [ [ "33" ] ]
       },
-      "experimentName" : [ "Geo_PCSI_ILLUMINA_MR_{F*126}{..}{R*126}" ],
+      "experimentName" : [ ],
       "experimentAttributes" : { },
       "sampleName" : [ "PCSI_0646_Lv_M_PE_314_MR" ],
       "sampleAttributes" : {
-        "sample.geo_library_source_template_type" : [ [ "MR" ] ],
-        "sample.geo_prep_kit" : [ [ "TruSeq RNA Access " ] ],
-        "sample.geo_run_id_and_position_and_slot" : [ [ "2405_7_2" ] ],
-        "sample.geo_targeted_resequencing" : [ [ "TruSeq RNA Access RS-301-2001" ] ],
-        "sample.geo_template_id" : [ [ "101998" ] ],
-        "sample.geo_template_type" : [ [ "Illumina mRNA Library Seq" ] ],
-        "sample.geo_tissue_origin" : [ [ "Lv" ] ],
-        "sample.geo_tissue_type" : [ [ "M" ] ]
+        "geo_external_name" : [ [ "1_67454", "1_67454 COMP-0010" ] ],
+        "geo_library_source_template_type" : [ [ "MR" ] ],
+        "geo_organism" : [ [ "Homo sapiens" ] ],
+        "geo_prep_kit" : [ [ "TruSeq RNA Access " ] ],
+        "geo_receive_date" : [ [ "2016-03-14" ] ],
+        "geo_run_id_and_position_and_slot" : [ [ "2405_7_2" ] ],
+        "geo_targeted_resequencing" : [ [ "TruSeq RNA Access RS-301-2001" ] ],
+        "geo_template_id" : [ [ "100565", "100567", "100654", "100655", "101990", "101994", "101998" ] ],
+        "geo_template_type" : [ [ "Identity", "Illumina mRNA Library", "Illumina mRNA Library Seq", "Metastatic Tumor Tissue", "mRNA", "whole RNA" ] ],
+        "geo_tissue_origin" : [ [ "Lv" ] ],
+        "geo_tissue_type" : [ [ "M" ] ]
       },
       "sequencerRunName" : [ "160405_D00343_0116_BC8W17ANXX" ],
       "sequencerRunAttributes" : {
-        "sequencerrun.geo_instrument_run_id" : [ [ "2405" ] ]
+        "geo_instrument_run_id" : [ [ "2405" ] ]
       },
       "laneName" : [ "160405_D00343_0116_BC8W17ANXX_lane_7" ],
       "laneAttributes" : {
-        "lane.geo_lane" : [ [ "7" ] ]
+        "geo_lane" : [ [ "7" ] ]
       },
       "iusTag" : [ "AGTCAA" ],
       "iusAttributes" : { },
