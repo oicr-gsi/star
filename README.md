@@ -64,8 +64,7 @@ Read Group Information (Supported so that User could override these if needed):
         
         additionalStarParams      If needed, user may supply additional STAR parameters
 
-*By default, STAR assigns 255 as mapping score to such reads, this may break downstream analyses (especially with GATK) so the workflow overrides this default value assigning 60  instead
-Read Group Data*
+*By default, STAR assigns 255 as mapping score to such reads, this may break downstream analyses (especially with GATK) so the workflow overrides this default value assigning 60  instead*
 
 
 ###Decider Parameters
@@ -112,6 +111,7 @@ Read Group Data:
         outSAMtype       May be Unsorted, SortedByCoordinate or both (two files per alignment will be produced)
 
 ###Output files
+
 File basename is constructed using Meta-data information obtained via Decider and includes File SeqWare ID, Donor, sequencer run, library, barcode and lane information.
 
  *FILE_BASENAME.Aligned.sortedByCoord.out.report.bam*
