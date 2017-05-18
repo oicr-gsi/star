@@ -1,25 +1,25 @@
-##RNASeq STAR Alignment
+## RNASeq STAR Alignment
 The STAR pipeline takes in 2 gzip-ped FASTQ files from RNAseq sources (paired sequencing), trims 
 and then process them through a set of steps to map the reads to the supplied reference genome,
 annotate Read Groups and index the bam file.
 
 The pipeline implemented as a [SeqWare](http://seqware.github.io/) workflow.
 
-##Overview of the pipeline
+## Overview of the pipeline
 The below flowchart summarizes each of the components' functionality
 
 ![star flowchart](docs/StarSummary.png)
 
-##Compile
+## Compile
 
 ```
 mvn clean install
 ```
 
-##Usage
+## Usage
 After compilation, [test](http://seqware.github.io/docs/3-getting-started/developer-tutorial/#testing-the-workflow), [bundle](http://seqware.github.io/docs/3-getting-started/developer-tutorial/#packaging-the-workflow-into-a-workflow-bundle) and [install](http://seqware.github.io/docs/3-getting-started/admin-tutorial/#how-to-install-a-workflow) the workflow using the techniques described in the SeqWare documentation.
 
-###Workflow Parameters
+### Workflow Parameters
 
 Input/Output:
 
@@ -67,7 +67,7 @@ Read Group Information (Supported so that User could override these if needed):
 *By default, STAR assigns 255 as mapping score to such reads, this may break downstream analyses (especially with GATK) so the workflow overrides this default value assigning 60  instead*
 
 
-###Decider Parameters
+### Decider Parameters
 Arguments to the decider
 
 Input/Output:
@@ -110,7 +110,7 @@ Read Group Data:
                          This is not good for downstream analysis (GATK disregards reads with mapq 255) [60]
         outSAMtype       May be Unsorted, SortedByCoordinate or both (two files per alignment will be produced)
 
-###Output files
+### Output files
 
 File basename is constructed using Meta-data information obtained via Decider and includes File SeqWare ID, Donor, sequencer run, library, barcode and lane information.
 
@@ -120,6 +120,6 @@ File basename is constructed using Meta-data information obtained via Decider an
 
 Alignment file and it's index with Read Group information added, sorted by coordinate
 
-###Support
+### Support
 
 For support, please file an issue on the [Github project](https://github.com/oicr-gsi) or send an email to gsi@oicr.on.ca.
