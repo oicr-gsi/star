@@ -14,8 +14,8 @@
     "workflowIni" : {
       "additionalStarParams" : "",
       "barcode" : "GCCAAT",
-      "bundled_jre" : "${workflow_bundle_dir}/Workflow_Bundle_STAR/1.1/bin/jre1.7.0_51/bin/java",
-      "bundled_seqware" : "seqware-distribution-1.1.0-full.jar",
+      "bundled_jre" : "${workflow_bundle_dir}/Workflow_Bundle_STAR/1.1.1/bin/jre1.7.0_51/bin/java",
+      "bundled_seqware" : "seqware-distribution-1.1.1-gsi-full.jar",
       "data_dir" : "data",
       "index_dir" : "/.mount/labs/PDE/data/reference/Star100b",
       "input_file_1" : "/oicr/data/archive/seqware/seqware_analysis_8/hsqwprod/results/CASAVA_2.7/47674109/SWID_4013294_ERNA_0079_nn_C_PE_320_WT_NoGroup_160330_D00331_0185_BC8L1CANXX_GCCAAT_L006_R1_001.fastq.gz",
@@ -25,7 +25,7 @@
       "manual_output" : "false",
       "metadata" : "metadata",
       "output_dir" : "seqware-results",
-      "picard_dir" : "${workflow_bundle_dir}/Workflow_Bundle_STAR/1.1/bin/picard-tools-1.89/",
+      "picard_dir" : "${workflow_bundle_dir}/Workflow_Bundle_STAR/1.1.1/bin/picard-tools-1.89/",
       "produce_transcriptome_bam" : "true",
       "queue" : "",
       "r1_adapter_trim" : "AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC",
@@ -36,7 +36,7 @@
       "rg_platform_unit" : "160330_D00331_0185_BC8L1CANXX_6_GCCAAT",
       "rg_sample_name" : "ERNA_0079_C",
       "sequencer_run_name" : "160330_D00331_0185_BC8L1CANXX",
-      "star" : "${workflow_bundle_dir}/Workflow_Bundle_STAR/1.1/bin/STAR-2.5.1b/bin/Linux_x86_64_static/STAR",
+      "star" : "${workflow_bundle_dir}/Workflow_Bundle_STAR/1.1.1/bin/STAR-2.5.1b/bin/Linux_x86_64_static/STAR",
       "star_aln_mem_mb" : "16000",
       "star_aln_threads" : "6"
     },

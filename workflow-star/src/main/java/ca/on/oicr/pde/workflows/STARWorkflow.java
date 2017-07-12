@@ -259,8 +259,10 @@ public class STARWorkflow extends SemanticWorkflow {
                 
                 if (hasPropertyAndNotNull("r2_adapter_trim") && !getProperty("r2_adapter_trim").isEmpty()) {
                     read2_adapterTrim = getProperty("r2_adapter_trim");
-                    clipSeq.append(read2_adapterTrim);
-                    clipSeq.append(" ").append(read1_adapterTrim);
+                    if (clipSeq.length() > 0) {
+                        clipSeq.append(" ");
+                    }
+                       clipSeq.append(read2_adapterTrim);
                 }
                 
                 if (!clipSeq.toString().isEmpty() && clipSeq.toString().length() > 1) {
