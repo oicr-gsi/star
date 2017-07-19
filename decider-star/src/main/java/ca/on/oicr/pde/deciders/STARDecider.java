@@ -52,8 +52,8 @@ public class STARDecider extends OicrDecider {
         parser.accepts("rg-organization", "Optional: RG Organization (CM).").withRequiredArg();
         parser.accepts("template-type", "Optional: limit the run to only specified template type").withRequiredArg();
         //Trimming
-        parser.accepts("read1-adapter-trim", "Optional: Barcode, default is empty string.").withRequiredArg();
-        parser.accepts("read2-adapter-trim", "Optional: Sequencing platform, will be set to production if no value passed.").withRequiredArg();
+        parser.accepts("r1-adapter-trim", "Optional: Barcode, default is empty string.").withRequiredArg();
+        parser.accepts("r2-adapter-trim", "Optional: Sequencing platform, will be set to production if no value passed.").withRequiredArg();
 
     }
 
