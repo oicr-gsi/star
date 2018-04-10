@@ -1,3 +1,5 @@
+## 1.2.2 - 2018-04-10
+- [GP-1529](https://jira.oicr.on.ca/browse/GP-1529) - Update STAR decider to handle null library source template type
 ## 1.2.1 - 2017-07-12
 - [GP-1234](https://jira.oicr.on.ca/browse/GP-1234) - Fixed adaptor sequence parameter bug
 ## 1.2 - 2017-01-30
