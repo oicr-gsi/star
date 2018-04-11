@@ -12,7 +12,7 @@
     
     <groupId>ca.on.oicr.pde.deciders</groupId>
     <artifactId>STAR</artifactId>
-    <version>1.2.1</version>
+    <version>1.1.2</version>
     <packaging>jar</packaging>
 
     <name>decider-star</name>
@@ -21,7 +21,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <workflow-version>1.1.1</workflow-version>
+        <workflow-version>1.1.2</workflow-version>
         <main-class>ca.on.oicr.pde.deciders.STARDecider</main-class>
     </properties>
     
