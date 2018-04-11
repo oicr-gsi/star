@@ -1,5 +1,6 @@
 package ca.on.oicr.pde.deciders;
 
+import com.google.common.collect.Sets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -31,7 +32,7 @@ public class STARDecider extends OicrDecider {
     private static final String FASTQ_GZ_METATYPE = "chemical/seq-na-fastq-gzip";
     private static final String OICR = "OICR";
     private static final String ILLUMINA = "Illumina"; //If we don't have this passed as parameter, we assume Illumina
-  
+    private Set<String> allowedTemplateTypes;
 
     public STARDecider() {
         super();
@@ -50,7 +51,7 @@ public class STARDecider extends OicrDecider {
         parser.accepts("rg-platform-unit", "Optional: RG Platform unit (PU).").withRequiredArg();
         parser.accepts("rg-sample-name", "Optional: RG Sample name (SM).").withRequiredArg();
         parser.accepts("rg-organization", "Optional: RG Organization (CM).").withRequiredArg();
-        parser.accepts("template-type", "Optional: limit the run to only specified template type").withRequiredArg();
+        parser.accepts("template-type", "Optional: limit the run to only specified template type(s) (comma separated list).").withRequiredArg();
         //Trimming
         parser.accepts("r1-adapter-trim", "Optional: Barcode, default is empty string.").withRequiredArg();
         parser.accepts("r2-adapter-trim", "Optional: Sequencing platform, will be set to production if no value passed.").withRequiredArg();
@@ -94,6 +95,10 @@ public class STARDecider extends OicrDecider {
         }
         if (this.options.has("r2-adapter-trim")) {
             this.read2_adapterTrim = options.valueOf("r2-adapter-trim").toString();
+        }
+        if (this.options.has("template-type")) {
+            String templateTypeArg = this.options.valueOf("template-type").toString();
+            allowedTemplateTypes = Sets.newHashSet(templateTypeArg.split(","));
         }
 
         ReturnValue val = super.init();
@@ -207,11 +212,12 @@ public class STARDecider extends OicrDecider {
     protected boolean checkFileDetails(ReturnValue returnValue, FileMetadata fm) {
         Log.debug("CHECK FILE DETAILS:" + fm);
 
-        if (this.options.has("template-type")) {
-            if (!returnValue.getAttribute(FindAllTheFiles.Header.SAMPLE_TAG_PREFIX.getTitle() + "geo_library_source_template_type").equals(this.options.valueOf("template-type"))) {
+        if (allowedTemplateTypes != null) {
+            String currentTemplateType = returnValue.getAttribute(FindAllTheFiles.Header.SAMPLE_TAG_PREFIX.getTitle() + "geo_library_source_template_type");
+            if (!allowedTemplateTypes.contains(currentTemplateType)) {
                 return false;
             }
-        }   
+        }
 
         return super.checkFileDetails(returnValue, fm);
     }

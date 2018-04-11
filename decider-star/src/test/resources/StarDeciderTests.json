@@ -25,8 +25,14 @@
                 "--index-dir": "/.mount/labs/PDE/data/reference/Star100b",
                 "--template-type": "WT"
             }
+        },
+        {
+            "id": "Template type test",
+            "parameters": {
+                "--root-sample-name": "ERNA_0079",
+                "--index-dir": "/.mount/labs/PDE/data/reference/Star100b",
+                "--template-type": "WT,MR"
+            }
         }
-
-
     ]
 }
