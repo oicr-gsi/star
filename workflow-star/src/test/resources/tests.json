@@ -17,10 +17,10 @@
                 "input_file_1": "/.mounts/labs/PDE/data/testdata/RNA/fastq/TGL_star/TGL01_0043_nn_M_PE_317_WT_171116_NB551051_0034_AHKTL5AFXX_GCCAAT_1.R1.10000.fastq.gz,/.mounts/labs/PDE/data/testdata/RNA/fastq/TGL_star/TGL01_0043_nn_M_PE_317_WT_171116_NB551056_0031_AHKNYWAFXX_GCCAAT_1.R1.10000.fastq.gz",
                 "input_file_2": "/.mounts/labs/PDE/data/testdata/RNA/fastq/TGL_star/TGL01_0043_nn_M_PE_317_WT_171116_NB551051_0034_AHKTL5AFXX_GCCAAT_1.R2.10000.fastq.gz,/.mounts/labs/PDE/data/testdata/RNA/fastq/TGL_star/TGL01_0043_nn_M_PE_317_WT_171116_NB551056_0031_AHKNYWAFXX_GCCAAT_1.R2.10000.fastq.gz",
                 "rg_library": "TGL01_0043_nn_M_PE_317_WT",
-                "rg_platform":"illumina",
-                "rg_organization":"OICR",
-                "rg_platform_unit":"171116_NB551051_0034_AHKTL5AFXX_GCCAAT_1,171116_NB551056_0031_AHKNYWAFXX_GCCAAT_1",
-                "rg_sample_name":"TGL01_0043_nn_M_PE_317_WT_test"
+                "rg_platform": "illumina",
+                "rg_organization": "OICR",
+                "rg_platform_unit": "171116_NB551051_0034_AHKTL5AFXX_GCCAAT_1,171116_NB551056_0031_AHKNYWAFXX_GCCAAT_1",
+                "rg_sample_name": "TGL01_0043_nn_M_PE_317_WT_test"
             }
         }
     ]
