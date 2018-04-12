@@ -228,7 +228,7 @@ public class STARWorkflow extends SemanticWorkflow {
                 + " --outFilterIntronMotifs RemoveNoncanonical "
                 + " --outFileNamePrefix " + this.dataDir + outputFileName + "."
                 + " --outSAMmultNmax " + this.multiMax
-                + " --outSAMattrRGline " + this.prepareRGLine() // create multiple --outSAMattrRGline ID:SAMPLE1 CN:XX DS:XXX , ID:SAMPLE2 CN:XX DS:XXX
+                + " --outSAMattrRGline " + this.prepareRGLine() // create multiple --outSAMattrRGline ID:SAMPLE1 CN:XX DS:XXX, ID:SAMPLE2 CN:XX DS:XXX
                 + " --outSAMmapqUnique " + this.uniqMAPQ
                 + " --outSAMunmapped Within KeepPairs "
                 + " --genomeSAsparseD " + this.saSparsed
@@ -279,8 +279,9 @@ public class STARWorkflow extends SemanticWorkflow {
             sb.append("CM:").append(RGCM).append(" ");
             sb.append(", ");
         }
-        sb.deleteCharAt(sb.length()-1);
-        return sb.toString();
+//        sb.deleteCharAt(sb.length()-2);
+        String rgLine = sb.toString();
+        return rgLine.substring(0,rgLine.length()-2);
     }
     
     /**
