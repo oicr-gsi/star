@@ -97,6 +97,9 @@ public class STARDecider extends OicrDecider {
             String templateTypeArg = this.options.valueOf("template-type").toString();
             allowedTemplateTypes = Sets.newHashSet(templateTypeArg.split(","));
         }
+        if (this.options.has("additionalStarParams")) {
+            this.additionalStarParams = this.options.valueOf("additionalStarParams").toString();
+        }
 
         ReturnValue val = super.init();
 
