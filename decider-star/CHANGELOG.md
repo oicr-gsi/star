@@ -1,3 +1,5 @@
+## 1.2.3 - 2018-05-23
+- [GP-1593](https://jira.oicr.on.ca/browse/GP-1593) - Calculate read groups after filtering of files
 ## 1.2.2 - 2018-04-10
 - [GP-1529](https://jira.oicr.on.ca/browse/GP-1529) - Update STAR decider to handle null library source template type
 ## 1.2.1 - 2017-07-12
@@ -10,4 +12,3 @@
 - A small fix to the Decider's logic
 ## 1.0   - 2016-09-08
 - Initial import of STAR code
-

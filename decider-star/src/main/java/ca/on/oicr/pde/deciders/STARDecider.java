@@ -1,12 +1,12 @@
 package ca.on.oicr.pde.deciders;
 
+import com.google.common.collect.MoreCollectors;
 import com.google.common.collect.Sets;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import net.sourceforge.seqware.common.hibernate.FindAllTheFiles;
 import net.sourceforge.seqware.common.module.FileMetadata;
 import net.sourceforge.seqware.common.module.ReturnValue;
+import net.sourceforge.seqware.common.module.ReturnValue.ExitStatus;
 import net.sourceforge.seqware.common.util.Log;
 
 /**
@@ -14,11 +14,6 @@ import net.sourceforge.seqware.common.util.Log;
  * @author rtahir
  */
 public class STARDecider extends OicrDecider {
-    private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
-    private Map<String, BeSmall> fileSwaToSmall;
-
-    private final String [][] readMateFlags = {{"_R1_","1_sequence.txt",".1.fastq"},{"_R2_","2_sequence.txt",".2.fastq"}};    
-    
     private String index_dir;
     private String produce_transcriptome_bam = "true";
     private String RGCM = "";
@@ -29,14 +24,16 @@ public class STARDecider extends OicrDecider {
     private String starMemory   = "16000";
     private String queue = "";
     
-    private static final String FASTQ_GZ_METATYPE = "chemical/seq-na-fastq-gzip";
     private static final String OICR = "OICR";
     private static final String ILLUMINA = "Illumina"; //If we don't have this passed as parameter, we assume Illumina
     private Set<String> allowedTemplateTypes;
-
+    
+    private String inputFile1;
+    private String inputFile2;
+    private ReadGroupData readGroupDataForWorkflowRun;
+    
     public STARDecider() {
         super();
-        fileSwaToSmall = new HashMap<String, BeSmall>();
         parser.accepts("ini-file", "Optional: the location of the INI file.").withRequiredArg();
         parser.accepts("index-dir", "reference index dir").withRequiredArg();
         parser.accepts("produce-transcriptome-bam", "Optional*. Set either to true or false for production of additional files").withRequiredArg();
@@ -62,7 +59,7 @@ public class STARDecider extends OicrDecider {
     public ReturnValue init() {
         Log.debug("INIT");
         this.setMetaType(Arrays.asList("chemical/seq-na-fastq-gzip"));
-        this.setGroupingStrategy(FindAllTheFiles.Header.FILE_SWA);
+        this.setHeadersToGroupBy(Arrays.asList(FindAllTheFiles.Header.IUS_SWA));
 
         //allows anything defined on the command line to override the defaults here.
         if (this.options.has("index-dir")){
@@ -107,107 +104,50 @@ public class STARDecider extends OicrDecider {
     }
 
     @Override
-    public Map<String, List<ReturnValue>> separateFiles(List<ReturnValue> vals, String groupBy) {
-        // get files from study
-        Map<String, ReturnValue> iusDeetsToRV = new HashMap<String, ReturnValue>();
-        // Override the supplied group-by value
-        for (ReturnValue currentRV : vals) {
-            boolean metatypeOK = false;
-
-            for (int f = 0; f < currentRV.getFiles().size(); f++) {
-                try {
-                    if (currentRV.getFiles().get(f).getMetaType().equals(FASTQ_GZ_METATYPE)) {
-                        metatypeOK = true;
-                    }
-                } catch (Exception e) {
-                    Log.stderr("Error checking a file");
-                }
-            }
-            if (!metatypeOK) {
-                continue; // Go to the next value
-            }
-
-            BeSmall currentSmall = new BeSmall(currentRV);
-            fileSwaToSmall.put(currentRV.getAttribute(groupBy), currentSmall);
-            //make sure you only have the most recent single file for each
-            //sequencer run + lane + barcode + meta-type
-            String fileDeets = currentSmall.getIusDetails();
-            Date currentDate = currentSmall.getDate();
-
-            //if there is no entry yet, add it
-            if (iusDeetsToRV.get(fileDeets) == null) {
-                iusDeetsToRV.put(fileDeets, currentRV);
-            } //if there is an entry, compare the current value to the 'old' one in
-            //the map. if the current date is newer than the 'old' date, replace
-            //it in the map
-            else {
-                ReturnValue oldRV = iusDeetsToRV.get(fileDeets);
-                BeSmall oldSmall = fileSwaToSmall.get(oldRV.getAttribute(FindAllTheFiles.Header.FILE_SWA.getTitle()));
-                Date oldDate = oldSmall.getDate();
-                if (currentDate.after(oldDate)) {
-                    iusDeetsToRV.put(fileDeets, currentRV);
-                }
-            }
-        }
-
-        //only use those files that entered into the iusDeetsToRV
-        //since it's a map, only the most recent values
-        List<ReturnValue> newValues = new ArrayList<ReturnValue>(iusDeetsToRV.values());
-        Map<String, List<ReturnValue>> map = new HashMap<String, List<ReturnValue>>();
-
-        //group files according to the designated header (e.g. sample SWID)
-        for (ReturnValue r : newValues) {
-            String currVal = fileSwaToSmall.get(r.getAttribute(FindAllTheFiles.Header.FILE_SWA.getTitle())).getGroupByAttribute();
-            List<ReturnValue> vs = map.get(currVal);
-            if (vs == null) {
-                vs = new ArrayList<ReturnValue>();
-            }
-            vs.add(r);
-            map.put(currVal, vs);
-        }
-
-        return map;
-    }
-    
-    @Override
     protected ReturnValue doFinalCheck(String commaSeparatedFilePaths, String commaSeparatedParentAccessions) {
+        this.inputFile1 = null;
+        this.inputFile2 = null;
+
         String[] filePaths = commaSeparatedFilePaths.split(",");
         if (filePaths.length != 2) {
             Log.error("This Decider supports only cases where we have only 2 files per lane, WON'T RUN");
             return new ReturnValue(ReturnValue.INVALIDPARAMETERS);
         }
-        boolean haveFirstMate = false;
-        boolean haveSecondMate = false;
 
-        for (String p : filePaths) {
-            for (BeSmall bs : fileSwaToSmall.values()) {
-                if (!bs.getPath().equals(p)) {
-                    continue;
-                }
-                if (!haveFirstMate) {haveFirstMate = p.contains("R1");}
-                if (!haveSecondMate){haveSecondMate= p.contains("R2");}
-                    
-                }
-
+        String[] fqFilesArray = commaSeparatedFilePaths.split(",");
+        for (String file : fqFilesArray) {
+            int mate = idMate(file);
+            switch (mate) {
+                case 1:
+                    if (this.inputFile1 != null) {
+                        Log.error("More than one file found for read 1: " + inputFile1 + ", " + file);
+                        return new ReturnValue(ExitStatus.INVALIDFILE);
+                    }
+                    this.inputFile1 = file;
+                    break;
+                case 2:
+                    if (this.inputFile2 != null) {
+                        Log.error("More than one file found for read 2: " + inputFile2 + ", " + file);
+                        return new ReturnValue(ExitStatus.INVALIDFILE);
+                    }
+                    this.inputFile2 = file;
+                    break;
+                default:
+                    Log.error("Cannot identify " + file + " end (read 1 or 2)");
+                    return new ReturnValue(ExitStatus.INVALIDFILE);
             }
-        
-        if (!haveFirstMate || !haveSecondMate) {
+        }
+
+        if (inputFile1 == null || inputFile2 == null) {
             Log.error("The Decider was not able to find both R1 and R2 fastq files for paired sequencing alignment, WON'T RUN");
             return new ReturnValue(ReturnValue.INVALIDPARAMETERS);
         }
+        
+        readGroupDataForWorkflowRun = new ReadGroupData(files.get(inputFile1), files.get(inputFile2));
+        
         return super.doFinalCheck(commaSeparatedFilePaths, commaSeparatedParentAccessions);
     }
-    
-    @Override
-    protected String handleGroupByAttribute(String attribute) {
-        String a = super.handleGroupByAttribute(attribute);
-        BeSmall small = fileSwaToSmall.get(a);
-        if (small != null) {
-            return small.getGroupByAttribute();
-        }
-        return attribute;
-    }
-
+        
     @Override
     protected boolean checkFileDetails(ReturnValue returnValue, FileMetadata fm) {
         Log.debug("CHECK FILE DETAILS:" + fm);
@@ -226,57 +166,17 @@ public class STARDecider extends OicrDecider {
     protected Map<String, String> modifyIniFile(String commaSeparatedFilePaths, String commaSeparatedParentAccessions) {
         Log.debug("INI FILE:" + commaSeparatedFilePaths);
 
-        String[] filePaths = commaSeparatedFilePaths.split(",");
-        int[] indexes = {0, 1};
-
-        Set fqInputs_end1 = new HashSet();
-        Set fqInputs_end2 = new HashSet();
-        Set[] fqInputFiles = {fqInputs_end1, fqInputs_end2};
-        String fastq_inputs_end_1 = "";
-        String fastq_inputs_end_2 = "";
-        BeSmall currentBs = null;
-        for (String p : filePaths) {
-            for (BeSmall bs : fileSwaToSmall.values()) {
-                if (!bs.getPath().equals(p)) {
-                    continue;
-                }
-
-                for (int i : indexes) {
-                    for (int j = 0; j < this.readMateFlags[i].length; j++) {
-                        if (p.contains(this.readMateFlags[i][j])) {
-                            fqInputFiles[i].add(p);
-                            break;
-                        }
-                    }
-                }
-            currentBs = bs;
-            }
-        }
-        // Refuse to continue if we don't have an object with metadta for one of the files
-        if (null == currentBs) {
-            Log.error("Was not able to retrieve fastq files for either one or two subsets of paired reads, not scheduling current workflow run");
-            this.abortSchedulingOfCurrentWorkflowRun();
-        }
-        
-        // Format input strings
-        if (fqInputFiles[0].size() == 0 || fqInputFiles[1].size() == 0) {
-            Log.error("Was not able to retrieve fastq files for either one or two subsets of paired reads, not scheduling current workflow run");
-            this.abortSchedulingOfCurrentWorkflowRun();
-        } else {
-            fastq_inputs_end_1 = _join(",", fqInputFiles[0]);
-            fastq_inputs_end_2 = _join(",", fqInputFiles[1]);
-        }
-
         Map<String, String> iniFileMap = super.modifyIniFile(commaSeparatedFilePaths, commaSeparatedParentAccessions);
-        iniFileMap.put("input_file_1", fastq_inputs_end_1);
-        iniFileMap.put("input_file_2", fastq_inputs_end_2);
+        iniFileMap.put("input_file_1", inputFile1);
+        iniFileMap.put("input_file_2", inputFile2);
         iniFileMap.put("index_dir", this.index_dir);
         iniFileMap.put("produce_transcriptome_bam", this.produce_transcriptome_bam);
+        
         //For RG setting
-        String RGLB = this.options.has("rg-library") ? options.valueOf("rg-library").toString() : currentBs.getRGLB();
+        String RGLB = this.options.has("rg-library") ? options.valueOf("rg-library").toString() : readGroupDataForWorkflowRun.getRGLB();
         String RGPL = this.options.has("rg-platform") ? options.valueOf("rg-platform").toString() : ILLUMINA; 
-        String RGPU = this.options.has("rg-platform_unit") ? options.valueOf("rg-platform-unit").toString() : currentBs.getRGPU();
-        String RGSM = this.options.has("rg-sample-name") ? options.valueOf("rg-sample-name").toString() : currentBs.getRGSM();
+        String RGPU = this.options.has("rg-platform_unit") ? options.valueOf("rg-platform-unit").toString() : readGroupDataForWorkflowRun.getRGPU();
+        String RGSM = this.options.has("rg-sample-name") ? options.valueOf("rg-sample-name").toString() : readGroupDataForWorkflowRun.getRGSM();
 
         iniFileMap.put("rg_library", RGLB);
         iniFileMap.put("rg_platform", RGPL);
@@ -290,26 +190,12 @@ public class STARDecider extends OicrDecider {
         iniFileMap.put("star_aln_threads", this.numOfThreads);
         iniFileMap.put("star_aln_mem_mb", this.starMemory);
 
-        iniFileMap.put("ius_accession", currentBs.getIus_accession());
-        iniFileMap.put("sequencer_run_name", currentBs.getSequencer_run_name());
-        iniFileMap.put("lane", currentBs.getLane());
-        iniFileMap.put("barcode", currentBs.getBarcode());
+        iniFileMap.put("ius_accession", readGroupDataForWorkflowRun.getIus_accession());
+        iniFileMap.put("sequencer_run_name", readGroupDataForWorkflowRun.getSequencer_run_name());
+        iniFileMap.put("lane", readGroupDataForWorkflowRun.getLane());
+        iniFileMap.put("barcode", readGroupDataForWorkflowRun.getBarcode());
 
         return iniFileMap;
-    }
-
-   //Join function
-   public static String _join(String separator, Set items) {
-       StringBuilder result = new StringBuilder();
-       Iterator myItems = items.iterator();
-       while(myItems.hasNext()) {
-          if (result.length() > 0)
-              result.append(separator);
-
-          result.append(myItems.next().toString());
-       }
-
-    return result.toString();
     }
    
     public static void main(String args[]) {
@@ -324,148 +210,65 @@ public class STARDecider extends OicrDecider {
 
     }
 
-    private class BeSmall {
+    private class ReadGroupData {
 
-    private Date date = null;
-    private String iusDetails = null;
-    private String groupByAttribute = null;
-    private String tissueType = null;
-    private String path = null;
-    private String tubeID = null;
-    private String groupID = null;
-    private String groupDescription = null;
-    private String RGLB;
-    private String RGPU;
-    private String RGSM;
-    //private String RGPL;
-    private String ius_accession;
-    private String sequencer_run_name;
-    private String barcode;
-    private String lane;
+        private final String tissueType;
+        private final String RGLB;
+        private final String RGPU;
+        private final String RGSM;
+        private final String ius_accession;
+        private final String sequencer_run_name;
+        private final String barcode;
+        private final String lane;
 
-    public BeSmall(ReturnValue rv) {
-        try {
-            this.date = format.parse(rv.getAttribute(FindAllTheFiles.Header.PROCESSING_DATE.getTitle()));
-        } catch (ParseException ex) {
-            Log.error("Bad date!", ex);
-            ex.printStackTrace();
+        public ReadGroupData(FileAttributes... inputFileAttrs) {
+            List<FileAttributes> attrs = Arrays.asList(inputFileAttrs);
+            this.tissueType = attrs.stream().map(a -> a.getLimsValue(Lims.TISSUE_TYPE)).distinct().collect(MoreCollectors.onlyElement());
+            this.lane = attrs.stream().map(a -> a.getLane().toString()).distinct().collect(MoreCollectors.onlyElement());
+            this.RGLB = attrs.stream().map(a -> a.getLibrarySample()).distinct().collect(MoreCollectors.onlyElement());
+            this.RGPU = attrs.stream().map(a -> a.getSequencerRun() + "_" + this.lane + "_" + a.getBarcode()).distinct().collect(MoreCollectors.onlyElement());
+            this.RGSM = attrs.stream().map(a -> {
+                String rgsm = a.getDonor() + "_" + this.tissueType;
+                if (a.getLimsValue(Lims.GROUP_ID) != null && !a.getLimsValue(Lims.GROUP_ID).isEmpty()) {
+                    rgsm += "_" + a.getLimsValue(Lims.GROUP_ID);
+                }
+                return rgsm;
+            }).distinct().collect(MoreCollectors.onlyElement());
+            this.ius_accession = attrs.stream().map(a -> a.getOtherAttribute(FindAllTheFiles.Header.IUS_SWA)).distinct().collect(MoreCollectors.onlyElement());
+            this.sequencer_run_name = attrs.stream().map(a -> a.getSequencerRun()).distinct().collect(MoreCollectors.onlyElement());
+            this.barcode = attrs.stream().map(a -> a.getBarcode()).distinct().collect(MoreCollectors.onlyElement());
         }
 
-        FileAttributes fa = new FileAttributes(rv, rv.getFiles().get(0));
-        this.tissueType = fa.getLimsValue(Lims.TISSUE_TYPE);
-        this.tubeID = fa.getLimsValue(Lims.TUBE_ID);
-        if (null == this.tubeID || this.tubeID.isEmpty()) {
-            this.tubeID = "NA";
-        }
-        this.groupID = fa.getLimsValue(Lims.GROUP_ID);
-        if (null == this.groupID || this.groupID.isEmpty()) {
-            this.groupID = "NA";
-        }
-        this.groupDescription = fa.getLimsValue(Lims.GROUP_DESC);
-        if (null == this.groupDescription || this.groupDescription.isEmpty()) {
-            this.groupDescription = "NA";
+        public String getTissueType() {
+            return this.tissueType;
         }
 
-        this.lane = fa.getLane().toString();
-        this.RGLB = fa.getLibrarySample();
-        this.RGPU = fa.getSequencerRun() + "_" + this.lane + "_" + fa.getBarcode();
-        this.RGSM = fa.getDonor() + "_" + this.tissueType;
-        if (!this.groupID.equals("NA")) {
-            this.RGSM = this.RGSM + "_" + this.groupID;
+        public String getRGLB() {
+            return RGLB;
         }
 
-        this.iusDetails = this.RGLB + this.RGPU + rv.getAttribute(FindAllTheFiles.Header.FILE_SWA.getTitle());
-        this.ius_accession = rv.getAttribute(FindAllTheFiles.Header.IUS_SWA.getTitle());
-        this.sequencer_run_name = fa.getSequencerRun();
-        this.barcode = fa.getBarcode();
-
-        StringBuilder gba = new StringBuilder(fa.getDonor());
-        gba.append(":").append(fa.getLimsValue(Lims.LIBRARY_TEMPLATE_TYPE));
-        gba.append(":").append(this.ius_accession);
-
-        String trs = fa.getLimsValue(Lims.TARGETED_RESEQUENCING);
-        if (null != trs && !trs.isEmpty()) {
-            gba.append(":").append(trs);
+        public String getRGPU() {
+            return RGPU;
         }
 
-        this.groupByAttribute = gba.toString();
-        this.path = rv.getFiles().get(0).getFilePath() + "";
-    }
+        public String getRGSM() {
+            return RGSM;
+        }
 
-    public Date getDate() {
-        return this.date;
-    }
+        public String getIus_accession() {
+            return ius_accession;
+        }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+        public String getSequencer_run_name() {
+            return sequencer_run_name;
+        }
 
-    public String getGroupByAttribute() {
-        return this.groupByAttribute;
-    }
+        public String getBarcode() {
+            return barcode;
+        }
 
-    public void setGroupByAttribute(String groupByAttribute) {
-        this.groupByAttribute = groupByAttribute;
+        public String getLane() {
+            return lane;
+        }
     }
-
-    public String getTissueType() {
-        return this.tissueType;
-    }
-
-    public String getIusDetails() {
-        return this.iusDetails;
-    }
-
-    public void setIusDetails(String iusDetails) {
-        this.iusDetails = iusDetails;
-    }
-
-    public String getPath() {
-        return this.path;
-    }
-
-    public String getTubeId() {
-        return this.tubeID;
-    }
-
-    public String getGroupID() {
-        return this.groupID;
-    }
-
-    public String getGroupDescription() {
-        return this.groupDescription;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public String getRGLB() {
-        return RGLB;
-    }
-
-    public String getRGPU() {
-        return RGPU;
-    }
-
-    public String getRGSM() {
-        return RGSM;
-    }
-
-    public String getIus_accession() {
-        return ius_accession;
-    }
-
-    public String getSequencer_run_name() {
-        return sequencer_run_name;
-    }
-
-    public String getBarcode() {
-        return barcode;
-    }
-
-    public String getLane() {
-        return lane;
-    }
-}
 }
