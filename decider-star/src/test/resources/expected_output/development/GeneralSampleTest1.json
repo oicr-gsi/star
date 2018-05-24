@@ -18,6 +18,7 @@
       "bundled_seqware" : "seqware-distribution-2.0.2-full.jar",
       "data_dir" : "data",
       "index_dir" : "/.mount/labs/PDE/data/reference/Star100b",
+      "index_job_mem_mb" : "8000",
       "input_file_1" : "/oicr/data/archive/seqware/seqware_analysis_8/hsqwprod/results/CASAVA_2.7/42986506/SWID_4071861_PCSI_0646_Lv_M_PE_314_MR_NoGroup_160405_D00343_0116_BC8W17ANXX_AGTCAA_L007_R1_001.fastq.gz",
       "input_file_2" : "/oicr/data/archive/seqware/seqware_analysis_8/hsqwprod/results/CASAVA_2.7/42986506/SWID_4071861_PCSI_0646_Lv_M_PE_314_MR_NoGroup_160405_D00343_0116_BC8W17ANXX_AGTCAA_L007_R2_001.fastq.gz",
       "ius_accession" : "6475883",
