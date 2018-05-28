@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="StarDeciderTestSuite" parallel="methods" thread-count="20">
+<suite name="StarDeciderTestSuite" parallel="methods" thread-count="${runTestThreads}">
     <test name="Test1">
         <classes>
             <parameter name="testDefinition" value="/StarDeciderTests.json"/>
