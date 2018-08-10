@@ -51,6 +51,8 @@ public class STARWorkflow extends SemanticWorkflow {
     private final static String DEFAULT_MULTI = "-1";
     private final static String DEFAULT_SASPARSED = "2";
     private final static String DEFAULT_THREADS = "6";
+    private static final String DEFAULT_INDEX_RAM = "9000";
+    private static final String DEFAULT_OVERHEAD_MB = "3000";
     private final static String STAR_SUFFIX = "Aligned.sortedByCoord.out";
     private final static String TRANSCRIPTOME_SUFFIX = "Aligned.toTranscriptome.out";
     private final static String GENEREAD_SUFFIX = "ReadsPerGene.out";
@@ -63,6 +65,9 @@ public class STARWorkflow extends SemanticWorkflow {
         cvTerms.put(EDAM, new HashSet<String>(Arrays.asList("BAM", "BAI","Text","Alignment format",
                                                             "Sequence alignment","Gene expression")));
     }
+    private String indexRAMxmx;
+    private String indexRAMjob;
+    private int overheadMb;
         
     /**
      * Function that returns CV terms put into a Map container
@@ -94,6 +99,11 @@ public class STARWorkflow extends SemanticWorkflow {
             uniqMAPQ     = Integer.valueOf(getOptionalProperty("uniqMapQ", DEFAULT_UMAPQ));
             multiMax     = Integer.valueOf(getOptionalProperty("multimap_max", DEFAULT_MULTI));
             saSparsed    = Integer.valueOf(getOptionalProperty("sa_sparsed", DEFAULT_SASPARSED));
+            overheadMb   = Integer.valueOf(getOptionalProperty("overhead_memory_mb", DEFAULT_OVERHEAD_MB));
+            indexRAMjob  = getOptionalProperty("index_job_mem_mb", DEFAULT_INDEX_RAM);
+            if (!indexRAMjob.isEmpty()) {
+                indexRAMxmx  = "" + (Integer.valueOf(indexRAMjob) - overheadMb);
+            }
 
             
             RGID = getProperty("rg_platform_unit");
@@ -184,22 +194,22 @@ public class STARWorkflow extends SemanticWorkflow {
          job01.setThreads(this.numOfThreads);
         }
         
-        this.attachCVterms(outputFile, EDAM, "BAM,Sequence alignment,Alignment format");
+        this.attachCVlabels(outputFile, EDAM, "BAM,Sequence alignment,Alignment format");
 	job01.addFile(outputFile);
         
         Job job02 = this.indexBamJob(this.dataDir + outputFileName + "." + STAR_SUFFIX);
         job02.addParent(job01);
         
-        this.attachCVterms(outputFileIndex, EDAM, "BAI,Sequence alignment,Alignment format");
+        this.attachCVlabels(outputFileIndex, EDAM, "BAI,Sequence alignment,Alignment format");
 	job02.addFile(outputFileIndex);
         
         if (this.produceTranscriptomeBam) {
             
             SqwFile transBamFile = createOutputFile(this.dataDir + outputFileName + "." + TRANSCRIPTOME_SUFFIX + ".bam", "application/bam", manualOutput);
-            this.attachCVterms(transBamFile, EDAM, "BAM,Sequence alignment,Alignment format");
+            this.attachCVlabels(transBamFile, EDAM, "BAM,Sequence alignment,Alignment format");
 	    job01.addFile(transBamFile);
             SqwFile geneReadFile = createOutputFile(this.dataDir + outputFileName + "." + GENEREAD_SUFFIX + ".tab", "text/plain", manualOutput);
-            this.attachCVterms(geneReadFile, EDAM, "Text,Gene expression");
+            this.attachCVlabels(geneReadFile, EDAM, "Text,Gene expression");
 	    job01.addFile(geneReadFile);
             
         }
@@ -226,12 +236,12 @@ public class STARWorkflow extends SemanticWorkflow {
      */
     protected Job indexBamJob(String inputFile) {
     Job jobIndex = this.getWorkflow().createBashJob("index_bam");
-        jobIndex.setCommand(this.java + " -Xmx3G -jar "
+        jobIndex.setCommand(this.java + " -Xmx" + this.indexRAMxmx +  "M -jar "
                 + this.picard_dir + "BuildBamIndex.jar"
                 + " I=" + inputFile + ".bam"
                 + " O=" + inputFile + ".bai"
                 + " VALIDATION_STRINGENCY=LENIENT"); // The last one is for dealing with unmapped reads
-        jobIndex.setMaxMemory(getProperty("index_job_mem_mb"));
+        jobIndex.setMaxMemory(this.indexRAMjob);
         jobIndex.setQueue(queue);      
         
         return jobIndex;

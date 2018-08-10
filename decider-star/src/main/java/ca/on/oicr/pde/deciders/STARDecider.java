@@ -22,6 +22,8 @@ public class STARDecider extends OicrDecider {
     private String read2_adapterTrim = "AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT";
     private String numOfThreads = "6";
     private String starMemory = "16000";
+    private String overheadMemory = "";
+    private String indexMemory = "";
     private String queue = "";
 
     private static final String OICR = "OICR";
@@ -48,6 +50,8 @@ public class STARDecider extends OicrDecider {
         parser.accepts("rg-platform-unit", "Optional: RG Platform unit (PU).").withRequiredArg();
         parser.accepts("rg-sample-name", "Optional: RG Sample name (SM).").withRequiredArg();
         parser.accepts("rg-organization", "Optional: RG Organization (CM).").withRequiredArg();
+        parser.accepts("overhead-memory-mb", "Optional: job overhead memory Mb, default is 3000.").withRequiredArg();
+        parser.accepts("index-job-mem-mb", "Optional: Index Job allocated memory Mb, default is 9000.").withRequiredArg();
         parser.accepts("template-type", "Optional: limit the run to only specified template type(s) (comma separated list).").withRequiredArg();
         //Trimming
         parser.accepts("r1-adapter-trim", "Optional: Barcode, default is empty string.").withRequiredArg();
@@ -87,6 +91,12 @@ public class STARDecider extends OicrDecider {
         if (this.options.has("star-aln-mem-mb")) {
             this.starMemory = options.valueOf("star-aln-mem-mb").toString();
         }
+        if (this.options.has("overhead-memory-mb")) {
+            this.overheadMemory = options.valueOf("overhead-memory-mb").toString();
+        }
+        if (this.options.has("index-job-mem-mb")) {
+            this.indexMemory = options.valueOf("index-job-mem-mb").toString();
+        }       
         if (this.options.has("r1-adapter-trim")) {
             this.read1_adapterTrim = options.valueOf("r1-adapter-trim").toString();
         }
@@ -192,7 +202,12 @@ public class STARDecider extends OicrDecider {
         iniFileMap.put("r2_adapter_trim", this.read2_adapterTrim);
         iniFileMap.put("star_aln_threads", this.numOfThreads);
         iniFileMap.put("star_aln_mem_mb", this.starMemory);
-
+        if (!this.overheadMemory.isEmpty()) {
+            iniFileMap.put("overhead_memory_mb", this.overheadMemory);
+        }
+        if (!this.indexMemory.isEmpty()) {
+            iniFileMap.put("index_job_memory_mb", this.indexMemory);
+        }
         iniFileMap.put("ius_accession", readGroupDataForWorkflowRun.getIus_accession());
         iniFileMap.put("sequencer_run_name", readGroupDataForWorkflowRun.getSequencer_run_name());
         iniFileMap.put("lane", readGroupDataForWorkflowRun.getLane());
