@@ -14,7 +14,7 @@
     "workflowIni" : {
       "additionalStarParams" : "",
       "barcode" : "AGTCAA",
-      "bundled_jre" : "${workflow_bundle_dir}/Workflow_Bundle_STAR/1.1.2/bin/jre1.8.0_45/bin/java",
+      "bundled_jre" : "${workflow_bundle_dir}/Workflow_Bundle_STAR/1.1.3/bin/jre1.8.0_45/bin/java",
       "bundled_seqware" : "seqware-distribution-2.0.2-full.jar",
       "data_dir" : "data",
       "index_dir" : "/.mount/labs/PDE/data/reference/Star100b",
@@ -26,7 +26,7 @@
       "manual_output" : "false",
       "metadata" : "metadata",
       "output_dir" : "seqware-results",
-      "picard_dir" : "${workflow_bundle_dir}/Workflow_Bundle_STAR/1.1.2/bin/picard-tools-1.89/",
+      "picard_dir" : "${workflow_bundle_dir}/Workflow_Bundle_STAR/1.1.3/bin/picard-tools-1.89/",
       "produce_transcriptome_bam" : "true",
       "queue" : "",
       "r1_adapter_trim" : "AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC",
@@ -37,7 +37,7 @@
       "rg_platform_unit" : "160405_D00343_0116_BC8W17ANXX_7_AGTCAA",
       "rg_sample_name" : "PCSI_0646_M",
       "sequencer_run_name" : "160405_D00343_0116_BC8W17ANXX",
-      "star" : "${workflow_bundle_dir}/Workflow_Bundle_STAR/1.1.2/bin/STAR-2.5.1b/bin/Linux_x86_64_static/STAR",
+      "star" : "${workflow_bundle_dir}/Workflow_Bundle_STAR/1.1.3/bin/STAR-2.5.1b/bin/Linux_x86_64_static/STAR",
       "star_aln_mem_mb" : "16000",
       "star_aln_threads" : "6"
     },

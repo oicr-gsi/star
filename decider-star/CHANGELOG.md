@@ -1,4 +1,4 @@
-## 1.2.4 - 2018-08-10
+## 1.2.5 - 2018-08-10
 - [GBS-770](https://jira.oicr.on.ca/browse/GBS-770) - Added parameters for setting index_job_mb and overhead_mb
 ## 1.2.3 - 2018-05-23
 - [GP-1593](https://jira.oicr.on.ca/browse/GP-1593) - Calculate read groups after filtering of files

@@ -1,4 +1,4 @@
-## 1.1.2 - 2018-08-10
+## 1.1.3 - 2018-08-10
 - Exposed parameters which allocate RAM for indexing job and overhead
 ## 1.1.1 - 2017-07-12 
 - Fixed a bug with adapter sequences paramtrizing
