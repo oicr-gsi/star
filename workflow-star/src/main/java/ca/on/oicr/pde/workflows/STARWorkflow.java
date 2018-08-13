@@ -51,8 +51,8 @@ public class STARWorkflow extends SemanticWorkflow {
     private final static String DEFAULT_MULTI = "-1";
     private final static String DEFAULT_SASPARSED = "2";
     private final static String DEFAULT_THREADS = "6";
-    private static final String DEFAULT_INDEX_RAM = "9000";
-    private static final String DEFAULT_OVERHEAD_MB = "3000";
+    private static final String DEFAULT_INDEX_RAM = "12000";
+    private static final String DEFAULT_OVERHEAD_MB = "6000";
     private final static String STAR_SUFFIX = "Aligned.sortedByCoord.out";
     private final static String TRANSCRIPTOME_SUFFIX = "Aligned.toTranscriptome.out";
     private final static String GENEREAD_SUFFIX = "ReadsPerGene.out";
