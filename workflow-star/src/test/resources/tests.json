@@ -10,8 +10,8 @@
             "id": "workflow.ini",
             "description": "Runs the default workflow.ini",
             "parameters": {
-                "input_file_1": "${workflow_bundle_dir}/Workflow_Bundle_STAR/1.1.1/data/testData/k562_NoIndex_L001_R1_001.fastq.gz",
-                "input_file_2": "${workflow_bundle_dir}/Workflow_Bundle_STAR/1.1.1/data/testData/k562_NoIndex_L001_R2_001.fastq.gz",
+                "input_file_1": "${workflow_bundle_dir}/Workflow_Bundle_STAR/${project.version}/data/testData/k562_NoIndex_L001_R1_001.fastq.gz",
+                "input_file_2": "${workflow_bundle_dir}/Workflow_Bundle_STAR/${project.version}/data/testData/k562_NoIndex_L001_R2_001.fastq.gz",
                 "index_dir": "/.mounts/labs/PDE/data/reference/hg19_random/star2.5/155b",
                 "rg_library": "K562",
                 "rg_platform": "illumina",
