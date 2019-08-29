@@ -1,6 +1,7 @@
 package ca.on.oicr.pde.workflows;
 
 import ca.on.oicr.pde.utilities.workflows.SemanticWorkflow;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -31,15 +32,16 @@ public class STARWorkflow extends SemanticWorkflow {
     String RGID;
     String RGLB;
     String RGPL;
-    String RGPU;
+    ArrayList<String> RGPU = new ArrayList<String>();
     String RGSM;
     String RGCM;
     String additionalStarParams;
     int readTrimming; //aln
     int numOfThreads; //aln 
     String star_aln_params;
-    SqwFile read1;
-    SqwFile read2;
+    ArrayList<String> read1 = new ArrayList<String>();
+    ArrayList<String> read2 = new ArrayList<String>();
+//    Boolean runMultipleFiles = false;
     SqwFile outputFile;
     SqwFile outputFileIndex;
 
@@ -102,8 +104,19 @@ public class STARWorkflow extends SemanticWorkflow {
             if (RGLB.contains(" ")) {RGLB = "\"" + RGLB + "\"";}
             RGPL = getProperty("rg_platform");
             if (RGPL.contains(" ")) {RGPL = "\"" + RGPL + "\"";}
-            RGPU = getProperty("rg_platform_unit");
-            if (RGPU.contains(" ")) {RGPU = "\"" + RGPU + "\"";}
+//            RGPU = getProperty("rg_platform_unit");
+            String runDetails = getProperty("rg_platform_unit");
+            if (runDetails.contains(" ")) {runDetails = "\"" + runDetails + "\"";}
+            if (runDetails.contains(",")) {
+                for (String rgpu:runDetails.split(",")){
+                    RGPU.add(rgpu);
+                }
+            }
+            else {
+                RGPU.add(runDetails);
+            }
+//            if (RGPU.contains(" ")) {RGPU = "\"" + RGPU + "\"";}
+            // split RGPU by sample entries
             RGSM = getProperty("rg_sample_name");
             if (RGSM.contains(" ")) {RGSM = "\"" + RGSM + "\"";}
             RGCM = getProperty("rg_organization");
@@ -128,16 +141,54 @@ public class STARWorkflow extends SemanticWorkflow {
 
         //TODO in a future we may accept multiple fastq and RG params (multi-lane alignment)
         // registers the first input file
-        read1 = this.createFile("file_in_0");
-        read1.setSourcePath(input1_path);
-        read1.setType("chemical/seq-na-fastq-gzip");
-        read1.setIsInput(true);
-
-        // registers the second input file
-        read2 = this.createFile("file_in_1");
-        read2.setSourcePath(input2_path);
-        read2.setType("chemical/seq-na-fastq-gzip");
-        read2.setIsInput(true);
+       
+        if (input1_path.contains(",")){
+            String[] pathDesc = input1_path.split(",");
+//            String[] provisionedPaths1 = new String[pathDesc.length];
+            for (int id=0; id < pathDesc.length; id++ ){  
+                String inPth = pathDesc[id];
+                SqwFile r1 = this.createFile("file_in_R1" + id);
+                r1.setSourcePath(inPth);
+                r1.setType("chemical/seq-na-fastq-gzip");
+                r1.setIsInput(true);
+//                provisionedPaths1[id] = r1.getProvisionedPath();
+                read1.add(r1.getProvisionedPath());
+            }
+        }
+        else {
+            SqwFile r1 = this.createFile("file_in_0");
+            r1.setSourcePath(input1_path);
+            r1.setType("chemical/seq-na-fastq-gzip");
+            r1.setIsInput(true);
+//            String[] provisionedPaths1 = new String[]{r1.getProvisionedPath()};
+            read1.add(r1.getProvisionedPath());
+        }
+//        this.read1 = pr
+        
+        if (input2_path.contains(",")){
+            String[] pathDesc = input2_path.split(",");
+//            String[] provisionedPaths2 = new String[pathDesc.length];
+            for (int id=0; id < pathDesc.length; id++ ){  
+                String inPth = pathDesc[id];
+                SqwFile r2 = this.createFile("file_in_R2" + id);
+                r2.setSourcePath(inPth);
+                r2.setType("chemical/seq-na-fastq-gzip");
+                r2.setIsInput(true);
+//                provisionedPaths2[id] = r2.getProvisionedPath();
+                read2.add(r2.getProvisionedPath());
+            }
+        }
+        else{
+            // registers the second input file
+            SqwFile r2= this.createFile("file_in_1");
+            r2.setSourcePath(input2_path);
+            r2.setType("chemical/seq-na-fastq-gzip");
+            r2.setIsInput(true);
+//            String[] provisionedPaths2 = new String[]{r2.getProvisionedPath()};
+            read2.add(r2.getProvisionedPath());
+        }
+        
+        
 
         outputFile = createOutputFile(this.dataDir + outputFileName + "." + STAR_SUFFIX + ".bam", "application/bam", manualOutput);
 	outputFileIndex = createOutputFile(this.dataDir + outputFileName + "." + STAR_SUFFIX + ".bai", "application/bam-index", manualOutput);
@@ -155,8 +206,18 @@ public class STARWorkflow extends SemanticWorkflow {
     @Override
     public void buildWorkflow() {
         
-        String r1 = read1.getProvisionedPath();
-        String r2 = read2.getProvisionedPath();       
+//        StringBuilder sb1 = new StringBuilder();
+//        for (String r:read1){
+//            sb1.append(r);
+//        }
+//        StringBuilder sb2 = new StringBuilder();
+//        for (String r:read2){
+//            sb2.append(r);
+//        }
+        String r1 = String.join(",", read1);
+        String r2 = String.join(",", read2);
+//        String r1 = sb1.toString();
+//        String r2 = sb2.toString();       
         Job job01 = this.getWorkflow().createBashJob("star_align");
 
         job01.setCommand(star
@@ -167,7 +228,7 @@ public class STARWorkflow extends SemanticWorkflow {
                 + " --outFilterIntronMotifs RemoveNoncanonical "
                 + " --outFileNamePrefix " + this.dataDir + outputFileName + "."
                 + " --outSAMmultNmax " + this.multiMax
-                + " --outSAMattrRGline " + this.prepareRGLine()
+                + " --outSAMattrRGline " + this.prepareRGLine() // create multiple --outSAMattrRGline ID:SAMPLE1 CN:XX DS:XXX, ID:SAMPLE2 CN:XX DS:XXX
                 + " --outSAMmapqUnique " + this.uniqMAPQ
                 + " --outSAMunmapped Within KeepPairs "
                 + " --genomeSAsparseD " + this.saSparsed
@@ -207,16 +268,20 @@ public class STARWorkflow extends SemanticWorkflow {
     }
     
     public String prepareRGLine() {
-
         StringBuilder sb = new StringBuilder();
-        sb.append("ID:").append(RGID).append(" ");
-        sb.append("PL:").append(RGPL).append(" ");
-        sb.append("PU:").append(RGPU).append(" ");
-        sb.append("LB:").append(RGLB).append(" ");
-        sb.append("SM:").append(RGSM).append(" ");
-        sb.append("CM:").append(RGCM).append(" ");
-        
-        return sb.toString();
+        for (String rgpu:RGPU){
+//            String[] rgBuild = new String[]() {"ID:" + RGID};
+            sb.append("ID:").append(RGID).append(" ");
+            sb.append("PL:").append(RGPL).append(" ");
+            sb.append("PU:").append(rgpu).append(" ");
+            sb.append("LB:").append(RGLB).append(" ");
+            sb.append("SM:").append(RGSM).append(" ");
+            sb.append("CM:").append(RGCM).append(" ");
+            sb.append(", ");
+        }
+//        sb.deleteCharAt(sb.length()-2);
+        String rgLine = sb.toString();
+        return rgLine.substring(0,rgLine.length()-2);
     }
     
     /**

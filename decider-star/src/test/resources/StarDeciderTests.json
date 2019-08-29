@@ -33,6 +33,14 @@
                 "--index-dir": "/.mount/labs/PDE/data/reference/Star100b",
                 "--template-type": "WT,MR"
             }
+        },
+        {
+            "id": "Multiple FQ test",
+            "parameters": {
+                "--root-sample-name": "TGL01",
+                "--index-dir": "/.mount/labs/PDE/data/reference/Star100b",
+                "--template-type": "WT"
+            }
         }
     ]
 }
