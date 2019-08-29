@@ -6,7 +6,7 @@
     <parent>
         <groupId>ca.on.oicr.gsi</groupId>
         <artifactId>pipedev-workflow-parent</artifactId>
-        <version>2.3</version>
+        <version>2.5.3</version>
         <relativePath/>
     </parent>
 
@@ -36,18 +36,6 @@
             <artifactId>STAR</artifactId>
             <version>${star-version}</version>
             <type>zip</type>
-        </dependency>
-                <dependency>
-            <groupId>ca.on.oicr.pde</groupId>
-            <artifactId>common-utilities</artifactId>
-            <version>1.6.5</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>ca.on.oicr.pde</groupId>
-            <artifactId>workflow-utilities</artifactId>
-            <version>1.7</version>
-            <type>jar</type>
         </dependency>
     </dependencies>
 

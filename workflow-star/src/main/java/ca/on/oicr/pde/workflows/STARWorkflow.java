@@ -296,7 +296,7 @@ public class STARWorkflow extends SemanticWorkflow {
                 + " I=" + inputFile + ".bam"
                 + " O=" + inputFile + ".bai"
                 + " VALIDATION_STRINGENCY=LENIENT"); // The last one is for dealing with unmapped reads
-        jobIndex.setMaxMemory("5000");
+        jobIndex.setMaxMemory(getProperty("index_job_mem_mb"));
         jobIndex.setQueue(queue);      
         
         return jobIndex;

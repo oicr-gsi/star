@@ -1,15 +1,30 @@
 {
     "defaults": {
         "description": "STAR workflow test",
-	"metrics_calculate": "calculate.sh",
+        "metrics_calculate": "calculate.sh",
         "metrics_compare": "compare.sh",
-        "input_config_dir": "/.mounts/labs/PDE/data/RegressionTests/STAR/workflow/input_config/${project.version}/",
         "output_metrics_dir": "/.mounts/labs/PDE/data/RegressionTests/STAR/workflow/output_expectation/${project.version}/"
     },
     "tests": [
         {
-	    "id": "Default",
-            "parameters": {}
+            "id": "workflow.ini",
+            "description": "Runs the default workflow.ini",
+            "parameters": {
+                "input_file_1": "${workflow_bundle_dir}/Workflow_Bundle_STAR/1.1.1/data/testData/k562_NoIndex_L001_R1_001.fastq.gz",
+                "input_file_2": "${workflow_bundle_dir}/Workflow_Bundle_STAR/1.1.1/data/testData/k562_NoIndex_L001_R2_001.fastq.gz",
+                "index_dir": "/.mounts/labs/PDE/data/reference/hg19_random/star2.5/155b",
+                "rg_library": "K562",
+                "rg_platform": "illumina",
+                "rg_organization": "OICR",
+                "rg_platform_unit": "121005_h804_0096_AD0V4NACXX_5_NoIndex",
+                "rg_sample_name": "K562Test",
+                "ius_accession": "12345",
+                "sequencer_run_name": "121005_h804_0096_AD0V4NACXX",
+                "lane": "5",
+                "barcode": "NoIndex",
+                "r1_adapter_trim": "AGATCGGAAGAGCGGTTCAGCAGGAATGCCGAGACCG",
+                "r2_adapter_trim": "AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT"
+            }
         },
         {
             "id": "multipleFQ_run",
@@ -21,7 +36,7 @@
                 "rg_organization": "OICR",
                 "rg_platform_unit": "171116_NB551051_0034_AHKTL5AFXX_GCCAAT_1,171116_NB551056_0031_AHKNYWAFXX_GCCAAT_1",
                 "rg_sample_name": "TGL01_0043_nn_M_PE_317_WT_test"
-            }
+                }
         }
     ]
 }
