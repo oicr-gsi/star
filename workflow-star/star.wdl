@@ -4,7 +4,6 @@ workflow starWorkflow {
 input {
  File fastqR1
  File fastqR2
- String? outputDir = "."
  String genomeIndexDir
  String? additionalParameters = ""
  Int? uniqMAPQ = 60
@@ -21,7 +20,7 @@ input {
 
 call makeName{ input: fastqFile = fastqR1 }
 call makeRg{ input: RGID = RGID, RGLB = RGLB, RGPL = RGPL, RGPU = RGPU, RGSM = RGSM, RGCM = RGCM }
-call runStar{ input: fastqR1 = fastqR1, fastqR2 = fastqR2, genome_index_dir = genomeIndexDir, fileNAME = makeName.outputName, addParam  = additionalParameters, uniqMAPQ = uniqMAPQ, saSparsed = saSparsed, multiMax = multiMax, threads = threads, outputDir = outputDir, rgLine = makeRg.rgLine }
+call runStar{ input: fastqR1 = fastqR1, fastqR2 = fastqR2, genome_index_dir = genomeIndexDir, fileNAME = makeName.outputName, addParam  = additionalParameters, uniqMAPQ = uniqMAPQ, saSparsed = saSparsed, multiMax = multiMax, threads = threads, rgLine = makeRg.rgLine }
 call indexBam as finalIndex{ input: inputBam = runStar.outputBam }
 
 
@@ -88,7 +87,6 @@ input {
   String? starSuffix = "Aligned.sortedByCoord.out"
   String? transcriptomeSuffix = "Aligned.toTranscriptome.out"
   String? genereadSuffix = "ReadsPerGene.out"
-  String? outputDir = "."
   String? addParam = ""
   String? modules = "star/2.6.0c"
   Int? uniqMAPQ = 60
@@ -105,7 +103,7 @@ command <<<
       --readFilesIn ~{fastqR1} ~{fastqR2} \
       --readFilesCommand zcat \
       --outFilterIntronMotifs RemoveNoncanonical \
-      --outFileNamePrefix "~{outputDir}/~{fileNAME}" \
+      --outFileNamePrefix ~{fileNAME} \
       --outSAMmultNmax ~{multiMax} \
       --outSAMattrRGline ~{rgLine} \
       --outSAMmapqUnique  ~{uniqMAPQ} \
