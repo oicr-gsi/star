@@ -18,8 +18,7 @@
           "starWorkflow.RGLB": "K562",
           "starWorkflow.RGSM": "K562TEST",
           "starWorkflow.RGCM": "OICR",
-          "starWorkflow.genomeIndexDir": "/.mounts/labs/PDE/data/reference/hg19_random/star2.5/155b",
-          "starWorkflow.outputDir": "."
+          "starWorkflow.genomeIndexDir": "/.mounts/labs/PDE/data/reference/hg19_random/star2.5/155b"
         }
       }
     }
