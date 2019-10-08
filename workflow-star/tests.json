@@ -3,22 +3,27 @@
     "description": "STAR workflow test",
     "metrics_calculate": "calculate.sh",
     "metrics_compare": "compare.sh",
-    "output_metrics_dir": "/.mounts/labs/PDE/data/RegressionTests/STAR/workflow/development/output_expectation/2.0"
+    "output_metrics_dir": "/.mounts/labs/gsi/testdata/STAR/output_metrics",
+    "parameters": {
+          "wdl_options": {
+            "write_to_cache": false,
+            "read_from_cache": false
+           }
+         }
   },
   "tests": [
     {
       "id": "k562_RNAseqTest",
       "parameters": {
         "wdl_inputs": {
-          "starWorkflow.fastqR1": "/.mounts/labs/PDE/data/testdata/RNA/fastq/k562/k562_NoIndex_L001_R1_001.fastq.gz",
-          "starWorkflow.fastqR2": "/.mounts/labs/PDE/data/testdata/RNA/fastq/k562/k562_NoIndex_L001_R2_001.fastq.gz",
-          "starWorkflow.RGID": "121005_h804_0096_AD0V4NACXX_5_NoIndex",
-          "starWorkflow.RGPL": "Illumina",
-          "starWorkflow.RGPU": "121005_h804_0096_AD0V4NACXX_5_NoIndex",
-          "starWorkflow.RGLB": "K562",
-          "starWorkflow.RGSM": "K562TEST",
-          "starWorkflow.RGCM": "OICR",
-          "starWorkflow.genomeIndexDir": "/.mounts/labs/PDE/data/reference/hg19_random/star2.5/155b"
+          "star.fastqR1": "/.mounts/labs/gsi/testdata/STAR/input_data/k562_NoIndex_L001_R1_001.fastq.gz",
+          "star.fastqR2": "/.mounts/labs/gsi/testdata/STAR/input_data/k562_NoIndex_L001_R2_001.fastq.gz",
+          "star.RGID": "121005_h804_0096_AD0V4NACXX_5_NoIndex",
+          "star.RGPL": "Illumina",
+          "star.RGPU": "121005_h804_0096_AD0V4NACXX_5_NoIndex",
+          "star.RGLB": "K562",
+          "star.RGSM": "K562TEST",
+          "star.RGCM": "OICR"
         }
       }
     }

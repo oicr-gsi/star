@@ -1,52 +1,36 @@
 version 1.0
 
-workflow starWorkflow {
+workflow star {
 input {
  File fastqR1
- File fastqR2
- String genomeIndexDir
+ File? fastqR2
  String? additionalParameters = ""
- Int? uniqMAPQ = 60
- Int? saSparsed = 2
- Int? multiMax = -1
- Int? threads = 4
+ String? outputFileNamePrefix = ""
  String RGID
  String RGLB
  String RGPL
  String RGPU
  String RGSM
- String? RGCM = "OICR"
+ String? RGCM
 }
 
-call makeName{ input: fastqFile = fastqR1 }
+String? outputPrefix = if outputFileNamePrefix=="" then basename(fastqR1, '.fastq.gz') else outputFileNamePrefix
+
 call makeRg{ input: RGID = RGID, RGLB = RGLB, RGPL = RGPL, RGPU = RGPU, RGSM = RGSM, RGCM = RGCM }
-call runStar{ input: fastqR1 = fastqR1, fastqR2 = fastqR2, genome_index_dir = genomeIndexDir, fileNAME = makeName.outputName, addParam  = additionalParameters, uniqMAPQ = uniqMAPQ, saSparsed = saSparsed, multiMax = multiMax, threads = threads, rgLine = makeRg.rgLine }
+call runStar{ input: fastqR1 = fastqR1, fastqR2 = fastqR2, fileNAME = outputPrefix, addParam  = additionalParameters, rgLine = makeRg.rgLine }
 call indexBam as finalIndex{ input: inputBam = runStar.outputBam }
 
+meta {
+ author: "Peter Ruzanov"
+ email: "peter.ruzanov@oicr.on.ca"
+ description: "STAR 2.0"
+}
 
 output {
   File starBam   = runStar.outputBam
   File starIndex = finalIndex.outputBai
   File transcriptomeBam = runStar.transcriptomeBam
   File geneReadFile     = runStar.geneReads
-}
-}
-
-# ==========================================
-#   MAKE NAME
-# ==========================================
-task makeName {
-input {
- File fastqFile
-}
-
-command <<<
- FILE_NAME=$(echo ~{basename(fastqFile, ".fastq.gz")} | sed s/_R1.*// )
- echo $FILE_NAME 
->>>
-
-output {
- String outputName = read_string(stdout())
 }
 }
 
@@ -60,7 +44,16 @@ input {
  String RGPL
  String RGPU
  String RGSM
- String? RGCM
+ String? RGCM="MyCompany"
+}
+
+parameter_meta {
+ RGID: "ID field in Read Group field"
+ RGLB: "LB field in Read Group field"
+ RGPL: "PL field in Read Group field"
+ RGPU: "PU field in Read Group field"
+ RGSM: "SM field in Read Group field"
+ RGCM: "CM field in Read Group field"
 }
 
 command <<<
@@ -80,25 +73,43 @@ output {
 task runStar {
 input {
   File fastqR1
-  File fastqR2
-  String genome_index_dir
-  String fileNAME
+  File? fastqR2
+  String? genome_index_dir = "$HG19_STAR_INDEX100_ROOT/"
+  String? fileNAME
   String rgLine
   String? starSuffix = "Aligned.sortedByCoord.out"
   String? transcriptomeSuffix = "Aligned.toTranscriptome.out"
   String? genereadSuffix = "ReadsPerGene.out"
   String? addParam = ""
-  String? modules = "star/2.6.0c"
+  String? modules = "star/2.6.0c hg19-star-index100/2.6.0c"
   Int? uniqMAPQ = 60
   Int? saSparsed = 2
   Int? multiMax = -1
   Int? threads = 6
   Int? jobMemory  = 36
 }
+
+parameter_meta {
+ fastqR1: "Mate 1 reads in fastq file"
+ fastqR2: "Mate 2 reads in fastq file"
+ genome_index_dir: "Directory with indices for STAR"
+ fileNAME: "Prefix for building output file name"
+ rgLine: "Line for making ReadGroup field"
+ starSuffix: "Suffix for sorted file"
+ transcriptomeSuffix: "Suffix for transcriptome-aligned file"
+ genereadSuffix: "ReadsPerGene file suffix"
+ addParam: "Additional STAR parameters"
+ modules: "modules for running STAR"
+ uniqMAPQ: "Score for unique mappers"
+ saSparsed: "saSparsed parameter for STAR"
+ multiMax: "multiMax parameter for STAR"
+ threads: "Requested CPU threads"
+ jobMemory: "Memory allocated for this job"
+}
+
 # missing --clip3pAdapterSeq $adaptors
 command <<<
- $STAR_ROOT/bin/STAR \
-      --twopassMode Basic \
+ STAR --twopassMode Basic \
       --genomeDir ~{genome_index_dir} \
       --readFilesIn ~{fastqR1} ~{fastqR2} \
       --readFilesCommand zcat \
@@ -135,12 +146,17 @@ task indexBam {
 input {
 	File   inputBam
         Int?   jobMemory  = 8
-        Int?   javaMemory = 6
         String? modules = "java/8 picard/2.19.2" 
 }
 
+parameter_meta {
+ inputBam: "Input bam file"
+ jobMemory: "Memory allocated indexing job"
+ modules: "modules for running indexing job"
+}
+
 command <<<
- java -Xmx~{javaMemory}G -jar $PICARD_ROOT/picard.jar BuildBamIndex \
+ java -Xmx~{jobMemory-2}G -jar $PICARD_ROOT/picard.jar BuildBamIndex \
                               VALIDATION_STRINGENCY=LENIENT \
                               OUTPUT="~{basename(inputBam, '.bam')}.bai" \
                               INPUT=~{inputBam} 
