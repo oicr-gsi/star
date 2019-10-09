@@ -145,7 +145,7 @@ output {
 task indexBam {
 input {
 	File   inputBam
-        Int?   jobMemory  = 8
+        Int?   jobMemory  = 12
         String? modules = "java/8 picard/2.19.2" 
 }
 
@@ -156,7 +156,7 @@ parameter_meta {
 }
 
 command <<<
- java -Xmx~{jobMemory-2}G -jar $PICARD_ROOT/picard.jar BuildBamIndex \
+ java -Xmx~{jobMemory-6}G -jar $PICARD_ROOT/picard.jar BuildBamIndex \
                               VALIDATION_STRINGENCY=LENIENT \
                               OUTPUT="~{basename(inputBam, '.bam')}.bai" \
                               INPUT=~{inputBam} 
