@@ -18,12 +18,12 @@
         "wdl_inputs": {
           "star.fastqR1": "/.mounts/labs/gsi/testdata/STAR/input_data/k562_NoIndex_L001_R1_001.fastq.gz",
           "star.fastqR2": "/.mounts/labs/gsi/testdata/STAR/input_data/k562_NoIndex_L001_R2_001.fastq.gz",
-          "star.RGID": "121005_h804_0096_AD0V4NACXX_5_NoIndex",
-          "star.RGPL": "Illumina",
-          "star.RGPU": "121005_h804_0096_AD0V4NACXX_5_NoIndex",
-          "star.RGLB": "K562",
-          "star.RGSM": "K562TEST",
-          "star.RGCM": "OICR"
+          "star.rgid": "121005_h804_0096_AD0V4NACXX_5_NoIndex",
+          "star.rgpl": "Illumina",
+          "star.rgpu": "121005_h804_0096_AD0V4NACXX_5_NoIndex",
+          "star.rglb": "K562",
+          "star.rgsm": "K562TEST",
+          "star.rgcm": "OICR"
         }
       }
     }

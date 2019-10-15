@@ -6,17 +6,17 @@ input {
  File? fastqR2
  String? additionalParameters = ""
  String? outputFileNamePrefix = ""
- String RGID
- String RGLB
- String RGPL
- String RGPU
- String RGSM
- String? RGCM
+ String rgid
+ String rglb
+ String rgpl
+ String rgpu
+ String rgsm
+ String? rgcm
 }
 
 String? outputPrefix = if outputFileNamePrefix=="" then basename(fastqR1, '.fastq.gz') else outputFileNamePrefix
 
-call makeRg{ input: RGID = RGID, RGLB = RGLB, RGPL = RGPL, RGPU = RGPU, RGSM = RGSM, RGCM = RGCM }
+call makeRg{ input: rgid = rgid, rglb = rglb, rgpl = rgpl, rgpu = rgpu, rgsm = rgsm, rgcm = rgcm }
 call runStar{ input: fastqR1 = fastqR1, fastqR2 = fastqR2, fileNAME = outputPrefix, addParam  = additionalParameters, rgLine = makeRg.rgLine }
 call indexBam as finalIndex{ input: inputBam = runStar.outputBam }
 
@@ -39,25 +39,25 @@ output {
 # ==========================================
 task makeRg {
 input {
- String RGID
- String RGLB
- String RGPL
- String RGPU
- String RGSM
- String? RGCM="MyCompany"
+ String rgid
+ String rglb
+ String rgpl
+ String rgpu
+ String rgsm
+ String? rgcm="MyCompany"
 }
 
 parameter_meta {
- RGID: "ID field in Read Group field"
- RGLB: "LB field in Read Group field"
- RGPL: "PL field in Read Group field"
- RGPU: "PU field in Read Group field"
- RGSM: "SM field in Read Group field"
- RGCM: "CM field in Read Group field"
+ rgid: "ID field in Read Group field"
+ rglb: "LB field in Read Group field"
+ rgpl: "PL field in Read Group field"
+ rgpu: "PU field in Read Group field"
+ rgsm: "SM field in Read Group field"
+ rgcm: "CM field in Read Group field"
 }
 
 command <<<
- RG=$(echo "ID:~{RGID} PL:~{RGPL} PU:~{RGPU} LB:~{RGLB} SM:~{RGSM} CM:~{RGCM}")
+ RG=$(echo "ID:~{rgid} PL:~{rgpl} PU:~{rgpu} LB:~{rglb} SM:~{rgsm} CM:~{rgcm}")
  echo $RG
 >>>
 
