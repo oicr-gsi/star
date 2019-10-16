@@ -44,7 +44,7 @@ input {
  String rgpl
  String rgpu
  String rgsm
- String? rgcm="MyCompany"
+ String? rgcm
 }
 
 parameter_meta {
@@ -57,7 +57,8 @@ parameter_meta {
 }
 
 command <<<
- RG=$(echo "ID:~{rgid} PL:~{rgpl} PU:~{rgpu} LB:~{rglb} SM:~{rgsm} CM:~{rgcm}")
+ CM=$(echo ~{"CM:"+rgcm}) 
+ RG=$(echo "ID:~{rgid} PL:~{rgpl} PU:~{rgpu} LB:~{rglb} SM:~{rgsm} "$CM)
  echo $RG
 >>>
 
