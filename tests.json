@@ -1,6 +1,6 @@
 {
   "defaults": {
-    "description": "STAR-multi workflow test",
+    "description": "STAR workflow test",
     "metrics_calculate": "calculate.sh",
     "metrics_compare": "compare.sh",
     "output_metrics_dir": "/.mounts/labs/gsi/testdata/STAR/2.0/output_metrics",
