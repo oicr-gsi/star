@@ -1,125 +1,103 @@
-## RNASeq STAR Alignment
-The STAR pipeline takes in 2 gzip-ped FASTQ files from RNAseq sources (paired sequencing), trims 
-and then process them through a set of steps to map the reads to the supplied reference genome,
-annotate Read Groups and index the bam file.
+# STAR
 
-The pipeline implemented as a [SeqWare](http://seqware.github.io/) workflow.
+STAR 2.0
 
-## Overview of the pipeline
-The below flowchart summarizes each of the components' functionality
+## Overview
 
-![star flowchart](docs/StarSummary.png)
+## Dependencies
 
-## Compile
+* [star 2.7.3a](https://github.com/alexdobin/STAR)
+* [picard 2.19.2](https://broadinstitute.github.io/picard/)
 
+
+## Usage
+
+### Cromwell
+```
+java -jar cromwell.jar run STAR.wdl --inputs inputs.json
+```
+
+### Inputs
+
+#### Required workflow parameters:
+Parameter|Value|Description
+---|---|---
+`inputFqsRgs`|Array[Pair[Pair[File,File],String]]+|
+`outputFileNamePrefix`|String|
+
+
+#### Optional workflow parameters:
+Parameter|Value|Default|Description
+---|---|---|---
+
+
+#### Optional task parameters:
+Parameter|Value|Default|Description
+---|---|---|---
+`runStar.genome_index_dir`|String|"$HG38_STAR_INDEX100_ROOT/"|
+`runStar.starSuffix`|String|"Aligned.sortedByCoord.out"|Suffix for sorted file
+`runStar.transcriptomeSuffix`|String|"Aligned.toTranscriptome.out"|Suffix for transcriptome-aligned file
+`runStar.chimericjunctionSuffix`|String|"Chimeric.out"|Suffix for chimeric junction file
+`runStar.genereadSuffix`|String|"ReadsPerGene.out"|ReadsPerGene file suffix
+`runStar.addParam`|String?|None|Additional STAR parameters
+`runStar.modules`|String|"star/2.7.3a hg38-star-index100/2.7.3a"|modules for running STAR
+`runStar.uniqMAPQ`|Int|255|Score for unique mappers
+`runStar.saSparsed`|Int|2|saSparsed parameter for STAR
+`runStar.multiMax`|Int|-1|multiMax parameter for STAR
+`runStar.chimSegmin`|Int|12|minimum length of chimeric segment length
+`runStar.chimJunOvMin`|Int|12|minimum overhang for a chimeric junction
+`runStar.alignSJDBOvMin`|Int|10|minimum overhang for annotated spliced alignments
+`runStar.alignMatGapMax`|Int|100000|maximum gap between two mates
+`runStar.alignIntMax`|Int|100000|maximum intron size
+`runStar.chimMulmapScoRan`|Int|3|the score range for multi-mapping chimeras below the best chimeric score
+`runStar.chimScoJunNonGTAG`|Int|-4|penalty for a non-GTAG chimeric junction
+`runStar.chimMulmapNmax`|Int|20|maximum number of chimeric multi-alignments
+`runStar.chimNonchimScoDMin`|Int|10|to trigger chimeric detection, the drop in the best non-chimeric alignment score with respect to the read length has to be greater than this value
+`runStar.peOvNbasesMin`|Int|12|minimum number of overlap bases to trigger mates merging and realignment
+`runStar.peOvMMp`|Float|0.1|maximum proportion of mismatched bases in the overlap area
+`runStar.threads`|Int|6|Requested CPU threads
+`runStar.jobMemory`|Int|64|Memory allocated for this job
+`indexBam.jobMemory`|Int|12|Memory allocated indexing job
+`indexBam.modules`|String?|"java/8 picard/2.19.2"|modules for running indexing job
+
+
+### Outputs
+
+Output | Type | Description
+---|---|---
+`starBam`|File|None
+`starChimeric`|File|None
+`starIndex`|File|None
+`transcriptomeBam`|File|None
+`geneReadFile`|File|None
+
+
+## Niassa + Cromwell
+
+This WDL workflow is wrapped in a Niassa workflow (https://github.com/oicr-gsi/pipedev/tree/master/pipedev-niassa-cromwell-workflow) so that it can used with the Niassa metadata tracking system (https://github.com/oicr-gsi/niassa).
+
+* Building
 ```
 mvn clean install
 ```
 
-## Usage
-After compilation, [test](http://seqware.github.io/docs/3-getting-started/developer-tutorial/#testing-the-workflow), [bundle](http://seqware.github.io/docs/3-getting-started/developer-tutorial/#packaging-the-workflow-into-a-workflow-bundle) and [install](http://seqware.github.io/docs/3-getting-started/admin-tutorial/#how-to-install-a-workflow) the workflow using the techniques described in the SeqWare documentation.
+* Testing
+```
+mvn clean verify \
+-Djava_opts="-Xmx1g -XX:+UseG1GC -XX:+UseStringDeduplication" \
+-DrunTestThreads=2 \
+-DskipITs=false \
+-DskipRunITs=false \
+-DworkingDirectory=/path/to/tmp/ \
+-DschedulingHost=niassa_oozie_host \
+-DwebserviceUrl=http://niassa-url:8080 \
+-DwebserviceUser=niassa_user \
+-DwebservicePassword=niassa_user_password \
+-Dcromwell-host=http://cromwell-url:8000
+```
 
-### Workflow Parameters
+## Support
 
-Input/Output:
+For support, please file an issue on the [Github project](https://github.com/oicr-gsi) or send an email to gsi@oicr.on.ca .
 
-        input_file_1    string  input file with the first mate reads. Presently only one file is allowed
-        input_file_2    string  input file with the second mate reads. Presently only one file is allowed
-        index_dir       string  directory with STAR indexes, workflow needs it to align reads of specific length
-
-        output_prefix   string  a root directory for outputting the results
-        output_dir      string  specifies a subdirectory for outputting files
-        manual_output   string  When false, a random integer will be
-                                inserted into the path of the final file
-                                in order to ensure uniqueness. When true,
-                                the output files will be moved to the
-                                location of output_prefix/output_dir
-                                [false]Determines if randomly named subdir will be created in output directory tree
-
-        queue           string  SGE cluster queue
-
-Read Group Information (Supported so that User could override these if needed):
-
-        rg_platform_unit    PU in Read Group annotation
-        rg_library          LB in Read Group annotation	 
-        rg_platform         LB in Read Group annotation	 
-        rg_sample_name      LB in Read Group annotation	 
-        rg_organization     Organization that performed the experiment
-        sequencer_run_name  LB in Read Group annotation
-        barcode	            if available, the sequence of a barcode
-        lane                sequencer lane
-        ius_accession	    File IUS accession
-
-*IUS = Indivisible Sequencing Unit*
-
-        star             path     points to STAR binary in a directory where the bundled STAR resides
-        picard_dir	 dir      Directory with operation-specific jar files for picard tools
-        star_aln_threads integer  Threads (Cores) requested for STAR on SGE cluster
-        star-aln-mem-mb  integer  Memory (in Mb) allocated to STAR SeqWare job
-        uniqMapQ         integer  Score assigned to reads aligned to a unique location (Unique mappers)
-        multimap_max     integer  This is to ensure we get all multi-mappers, 
-                                  may be customized to limit number of reads 
-                                  mapped to multiple locations in the final bam
-        sa_sparsed       integer  this is a memory-optimization parameter, we use the same as PMH folks are using
-        
-        additionalStarParams      If needed, user may supply additional STAR parameters
-
-*By default, STAR assigns 255 as mapping score to such reads, this may break downstream analyses (especially with GATK) so the workflow overrides this default value assigning 60  instead*
-
-
-### Decider Parameters
-Arguments to the decider
-
-Input/Output:
-
-        manual-output   Specifies how the output subtree is created (random number subdirectories created or not)
-        index-dir       This should be supplied each time
-        template-type   It is recommended to use WT, MR and other RNAseq template type(s)
-        output-dir      subdirectory for outputting the results, will be created automatically if does not exist
-        output-prefix   where do we want the results
-        queue           SGE queue, normally not set but for STAR we need a queue that would be able 
-                        to reserve multi-core nodes for parallel processing
-        manual-output   Provision files into directory subtree with randomly named subdirectory 
-                        (when set to FALSE)
-        verbose         Request more to output more information when running the Decider
-
-STAR Parameters:
-
-        star-aln-threads      integer  Threads (Cores) allocated to STAR job
-        star-aln-mem-mb       integer  Memory in Mb allocated to STAR SeqWare job
-        additionalStarParams  string   User may supply additional STAR parameters
-
-        read1-adapter-trim    string  Adapter trimming 
-                                      i.e. TruSeq Universal Adapter (AGATCGGAAGAGCGGTTCAGCAGGAATGCCGAGACCG)
-        read2-adapter-trim    string  Adapter trimming
-                                      i.e. TruSeq Universal Adapter (AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT)
-
-Read Group Data:
-
-        rg-platform-unit    PU in Read Group annotation
-        rg-library          LB in Read Group annotation
-        rg-platform         PL in Read Group annotation
-        rg-sample-name      SM in Read Group annotation
-        rg-organization     CM Organization that performed the experiment [OICR]
-
-        outSAMattributes (may be also None or noQS but we do not need this set to any of these values)	 
-        twopassMode      type of two-pass alignment [Basic]
-        readFilesCommand Command for assisting with reading the input files [zcat]
-        outSAMmultNmax   Defines how multimapped reads are handled
-        outSAMmapqUnique STAR uses 255 mapq for uniquely mapped reads. 
-                         This is not good for downstream analysis (GATK disregards reads with mapq 255) [60]
-        outSAMtype       May be Unsorted, SortedByCoordinate or both (two files per alignment will be produced)
-
-### Output files
-
-File basename is constructed using Meta-data information obtained via Decider and includes File SeqWare ID, Donor, sequencer run, library, barcode and lane information.
-
- *FILE_BASENAME.Aligned.sortedByCoord.out.report.bam*
-
- *FILE_BASENAME.Aligned.sortedByCoord.out.report.bai*
-
-Alignment file and it's index with Read Group information added, sorted by coordinate
-
-### Support
-
-For support, please file an issue on the [Github project](https://github.com/oicr-gsi) or send an email to gsi@oicr.on.ca.
+_Generated with wdl_doc_gen (https://github.com/oicr-gsi/wdl_doc_gen/)_
