@@ -14,7 +14,7 @@ STAR 2.0
 
 ### Cromwell
 ```
-java -jar cromwell.jar run STAR.wdl --inputs inputs.json
+java -jar cromwell.jar run star.wdl --inputs inputs.json
 ```
 
 ### Inputs

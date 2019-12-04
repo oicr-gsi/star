@@ -1,6 +1,6 @@
 version 1.0
 
-workflow STAR {
+workflow star {
 input {
  Array[Pair[Pair[File, File], String]]+ inputFqsRgs
  String outputFileNamePrefix
