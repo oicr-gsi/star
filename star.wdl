@@ -6,13 +6,13 @@ input {
  String outputFileNamePrefix
 }
 
-scatter (fq_rg in inputFqsRgs) {
-    File read1s    = fq_rg.left.left
-    File read2s    = fq_rg.left.right
-    String readgroups = fq_rg.right
+scatter (FqRg in inputFqsRgs) {
+    File read1s       = FqRg.left.left
+    File read2s       = FqRg.left.right
+    String readGroups = FqRg.right
 }
 
-call runStar { input: read1s = read1s, read2s = read2s, readgroups = readgroups, outputFileNamePrefix = outputFileNamePrefix }
+call runStar { input: read1s = read1s, read2s = read2s, readGroups = readGroups, outputFileNamePrefix = outputFileNamePrefix }
 call indexBam { input: inputBam = runStar.outputBam }
 
 meta {
@@ -47,8 +47,8 @@ task runStar {
 input {
   Array[File]+ read1s
   Array[File]+ read2s
-  Array[String]+ readgroups
-  String genome_index_dir = "$HG38_STAR_INDEX100_ROOT/"
+  Array[String]+ readGroups
+  String genomeIndexDir = "$HG38_STAR_INDEX100_ROOT/"
   String outputFileNamePrefix
   String starSuffix = "Aligned.sortedByCoord.out"
   String transcriptomeSuffix = "Aligned.toTranscriptome.out"
@@ -72,12 +72,13 @@ input {
   Float peOvMMp = 0.1
   Int threads = 6
   Int jobMemory = 64
+  Int timeout = 72
 }
 
 parameter_meta {
  read1s: "array of read1s"
  read2s: "array of read2s"
- readgroups: "array of readgroup lines"
+ readGroups: "array of readgroup lines"
  starSuffix: "Suffix for sorted file"
  transcriptomeSuffix: "Suffix for transcriptome-aligned file"
  chimericjunctionSuffix: "Suffix for chimeric junction file"
@@ -100,18 +101,19 @@ parameter_meta {
  peOvMMp: "maximum proportion of mismatched bases in the overlap area"
  threads: "Requested CPU threads"
  jobMemory: "Memory allocated for this job"
+ timeout: "hours before task timeout"
 }
 
 # missing --clip3pAdapterSeq $adaptors
 command <<<
  STAR --twopassMode Basic \
-      --genomeDir ~{genome_index_dir} \
+      --genomeDir ~{genomeIndexDir} \
       --readFilesIn ~{sep="," read1s} ~{sep="," read2s} \
       --readFilesCommand zcat \
       --outFilterIntronMotifs RemoveNoncanonical \
       --outFileNamePrefix ~{outputFileNamePrefix}. \
       --outSAMmultNmax ~{multiMax} \
-      --outSAMattrRGline ~{sep=" , " readgroups} \
+      --outSAMattrRGline ~{sep=" , " readGroups} \
       --outSAMstrandField intronMotif \
       --outSAMmapqUnique  ~{uniqMAPQ} \
       --outSAMunmapped Within KeepPairs \
@@ -137,8 +139,8 @@ runtime {
   memory:  "~{jobMemory} GB"
   modules: "~{modules}"
   cpu:     "~{threads}"
+  timeout: "~{timeout}"
 }
-
 
 output {
  File outputBam        = "~{outputFileNamePrefix}.~{starSuffix}.bam"
@@ -146,6 +148,16 @@ output {
  File transcriptomeBam = "~{outputFileNamePrefix}.~{transcriptomeSuffix}.bam"
  File geneReads        = "~{outputFileNamePrefix}.~{genereadSuffix}.tab"
 }
+
+meta {
+  output_meta: {
+    outputBam:        "Output bam aligned to genome",
+    outputChimeric:   "Output chimeric junctions file",
+    transcriptomeBam: "Output bam aligned to transcriptome",
+    geneReads:        "Output raw read counts per transcript"
+  }
+}
+
 }
 
 # ==========================================
@@ -153,15 +165,17 @@ output {
 # ==========================================
 task indexBam {
 input {
-	File   inputBam
-  Int   jobMemory  = 12
-  String? modules = "java/8 picard/2.19.2" 
+	File  inputBam
+  Int   jobMemory = 12
+  String modules  = "picard/2.19.2"
+  Int timeout     = 48
 }
 
 parameter_meta {
- inputBam: "Input bam file"
+ inputBam:  "Input bam file"
  jobMemory: "Memory allocated indexing job"
- modules: "modules for running indexing job"
+ modules:   "modules for running indexing job"
+ timeout:   "hours before task timeout"
 }
 
 command <<<
@@ -172,11 +186,19 @@ command <<<
 >>>
 
 runtime {
-  memory:  "~{jobMemory} GB"
+   memory: "~{jobMemory} GB"
   modules: "~{modules}"
+  timeout: "~{timeout}"
 }
 
 output {
   File outputBai = "~{basename(inputBam, '.bam')}.bai"
 }
+
+meta {
+  output_meta: {
+    outputBai: "Output index file for bam aligned to genome"
+  }
+}
+
 }

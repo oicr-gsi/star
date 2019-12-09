@@ -1,4 +1,4 @@
-# STAR
+# star
 
 STAR 2.0
 
@@ -34,7 +34,7 @@ Parameter|Value|Default|Description
 #### Optional task parameters:
 Parameter|Value|Default|Description
 ---|---|---|---
-`runStar.genome_index_dir`|String|"$HG38_STAR_INDEX100_ROOT/"|
+`runStar.genomeIndexDir`|String|"$HG38_STAR_INDEX100_ROOT/"|
 `runStar.starSuffix`|String|"Aligned.sortedByCoord.out"|Suffix for sorted file
 `runStar.transcriptomeSuffix`|String|"Aligned.toTranscriptome.out"|Suffix for transcriptome-aligned file
 `runStar.chimericjunctionSuffix`|String|"Chimeric.out"|Suffix for chimeric junction file
@@ -57,19 +57,21 @@ Parameter|Value|Default|Description
 `runStar.peOvMMp`|Float|0.1|maximum proportion of mismatched bases in the overlap area
 `runStar.threads`|Int|6|Requested CPU threads
 `runStar.jobMemory`|Int|64|Memory allocated for this job
+`runStar.timeout`|Int|72|hours before task timeout
 `indexBam.jobMemory`|Int|12|Memory allocated indexing job
-`indexBam.modules`|String?|"java/8 picard/2.19.2"|modules for running indexing job
+`indexBam.modules`|String|"picard/2.19.2"|modules for running indexing job
+`indexBam.timeout`|Int|48|hours before task timeout
 
 
 ### Outputs
 
 Output | Type | Description
 ---|---|---
-`starBam`|File|None
-`starChimeric`|File|None
-`starIndex`|File|None
-`transcriptomeBam`|File|None
-`geneReadFile`|File|None
+`starBam`|File|Output bam aligned to genome
+`starChimeric`|File|Output chimeric junctions file
+`starIndex`|File|Output index file for bam aligned to genome
+`transcriptomeBam`|File|Output bam aligned to transcriptome
+`geneReadFile`|File|Output raw read counts per transcript
 
 
 ## Niassa + Cromwell
