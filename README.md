@@ -53,6 +53,7 @@ Parameter|Value|Default|Description
 `runStar.chimScoJunNonGTAG`|Int|-4|penalty for a non-GTAG chimeric junction
 `runStar.chimMulmapNmax`|Int|20|maximum number of chimeric multi-alignments
 `runStar.chimNonchimScoDMin`|Int|10|to trigger chimeric detection, the drop in the best non-chimeric alignment score with respect to the read length has to be greater than this value
+`runStar.chimOutJunForm`|Int|1|flag to add metadata to chimeric junction output for functionality with starFusion - 1 for metadata, 0 for no metadata
 `runStar.peOvNbasesMin`|Int|12|minimum number of overlap bases to trigger mates merging and realignment
 `runStar.peOvMMp`|Float|0.1|maximum proportion of mismatched bases in the overlap area
 `runStar.threads`|Int|6|Requested CPU threads

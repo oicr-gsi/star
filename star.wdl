@@ -68,6 +68,7 @@ input {
   Int chimScoJunNonGTAG = -4
   Int chimMulmapNmax = 20
   Int chimNonchimScoDMin = 10
+  Int chimOutJunForm = 1
   Int peOvNbasesMin = 12
   Float peOvMMp = 0.1
   Int threads = 6
@@ -97,6 +98,7 @@ parameter_meta {
  chimScoJunNonGTAG: "penalty for a non-GTAG chimeric junction"
  chimMulmapNmax: "maximum number of chimeric multi-alignments"
  chimNonchimScoDMin: "to trigger chimeric detection, the drop in the best non-chimeric alignment score with respect to the read length has to be greater than this value"
+ chimOutJunForm: "flag to add metadata to chimeric junction output for functionality with starFusion - 1 for metadata, 0 for no metadata"
  peOvNbasesMin: "minimum number of overlap bases to trigger mates merging and realignment"
  peOvMMp: "maximum proportion of mismatched bases in the overlap area"
  threads: "Requested CPU threads"
@@ -130,6 +132,7 @@ command <<<
       --chimScoreJunctionNonGTAG ~{chimScoJunNonGTAG} \
       --chimMultimapNmax ~{chimMulmapNmax} \
       --chimNonchimScoreDropMin ~{chimNonchimScoDMin} \
+      --chimOutJunctionFormat ~{chimOutJunForm} \
       --peOverlapNbasesMin ~{peOvNbasesMin} \
       --peOverlapMMp ~{peOvMMp} \
       --runThreadN ~{threads} ~{addParam}

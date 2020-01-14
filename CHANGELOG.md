@@ -1,3 +1,5 @@
+## 2.0.1 - 2020-01-13
+- Hotfix to expose --chimOutJunctionFormat parameter needed for starFusion 
 ## 2.0   - 2019-09-29
 - Converting to cromwell wdl with changes to provision junction file and take multiple fastq pairs
 ## 1.1.1 - 2017-07-12 
