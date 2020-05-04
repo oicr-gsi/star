@@ -1,3 +1,5 @@
+## 2.0.2 - 2020-05-04
+- Make --chimOutJunctionFormat parameter optional for versions of star older than 2.6.1a
 ## 2.0.1 - 2020-01-13
 - Hotfix to expose --chimOutJunctionFormat parameter needed for starFusion 
 ## 2.0   - 2019-09-29
