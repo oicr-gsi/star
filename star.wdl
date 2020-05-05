@@ -68,7 +68,7 @@ input {
   Int chimScoJunNonGTAG = -4
   Int chimMulmapNmax = 20
   Int chimNonchimScoDMin = 10
-  Int? chimOutJunForm = 1
+  Int? chimOutJunForm
   Int peOvNbasesMin = 12
   Float peOvMMp = 0.1
   Int threads = 6
@@ -108,12 +108,6 @@ parameter_meta {
 
 # missing --clip3pAdapterSeq $adaptors
 command <<<
- star_version=$(sed 's/.*star\/\(.*\) .*/\1/' <<< "~{modules}")
-
- if [[ $star_version > '2.6.1a' || $star_version == '2.6.1a' ]]; then
-   chimOutJunFormCommandLine='--chimOutJunctionFormat ~{chimOutJunForm}'
- fi
-
  STAR --twopassMode Basic \
       --genomeDir ~{genomeIndexDir} \
       --readFilesIn ~{sep="," read1s} ~{sep="," read2s} \
@@ -138,7 +132,7 @@ command <<<
       --chimScoreJunctionNonGTAG ~{chimScoJunNonGTAG} \
       --chimMultimapNmax ~{chimMulmapNmax} \
       --chimNonchimScoreDropMin ~{chimNonchimScoDMin} \
-      $chimOutJunFormCommandLine \
+      ~{"--chimOutJunctionFormat " + chimOutJunForm} \
       --peOverlapNbasesMin ~{peOvNbasesMin} \
       --peOverlapMMp ~{peOvMMp} \
       --runThreadN ~{threads} ~{addParam}
