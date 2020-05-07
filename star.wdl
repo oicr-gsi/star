@@ -56,6 +56,7 @@ input {
   String genereadSuffix = "ReadsPerGene.out"
   String? addParam
   String modules = "star/2.7.3a hg38-star-index100/2.7.3a"
+  String outType = "WithinBAM Junctions SoftClip SeparateSAMold"
   Int uniqMAPQ = 255
   Int saSparsed = 2
   Int multiMax = -1
@@ -66,10 +67,8 @@ input {
   Int alignIntMax = 100000
   Int chimMulmapScoRan = 3
   Int chimScoJunNonGTAG = -4
-  Int chimMulmapNmax = 20
   Int chimNonchimScoDMin = 10
   Int chimOutJunForm = 1
-  Int peOvNbasesMin = 12
   Float peOvMMp = 0.1
   Int threads = 6
   Int jobMemory = 64
@@ -94,12 +93,11 @@ parameter_meta {
  alignSJDBOvMin: "minimum overhang for annotated spliced alignments"
  alignMatGapMax: "maximum gap between two mates"
  alignIntMax: "maximum intron size"
+ outType: "how to chimeric information is to be stored"
  chimMulmapScoRan: "the score range for multi-mapping chimeras below the best chimeric score"
  chimScoJunNonGTAG: "penalty for a non-GTAG chimeric junction"
- chimMulmapNmax: "maximum number of chimeric multi-alignments"
  chimNonchimScoDMin: "to trigger chimeric detection, the drop in the best non-chimeric alignment score with respect to the read length has to be greater than this value"
  chimOutJunForm: "flag to add metadata to chimeric junction output for functionality with starFusion - 1 for metadata, 0 for no metadata"
- peOvNbasesMin: "minimum number of overlap bases to trigger mates merging and realignment"
  peOvMMp: "maximum proportion of mismatched bases in the overlap area"
  threads: "Requested CPU threads"
  jobMemory: "Memory allocated for this job"
@@ -121,6 +119,7 @@ command <<<
       --outSAMunmapped Within KeepPairs \
       --genomeSAsparseD ~{saSparsed} \
       --outSAMtype BAM SortedByCoordinate \
+      --chimOutType ~{outType} \
       --quantMode TranscriptomeSAM GeneCounts \
       --chimSegmentMin ~{chimSegmin} \
       --chimJunctionOverhangMin ~{chimJunOvMin} \
@@ -130,10 +129,8 @@ command <<<
       --alignSJstitchMismatchNmax 5 -1 5 5 \
       --chimMultimapScoreRange ~{chimMulmapScoRan} \
       --chimScoreJunctionNonGTAG ~{chimScoJunNonGTAG} \
-      --chimMultimapNmax ~{chimMulmapNmax} \
       --chimNonchimScoreDropMin ~{chimNonchimScoDMin} \
       --chimOutJunctionFormat ~{chimOutJunForm} \
-      --peOverlapNbasesMin ~{peOvNbasesMin} \
       --peOverlapMMp ~{peOvMMp} \
       --runThreadN ~{threads} ~{addParam}
 >>>
