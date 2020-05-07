@@ -68,7 +68,7 @@ input {
   Int chimScoJunNonGTAG = -4
   Int chimMulmapNmax = 20
   Int chimNonchimScoDMin = 10
-  Int chimOutJunForm = 1
+  Int? chimOutJunForm
   Int peOvNbasesMin = 12
   Float peOvMMp = 0.1
   Int threads = 6
@@ -132,7 +132,7 @@ command <<<
       --chimScoreJunctionNonGTAG ~{chimScoJunNonGTAG} \
       --chimMultimapNmax ~{chimMulmapNmax} \
       --chimNonchimScoreDropMin ~{chimNonchimScoDMin} \
-      --chimOutJunctionFormat ~{chimOutJunForm} \
+      ~{"--chimOutJunctionFormat " + chimOutJunForm} \
       --peOverlapNbasesMin ~{peOvNbasesMin} \
       --peOverlapMMp ~{peOvMMp} \
       --runThreadN ~{threads} ~{addParam}
