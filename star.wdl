@@ -56,7 +56,7 @@ input {
   String genereadSuffix = "ReadsPerGene.out"
   String? addParam
   String modules = "star/2.7.3a hg38-star-index100/2.7.3a"
-  String outType = "WithinBAM Junctions SoftClip SeparateSAMold"
+  String outType = "WithinBAM SoftClip Junctions"
   Int uniqMAPQ = 255
   Int saSparsed = 2
   Int multiMax = -1
