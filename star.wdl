@@ -1,34 +1,46 @@
 version 1.0
 
+struct InputGroup {
+  File fastqR1
+  File fastqR2
+  String readGroup
+}
+
 workflow star {
-input {
- Array[Pair[Pair[File, File], String]]+ inputFqsRgs
- String outputFileNamePrefix
+  input {
+    Array[InputGroup] inputGroups
+    String outputFileNamePrefix
+    File? structuralVariants
 }
 
-scatter (FqRg in inputFqsRgs) {
-    File read1s       = FqRg.left.left
-    File read2s       = FqRg.left.right
-    String readGroups = FqRg.right
-}
+  scatter (ig in inputGroups) {
+    File read1s       = ig.fastqR1
+    File read2s       = ig.fastqR2
+    String readGroups = ig.readGroup
+  }
 
-call runStar {
-  input:
-  read1s = read1s,
-  read2s = read2s,
-  readGroups = readGroups,
-  outputFileNamePrefix = outputFileNamePrefix
- }
+  parameter_meta {
+    inputGroups: "Array of fastq files to align with STAR and the merged filename"
+    outputFileNamePrefix: "Prefix for filename"
+  }
 
-call indexBam {
-  input:
-  inputBam = runStar.outputBam }
+  call runStar {
+    input:
+    read1s = read1s,
+    read2s = read2s,
+    readGroups = readGroups,
+    outputFileNamePrefix = outputFileNamePrefix
+  }
 
-meta {
- author: "Peter Ruzanov"
- email: "peter.ruzanov@oicr.on.ca"
- description: "STAR 2.0"
- dependencies: [
+  call indexBam {
+   input:
+   inputBam = runStar.outputBam }
+
+  meta {
+   author: "Peter Ruzanov"
+   email: "peter.ruzanov@oicr.on.ca"
+   description: "STAR 2.0"
+   dependencies: [
       {
         name: "star/2.7.6a",
         url: "https://github.com/alexdobin/STAR"
