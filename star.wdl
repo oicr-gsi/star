@@ -21,7 +21,7 @@ meta {
  description: "STAR 2.0"
  dependencies: [
       {
-        name: "star/2.7.3a",
+        name: "star/2.7.6a",
         url: "https://github.com/alexdobin/STAR"
       },
       {
@@ -55,7 +55,9 @@ input {
   String chimericjunctionSuffix = "Chimeric.out"
   String genereadSuffix = "ReadsPerGene.out"
   String? addParam
-  String modules = "star/2.7.3a hg38-star-index100/2.7.3a"
+  String modules = "star/2.7.6a hg38-star-index100/2.7.6a"
+  String chimOutType = "WithinBAM HardClip"
+  Int outFilterMultimapNmax = 50
   Int uniqMAPQ = 255
   Int saSparsed = 2
   Int multiMax = -1
@@ -135,7 +137,8 @@ command <<<
       ~{"--chimOutJunctionFormat " + chimOutJunForm} \
       --peOverlapNbasesMin ~{peOvNbasesMin} \
       --peOverlapMMp ~{peOvMMp} \
-      --runThreadN ~{threads} ~{addParam}
+      --outFilterMultimapNmax ~{outFilterMultimapNmax} \
+      --runThreadN ~{threads} --chimOutType ~{chimOutType} ~{addParam}
 >>>
 
 runtime {
@@ -185,7 +188,7 @@ command <<<
  java -Xmx~{jobMemory-6}G -jar $PICARD_ROOT/picard.jar BuildBamIndex \
                               VALIDATION_STRINGENCY=LENIENT \
                               OUTPUT="~{basename(inputBam, '.bam')}.bai" \
-                              INPUT=~{inputBam} 
+                              INPUT=~{inputBam}
 >>>
 
 runtime {
