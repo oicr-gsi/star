@@ -12,8 +12,17 @@ scatter (FqRg in inputFqsRgs) {
     String readGroups = FqRg.right
 }
 
-call runStar { input: read1s = read1s, read2s = read2s, readGroups = readGroups, outputFileNamePrefix = outputFileNamePrefix }
-call indexBam { input: inputBam = runStar.outputBam }
+call runStar {
+  input:
+  read1s = read1s,
+  read2s = read2s,
+  readGroups = readGroups,
+  outputFileNamePrefix = outputFileNamePrefix
+ }
+
+call indexBam {
+  input:
+  inputBam = runStar.outputBam }
 
 meta {
  author: "Peter Ruzanov"
@@ -58,20 +67,23 @@ input {
   String modules = "star/2.7.6a hg38-star-index100/2.7.6a"
   String chimOutType = "WithinBAM HardClip"
   Int outFilterMultimapNmax = 50
+  Int chimScoreDropMax = 30
   Int uniqMAPQ = 255
   Int saSparsed = 2
   Int multiMax = -1
-  Int chimSegmin = 12
-  Int chimJunOvMin = 12
+  Int chimSegmin = 10
+  Int chimJunOvMin = 10
   Int alignSJDBOvMin = 10
   Int alignMatGapMax = 100000
   Int alignIntMax = 100000
   Int chimMulmapScoRan = 3
-  Int chimScoJunNonGTAG = -4
-  Int chimMulmapNmax = 20
+  Int chimScoJunNonGTAG = 0
+  Int chimScoreSeparation = 1
+  Int chimMulmapNmax = 50
   Int chimNonchimScoDMin = 10
   Int? chimOutJunForm
-  Int peOvNbasesMin = 12
+  Int peOvNbasesMin = 10
+  Int chimSegmentReadGapMax = 3
   Float peOvMMp = 0.1
   Int threads = 6
   Int jobMemory = 64
@@ -103,6 +115,9 @@ parameter_meta {
  chimOutJunForm: "flag to add metadata to chimeric junction output for functionality with starFusion - 1 for metadata, 0 for no metadata"
  peOvNbasesMin: "minimum number of overlap bases to trigger mates merging and realignment"
  peOvMMp: "maximum proportion of mismatched bases in the overlap area"
+ chimScoreDropMax: "max drop (difference) of chimeric score (the sum of scores of allchimeric segments) from the read length"
+ chimScoreSeparation: "minimum difference (separation) between the best chimeric score and the next one"
+ chimSegmentReadGapMax: "maximum gap in the read sequence between chimeric segments"
  threads: "Requested CPU threads"
  jobMemory: "Memory allocated for this job"
  timeout: "hours before task timeout"
@@ -138,7 +153,10 @@ command <<<
       --peOverlapNbasesMin ~{peOvNbasesMin} \
       --peOverlapMMp ~{peOvMMp} \
       --outFilterMultimapNmax ~{outFilterMultimapNmax} \
-      --runThreadN ~{threads} --chimOutType ~{chimOutType} ~{addParam}
+      --runThreadN ~{threads} --chimOutType ~{chimOutType} \
+      --chimScoreDropMax ~{chimScoreDropMax} \
+      --chimScoreSeparation ~{chimScoreSeparation} \
+      --chimSegmentReadGapMax ~{chimSegmentReadGapMax} ~{addParam}
 >>>
 
 runtime {
