@@ -10,8 +10,7 @@ workflow star {
   input {
     Array[InputGroup] inputGroups
     String outputFileNamePrefix
-    File? structuralVariants
-}
+  }
 
   scatter (ig in inputGroups) {
     File read1s       = ig.fastqR1
@@ -39,7 +38,7 @@ workflow star {
   meta {
    author: "Peter Ruzanov"
    email: "peter.ruzanov@oicr.on.ca"
-   description: "STAR 2.0"
+   description: "STAR 2.1"
    dependencies: [
       {
         name: "star/2.7.6a",
@@ -106,6 +105,7 @@ parameter_meta {
  read2s: "array of read2s"
  readGroups: "array of readgroup lines"
  starSuffix: "Suffix for sorted file"
+ genomeIndexDir: "Path to STAR index"
  transcriptomeSuffix: "Suffix for transcriptome-aligned file"
  chimericjunctionSuffix: "Suffix for chimeric junction file"
  genereadSuffix: "ReadsPerGene file suffix"
@@ -116,11 +116,13 @@ parameter_meta {
  multiMax: "multiMax parameter for STAR"
  chimSegmin: "minimum length of chimeric segment length"
  chimJunOvMin: "minimum overhang for a chimeric junction"
+ chimOutType: "Indicate where chimeric reads are to be written"
  alignSJDBOvMin: "minimum overhang for annotated spliced alignments"
  alignMatGapMax: "maximum gap between two mates"
  alignIntMax: "maximum intron size"
  chimMulmapScoRan: "the score range for multi-mapping chimeras below the best chimeric score"
  chimScoJunNonGTAG: "penalty for a non-GTAG chimeric junction"
+ outFilterMultimapNmax: "max number of multiple alignments allowed for a read: if exceeded, the read is considered unmapped"
  chimMulmapNmax: "maximum number of chimeric multi-alignments"
  chimNonchimScoDMin: "to trigger chimeric detection, the drop in the best non-chimeric alignment score with respect to the read length has to be greater than this value"
  chimOutJunForm: "flag to add metadata to chimeric junction output for functionality with starFusion - 1 for metadata, 0 for no metadata"
