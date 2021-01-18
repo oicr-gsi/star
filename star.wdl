@@ -55,6 +55,7 @@ output {
   File starBam          = runStar.outputBam
   File starIndex        = indexBam.outputBai
   File transcriptomeBam = runStar.transcriptomeBam
+  File starChimeric     = runStar.outputChimeric
   File geneReadFile     = runStar.geneReads
  }
 }
@@ -181,6 +182,7 @@ runtime {
 
 output {
  File outputBam        = "~{outputFileNamePrefix}.~{starSuffix}.bam"
+ File outputChimeric   = "~{outputFileNamePrefix}.~{chimericjunctionSuffix}.junction"
  File transcriptomeBam = "~{outputFileNamePrefix}.~{transcriptomeSuffix}.bam"
  File geneReads        = "~{outputFileNamePrefix}.~{genereadSuffix}.tab"
 }
@@ -188,6 +190,7 @@ output {
 meta {
   output_meta: {
     outputBam:        "Output bam aligned to genome",
+      outputChimeric:   "Output chimeric junctions file",
     transcriptomeBam: "Output bam aligned to transcriptome",
     geneReads:        "Output raw read counts per transcript"
   }
