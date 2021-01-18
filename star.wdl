@@ -76,7 +76,7 @@ input {
   String genereadSuffix = "ReadsPerGene.out"
   String? addParam
   String modules = "star/2.7.6a hg38-star-index100/2.7.6a"
-  String chimOutType = "WithinBAM HardClip"
+  String chimOutType = "WithinBAM HardClip Junctions"
   Int outFilterMultimapNmax = 50
   Int chimScoreDropMax = 30
   Int uniqMAPQ = 255
