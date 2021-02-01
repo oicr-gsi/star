@@ -17,6 +17,7 @@
     <properties>
         <workflow-description>Workflow for aligning RNAseq reads.</workflow-description>
 	<wdl-workflow>star.wdl</wdl-workflow>
+  <test-basedir>tests/</test-basedir>
         <test-definition>tests.json</test-definition>
     </properties>
 
