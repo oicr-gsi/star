@@ -13,6 +13,6 @@ find . -regex '.*\.bam$' -exec samtools view -H {} \; | grep '^@RG' | sort
 
 find . -regex '.*\.bam$' -exec samtools flagstat {} \; | sort
 
-find . -regex '.*\.tab$' -exec wc -l {} \;
+find . -regex '.*\.tab$' -exec /bin/bash -c "cat {} | md5sum" \; | sort
 
-find . -regex '.*\.junction$' -exec wc -l {} \;
+find . -regex '.*\.junction$' -exec /bin/bash -c "cat {} | md5sum" \; | sort
