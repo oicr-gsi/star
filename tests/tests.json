@@ -45,7 +45,8 @@
               "readGroup": "ID:191126_NB551056_0130_AHTMW5BGXC LB:TGL24_0115_Bn_U_PE_325_WT SM:EPT105 CM:OICR"
             }
           ],
-          "star.outputFileNamePrefix": "EPT105"
+          "star.outputFileNamePrefix": "EPT105",
+          "star.runStar.chimOutJunForm": 1
         }
       }
     }

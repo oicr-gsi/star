@@ -36,8 +36,8 @@ workflow star {
    inputBam = runStar.outputBam }
 
   meta {
-   author: "Peter Ruzanov"
-   email: "peter.ruzanov@oicr.on.ca"
+   author: "Peter Ruzanov, Alexander Fortuna"
+   email: "peter.ruzanov@oicr.on.ca, alexander.fortuna@oicr.on.ca"
    description: "STAR 2.1"
    dependencies: [
       {
@@ -139,6 +139,8 @@ parameter_meta {
 
 # missing --clip3pAdapterSeq $adaptors
 command <<<
+ set -euo pipefail
+
  STAR --twopassMode Basic \
       --genomeDir ~{genomeIndexDir} \
       --readFilesIn ~{sep="," read1s} ~{sep="," read2s} \
@@ -171,6 +173,10 @@ command <<<
       --chimScoreDropMax ~{chimScoreDropMax} \
       --chimScoreSeparation ~{chimScoreSeparation} \
       --chimSegmentReadGapMax ~{chimSegmentReadGapMax} ~{addParam}
+
+ awk 'NR<2{print $0;next}{print $0| "sort -V"}' ~{outputFileNamePrefix}.~{chimericjunctionSuffix}.junction \
+ > tmp && mv tmp ~{outputFileNamePrefix}.~{chimericjunctionSuffix}.junction
+
 >>>
 
 runtime {
