@@ -1,0 +1,7 @@
+{
+    "names": [
+        "star_call_ready",
+        "star_lane_level"
+    ],
+    "wdl": "star.wdl"
+}

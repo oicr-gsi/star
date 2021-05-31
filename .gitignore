@@ -9,3 +9,5 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 inputs.json
+v.out
+vidarrtest-regression.json
