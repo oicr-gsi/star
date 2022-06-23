@@ -101,7 +101,7 @@
         },
         "id": "k562_RNAseqTest",
         "metadata": {
-            "star.outputBam": {
+            "star.geneReadFile": {
                 "contents": [
                     {
                         "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest_@JENKINSID@"
@@ -109,7 +109,23 @@
                 ],
                 "type": "ALL"
             },
-            "star.outputChimeric": {
+            "star.starBam": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
+            "star.starChimeric": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
+            "star.starIndex": {
                 "contents": [
                     {
                         "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest_@JENKINSID@"
@@ -118,14 +134,6 @@
                 "type": "ALL"
             },
             "star.transcriptomeBam": {
-                "contents": [
-                    {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest_@JENKINSID@"
-                    }
-                ],
-                "type": "ALL"
-            },
-            "star.geneReads": {
                 "contents": [
                     {
                         "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest_@JENKINSID@"
@@ -243,7 +251,7 @@
         },
         "id": "EPT105_RNAseqTest",
         "metadata": {
-            "star.outputBam": {
+            "star.geneReadFile": {
                 "contents": [
                     {
                         "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_EPT105_RNAseqTest_@JENKINSID@"
@@ -251,7 +259,23 @@
                 ],
                 "type": "ALL"
             },
-            "star.outputChimeric": {
+            "star.starBam": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_EPT105_RNAseqTest_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
+            "star.starChimeric": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_EPT105_RNAseqTest_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
+            "star.starIndex": {
                 "contents": [
                     {
                         "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_EPT105_RNAseqTest_@JENKINSID@"
@@ -260,14 +284,6 @@
                 "type": "ALL"
             },
             "star.transcriptomeBam": {
-                "contents": [
-                    {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_EPT105_RNAseqTest_@JENKINSID@"
-                    }
-                ],
-                "type": "ALL"
-            },
-            "star.geneReads": {
                 "contents": [
                     {
                         "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_EPT105_RNAseqTest_@JENKINSID@"
