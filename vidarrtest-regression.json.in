@@ -4,7 +4,7 @@
             "star.indexBam.jobMemory": null,
             "star.indexBam.modules": null,
             "star.indexBam.timeout": null,
-            "star.inputGroups": [
+            "star.inputFqsRgs": [
                 {
                   "left": {
                     "left": {
@@ -156,7 +156,7 @@
             "star.indexBam.jobMemory": null,
             "star.indexBam.modules": null,
             "star.indexBam.timeout": null,
-            "star.inputGroups": [
+            "star.inputFqsRgs": [
                 { "left": {
                     "left": {
                         "contents": {
