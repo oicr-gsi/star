@@ -3,7 +3,7 @@
 ## 2.1 - 2021-01-14
 - update STAR to 2.7.6a
 - add chimOutType option to write chimeric reads WithinBAM
-## 2.0.3 - 2022-06-22
+## 2.0.4 - 2022-06-22
 - migrate star 2.0.2 to Vidarr
 ## 2.0.2 - 2020-05-04
 - Make --chimOutJunctionFormat parameter optional for versions of star older than 2.6.1a
