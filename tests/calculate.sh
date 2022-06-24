@@ -15,4 +15,4 @@ find . -regex '.*\.bam$' -exec samtools flagstat {} \; | sort
 
 find . -regex '.*\.tab$' -exec /bin/bash -c "cat {} | md5sum" \; | sort
 
-find . -regex '.*\.junction$' -exec /bin/bash -c "cat {} | grep -v '^#' | sort | md5sum" \; | sort
+find . -regex '.*\.junction$' -exec /bin/bash -c "cat {} | grep -v '^#' | sort -V | md5sum" \; | sort
