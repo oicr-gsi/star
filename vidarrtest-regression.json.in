@@ -93,7 +93,10 @@
             "star.runStar.uniqMAPQ": null
         },
         "description": "STAR workflow test",
-        "engineArguments": {},
+        "engineArguments": {
+           "write_to_cache": false,
+           "read_from_cache": false
+        },
         "id": "k562_RNAseqTest",
         "metadata": {
             "star.geneReadFile": {
@@ -240,7 +243,10 @@
             "star.runStar.uniqMAPQ": null
         },
         "description": "STAR workflow test",
-        "engineArguments": {},
+        "engineArguments": {
+           "write_to_cache": false,
+           "read_from_cache": false
+        },
         "id": "EPT105_RNAseqTest",
         "metadata": {
             "star.geneReadFile": {
