@@ -29,7 +29,7 @@
                          },
                         "type": "EXTERNAL"
                      }
-             },
+            },
             "right": "ID:121005_h804_0096_AD0V4NACXX_4_NoIndex PL:Illumina PU:121005_h804_0096_AD0V4NACXX_4_NoIndex LB:K562_1 SM:K562_1test CM:OICR"
             }
             ],
@@ -155,7 +155,7 @@
              },
             "right": "ID:191025_NB551056_0121_AH7LW2BGXC LB:TGL24_0115_Bn_U_PE_325_WT SM:EPT105 CM:OICR"
             },
-            "left": {"left":  {
+            {"left": {"left":  {
                         "contents": {
                             "configuration": "/.mounts/labs/gsi/testdata/STAR/2.0.5/input_data/EPT105_B_R1_001.fastq.gz",
                             "externalIds": [
