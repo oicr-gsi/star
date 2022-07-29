@@ -4,7 +4,7 @@
             "star.indexBam.jobMemory": null,
             "star.indexBam.modules": null,
             "star.indexBam.timeout": null,
-            "star.inputFastqs": [{
+            "star.inputFqsRgs": [{
             "left": {"left":  {
                         "contents": {
                             "configuration": "/.mounts/labs/gsi/testdata/STAR/2.0.5/input_data/k562_NoIndex_L001_R1_001.fastq.gz",
@@ -127,7 +127,7 @@
             "star.indexBam.jobMemory": null,
             "star.indexBam.modules": null,
             "star.indexBam.timeout": null,
-            "star.inputFastqs": [{
+            "star.inputFqsRgs": [{
             "left": {"left":  {
                         "contents": {
                             "configuration": "/.mounts/labs/gsi/testdata/STAR/2.0.5/input_data/EPT105_A_R1_001.fastq.gz",
