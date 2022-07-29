@@ -1,0 +1,57 @@
+## Commands
+This section lists command(s) run by WORKFLOW workflow
+
+* Running WORKFLOW
+
+This workflow runs just two steps, STAR alignment and indexing with Picard tools.
+
+** Running STAR:
+
+```
+ set -euo pipefail
+ STAR --twopassMode Basic 
+      --genomeDir ~{genomeIndexDir} 
+      --readFilesIn ~{sep="," read1s} ~{sep="," read2s} 
+      --readFilesCommand zcat 
+      --outFilterIntronMotifs RemoveNoncanonical 
+      --outFileNamePrefix ~{outputFileNamePrefix}. 
+      --outSAMmultNmax ~{multiMax} 
+      --outSAMattrRGline ~{sep=" , " readGroups} 
+      --outSAMstrandField intronMotif 
+      --outSAMmapqUnique  ~{uniqMAPQ} 
+      --outSAMunmapped Within KeepPairs 
+      --genomeSAsparseD ~{saSparsed} 
+      --outSAMtype BAM SortedByCoordinate 
+      --quantMode TranscriptomeSAM GeneCounts 
+      --chimSegmentMin ~{chimSegmin} 
+      --chimJunctionOverhangMin ~{chimJunOvMin} 
+      --alignSJDBoverhangMin ~{alignSJDBOvMin} 
+      --alignMatesGapMax ~{alignMatGapMax} 
+      --alignIntronMax ~{alignIntMax} 
+      --alignSJstitchMismatchNmax 5 -1 5 5 
+      --chimMultimapScoreRange ~{chimMulmapScoRan}
+      --chimScoreJunctionNonGTAG ~{chimScoJunNonGTAG} 
+      --chimMultimapNmax ~{chimMulmapNmax} 
+      --chimNonchimScoreDropMin ~{chimNonchimScoDMin} ~{"--chimOutJunctionFormat " + chimOutJunForm} 
+      --peOverlapNbasesMin ~{peOvNbasesMin} 
+      --peOverlapMMp ~{peOvMMp} 
+      --outFilterMultimapNmax ~{outFilterMultimapNmax} 
+      --runThreadN ~{threads} 
+      --chimOutType ~{chimOutType} 
+      --chimScoreDropMax ~{chimScoreDropMax} 
+      --chimScoreSeparation ~{chimScoreSeparation} 
+      --chimSegmentReadGapMax ~{chimSegmentReadGapMax} ~{addParam}
+
+   awk 'NR<2{print $0;next}{print $0| "sort -V"}' ~{outputFileNamePrefix}.~{chimericjunctionSuffix}.junction 
+   > tmp && mv tmp ~{outputFileNamePrefix}.~{chimericjunctionSuffix}.junction
+
+```
+
+** Indexing with Picard tools:
+
+```
+ java -Xmx~{jobMemory-6}G -jar $PICARD_ROOT/picard.jar BuildBamIndex 
+                              VALIDATION_STRINGENCY=LENIENT 
+                              OUTPUT="~{basename(inputBam, '.bam')}.bai" 
+                              INPUT=~{inputBam} 
+```

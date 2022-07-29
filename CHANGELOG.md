@@ -1,3 +1,5 @@
+## 2.0.5 2022=07-29
+- to insure continuity and consistency, this updates star workflow master branch to what is running in production"
 ## 2.1.1 2021-05-31
 - Migrate to Vidarr
 ## 2.1 - 2021-01-14

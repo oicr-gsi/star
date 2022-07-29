@@ -4,11 +4,10 @@
             "star.indexBam.jobMemory": null,
             "star.indexBam.modules": null,
             "star.indexBam.timeout": null,
-            "star.inputGroups": [
-                {
-                    "fastqR1": {
+            "star.inputFastqs": [{
+            "left": {"left":  {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/STAR/2.1/input_data/k562_NoIndex_L001_R1_001.fastq.gz",
+                            "configuration": "/.mounts/labs/gsi/testdata/STAR/2.0.5/input_data/k562_NoIndex_L001_R1_001.fastq.gz",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -17,48 +16,22 @@
                             ]
                         },
                         "type": "EXTERNAL"
-                    },
-                    "fastqR2": {
-                        "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/STAR/2.1/input_data/k562_NoIndex_L001_R1_001.fastq.gz",
-                            "externalIds": [
-                                {
-                                    "id": "TEST",
-                                    "provider": "TEST"
-                                }
-                            ]
-                        },
+                     },
+                     "right": {
+                         "contents": {
+                             "configuration": "/.mounts/labs/gsi/testdata/STAR/2.0.5/input_data/k562_NoIndex_L001_R1_001.fastq.gz",
+                             "externalIds": [
+                                 {
+                                     "id": "TEST",
+                                     "provider": "TEST"
+                                 }
+                             ]
+                         },
                         "type": "EXTERNAL"
-                    },
-                    "readGroup": "ID:121005_h804_0096_AD0V4NACXX_4_NoIndex PL:Illumina PU:121005_h804_0096_AD0V4NACXX_4_NoIndex LB:K562_1 SM:K562_1test CM:OICR"
-                },
-                {
-                    "fastqR1": {
-                        "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/STAR/2.1/input_data/k562_NoIndex_L001_R1_001.fastq.gz",
-                            "externalIds": [
-                                {
-                                    "id": "TEST",
-                                    "provider": "TEST"
-                                }
-                            ]
-                        },
-                        "type": "EXTERNAL"
-                    },
-                    "fastqR2": {
-                        "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/STAR/2.1/input_data/k562_NoIndex_L001_R1_001.fastq.gz",
-                            "externalIds": [
-                                {
-                                    "id": "TEST",
-                                    "provider": "TEST"
-                                }
-                            ]
-                        },
-                        "type": "EXTERNAL"
-                    },
-                    "readGroup": "ID:121005_h804_0096_AD0V4NACXX_4_NoIndex PL:Illumina PU:121005_h804_0096_AD0V4NACXX_4_NoIndex LB:K562_1 SM:K562_1test CM:OICR"
-                }
+                     }
+             },
+            "right": "ID:121005_h804_0096_AD0V4NACXX_4_NoIndex PL:Illumina PU:121005_h804_0096_AD0V4NACXX_4_NoIndex LB:K562_1 SM:K562_1test CM:OICR"
+            }
             ],
             "star.outputFileNamePrefix": "K562",
             "star.runStar.addParam": null,
@@ -144,7 +117,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/STAR/2.1/output_metrics/k562_RNAseqTest.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/STAR/2.0.5/output_metrics/k562_RNAseqTest.metrics",
                 "type": "script"
             }
         ]
@@ -154,11 +127,10 @@
             "star.indexBam.jobMemory": null,
             "star.indexBam.modules": null,
             "star.indexBam.timeout": null,
-            "star.inputGroups": [
-                {
-                    "fastqR1": {
+            "star.inputFastqs": [{
+            "left": {"left":  {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/STAR/2.1/input_data/EPT105_A_R1_001.fastq.gz",
+                            "configuration": "/.mounts/labs/gsi/testdata/STAR/2.0.5/input_data/EPT105_A_R1_001.fastq.gz",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -167,10 +139,25 @@
                             ]
                         },
                         "type": "EXTERNAL"
-                    },
-                    "fastqR2": {
+                     },
+                     "right": {
+                         "contents": {
+                             "configuration": "/.mounts/labs/gsi/testdata/STAR/2.0.5/input_data/EPT105_A_R2_001.fastq.gz",
+                             "externalIds": [
+                                 {
+                                     "id": "TEST",
+                                     "provider": "TEST"
+                                 }
+                             ]
+                         },
+                        "type": "EXTERNAL"
+                     }
+             },
+            "right": "ID:191025_NB551056_0121_AH7LW2BGXC LB:TGL24_0115_Bn_U_PE_325_WT SM:EPT105 CM:OICR"
+            },
+            "left": {"left":  {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/STAR/2.1/input_data/EPT105_A_R2_001.fastq.gz",
+                            "configuration": "/.mounts/labs/gsi/testdata/STAR/2.0.5/input_data/EPT105_B_R1_001.fastq.gz",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -179,36 +166,22 @@
                             ]
                         },
                         "type": "EXTERNAL"
-                    },
-                    "readGroup": "ID:191025_NB551056_0121_AH7LW2BGXC LB:TGL24_0115_Bn_U_PE_325_WT SM:EPT105 CM:OICR"
-                },
-                {
-                    "fastqR1": {
-                        "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/STAR/2.1/input_data/EPT105_B_R1_001.fastq.gz",
-                            "externalIds": [
-                                {
-                                    "id": "TEST",
-                                    "provider": "TEST"
-                                }
-                            ]
-                        },
+                     },
+                     "right": {
+                         "contents": {
+                             "configuration": "/.mounts/labs/gsi/testdata/STAR/2.0.5/input_data/EPT105_B_R2_001.fastq.gz",
+                             "externalIds": [
+                                 {
+                                     "id": "TEST",
+                                     "provider": "TEST"
+                                 }
+                             ]
+                         },
                         "type": "EXTERNAL"
-                    },
-                    "fastqR2": {
-                        "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/STAR/2.1/input_data/EPT105_B_R2_001.fastq.gz",
-                            "externalIds": [
-                                {
-                                    "id": "TEST",
-                                    "provider": "TEST"
-                                }
-                            ]
-                        },
-                        "type": "EXTERNAL"
-                    },
-                    "readGroup": "ID:191126_NB551056_0130_AHTMW5BGXC LB:TGL24_0115_Bn_U_PE_325_WT SM:EPT105 CM:OICR"
-                }
+                     }
+             },
+            "right": "ID:191126_NB551056_0130_AHTMW5BGXC LB:TGL24_0115_Bn_U_PE_325_WT SM:EPT105 CM:OICR"
+            }
             ],
             "star.outputFileNamePrefix": "EPT105",
             "star.runStar.addParam": null,
@@ -294,7 +267,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/STAR/2.1/output_metrics/EPT105_RNAseqTest.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/STAR/2.0.5/output_metrics/EPT105_RNAseqTest.metrics",
                 "type": "script"
             }
         ]
