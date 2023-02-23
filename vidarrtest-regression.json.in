@@ -8,7 +8,7 @@
                 {
                     "fastqR1": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/STAR/2.1/input_data/k562_NoIndex_L001_R1_001.fastq.gz",
+                            "configuration": "/.mounts/labs/gsi/testdata/STAR/input_data/k562_NoIndex_L001_R1_001.fastq.gz",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -20,7 +20,7 @@
                     },
                     "fastqR2": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/STAR/2.1/input_data/k562_NoIndex_L001_R1_001.fastq.gz",
+                            "configuration": "/.mounts/labs/gsi/testdata/STAR/input_data/k562_NoIndex_L001_R1_001.fastq.gz",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -35,7 +35,7 @@
                 {
                     "fastqR1": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/STAR/2.1/input_data/k562_NoIndex_L001_R1_001.fastq.gz",
+                            "configuration": "/.mounts/labs/gsi/testdata/STAR/input_data/k562_NoIndex_L001_R1_001.fastq.gz",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -47,7 +47,7 @@
                     },
                     "fastqR2": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/STAR/2.1/input_data/k562_NoIndex_L001_R1_001.fastq.gz",
+                            "configuration": "/.mounts/labs/gsi/testdata/STAR/input_data/k562_NoIndex_L001_R1_001.fastq.gz",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -144,7 +144,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/STAR/2.1/output_metrics/k562_RNAseqTest.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/STAR/2.2/output_metrics/k562_RNAseqTest.metrics",
                 "type": "script"
             }
         ]
@@ -158,7 +158,7 @@
                 {
                     "fastqR1": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/STAR/2.1/input_data/EPT105_A_R1_001.fastq.gz",
+                            "configuration": "/.mounts/labs/gsi/testdata/STAR/input_data/EPT105_A_R1_001.fastq.gz",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -170,7 +170,7 @@
                     },
                     "fastqR2": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/STAR/2.1/input_data/EPT105_A_R2_001.fastq.gz",
+                            "configuration": "/.mounts/labs/gsi/testdata/STAR/input_data/EPT105_A_R2_001.fastq.gz",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -185,7 +185,7 @@
                 {
                     "fastqR1": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/STAR/2.1/input_data/EPT105_B_R1_001.fastq.gz",
+                            "configuration": "/.mounts/labs/gsi/testdata/STAR/input_data/EPT105_B_R1_001.fastq.gz",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -197,7 +197,7 @@
                     },
                     "fastqR2": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/STAR/2.1/input_data/EPT105_B_R2_001.fastq.gz",
+                            "configuration": "/.mounts/labs/gsi/testdata/STAR/input_data/EPT105_B_R2_001.fastq.gz",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -294,7 +294,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/STAR/2.1/output_metrics/EPT105_RNAseqTest.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/STAR/2.2/output_metrics/EPT105_RNAseqTest.metrics",
                 "type": "script"
             }
         ]
