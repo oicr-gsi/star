@@ -6,7 +6,7 @@ STAR 2.1
 
 ## Dependencies
 
-* [star 2.7.6a](https://github.com/alexdobin/STAR)
+* [star 2.7.10b](https://github.com/alexdobin/STAR)
 * [picard 2.19.2](https://broadinstitute.github.io/picard/)
 
 
@@ -40,8 +40,8 @@ Parameter|Value|Default|Description
 `runStar.chimericjunctionSuffix`|String|"Chimeric.out"|Suffix for chimeric junction file
 `runStar.genereadSuffix`|String|"ReadsPerGene.out"|ReadsPerGene file suffix
 `runStar.addParam`|String?|None|Additional STAR parameters
-`runStar.modules`|String|"star/2.7.6a hg38-star-index100/2.7.6a"|modules for running STAR
-`runStar.chimOutType`|String|"WithinBAM HardClip"|Indicate where chimeric reads are to be written
+`runStar.modules`|String|"hg38-star-index100/2.7.10b"|modules for running STAR
+`runStar.chimOutType`|String|"WithinBAM SoftClip Junctions"|Indicate where chimeric reads are to be written
 `runStar.outFilterMultimapNmax`|Int|50|max number of multiple alignments allowed for a read: if exceeded, the read is considered unmapped
 `runStar.chimScoreDropMax`|Int|30|max drop (difference) of chimeric score (the sum of scores of allchimeric segments) from the read length
 `runStar.uniqMAPQ`|Int|255|Score for unique mappers
@@ -53,7 +53,7 @@ Parameter|Value|Default|Description
 `runStar.alignMatGapMax`|Int|100000|maximum gap between two mates
 `runStar.alignIntMax`|Int|100000|maximum intron size
 `runStar.chimMulmapScoRan`|Int|3|the score range for multi-mapping chimeras below the best chimeric score
-`runStar.chimScoJunNonGTAG`|Int|0|penalty for a non-GTAG chimeric junction
+`runStar.chimScoJunNonGTAG`|Int|-1|penalty for a non-GTAG chimeric junction
 `runStar.chimScoreSeparation`|Int|1|minimum difference (separation) between the best chimeric score and the next one
 `runStar.chimMulmapNmax`|Int|50|maximum number of chimeric multi-alignments
 `runStar.chimNonchimScoDMin`|Int|10|to trigger chimeric detection, the drop in the best non-chimeric alignment score with respect to the read length has to be greater than this value
@@ -76,34 +76,61 @@ Output | Type | Description
 `starBam`|File|Output bam aligned to genome
 `starIndex`|File|Output index file for bam aligned to genome
 `transcriptomeBam`|File|Output bam aligned to transcriptome
+`starChimeric`|File|Output chimeric junctions file
 `geneReadFile`|File|Output raw read counts per transcript
 
 
-## Niassa + Cromwell
-
-This WDL workflow is wrapped in a Niassa workflow (https://github.com/oicr-gsi/pipedev/tree/master/pipedev-niassa-cromwell-workflow) so that it can used with the Niassa metadata tracking system (https://github.com/oicr-gsi/niassa).
-
-* Building
-```
-mvn clean install
-```
-
-* Testing
-```
-mvn clean verify \
--Djava_opts="-Xmx1g -XX:+UseG1GC -XX:+UseStringDeduplication" \
--DrunTestThreads=2 \
--DskipITs=false \
--DskipRunITs=false \
--DworkingDirectory=/path/to/tmp/ \
--DschedulingHost=niassa_oozie_host \
--DwebserviceUrl=http://niassa-url:8080 \
--DwebserviceUser=niassa_user \
--DwebservicePassword=niassa_user_password \
--Dcromwell-host=http://cromwell-url:8000
-```
-
-## Support
+## Commands
+ This section lists command(s) run by the STAR workflow.
+ 
+ ### run STAR aligner
+ 
+  STAR --twopassMode Basic \
+       --genomeDir ~{genomeIndexDir} \
+       --readFilesIn ~{sep="," read1s} ~{sep="," read2s} \
+       --readFilesCommand zcat \
+       --outFilterIntronMotifs RemoveNoncanonical \
+       --outFileNamePrefix ~{outputFileNamePrefix}. \
+       --outSAMmultNmax ~{multiMax} \
+       --outSAMattrRGline ~{sep=" , " readGroups} \
+       --outSAMstrandField intronMotif \
+       --outSAMmapqUnique  ~{uniqMAPQ} \
+       --outSAMunmapped Within KeepPairs \
+       --genomeSAsparseD ~{saSparsed} \
+       --outSAMtype BAM SortedByCoordinate \
+       --quantMode TranscriptomeSAM GeneCounts \
+       --chimSegmentMin ~{chimSegmin} \
+       --chimJunctionOverhangMin ~{chimJunOvMin} \
+       --alignSJDBoverhangMin ~{alignSJDBOvMin} \
+       --alignMatesGapMax ~{alignMatGapMax} \
+       --alignIntronMax ~{alignIntMax} \
+       --alignSJstitchMismatchNmax 5 -1 5 5 \
+       --chimMultimapScoreRange ~{chimMulmapScoRan} \
+       --chimScoreJunctionNonGTAG ~{chimScoJunNonGTAG} \
+       --chimMultimapNmax ~{chimMulmapNmax} \
+       --chimNonchimScoreDropMin ~{chimNonchimScoDMin} \
+       ~{"--chimOutJunctionFormat " + chimOutJunForm} \
+       --peOverlapNbasesMin ~{peOvNbasesMin} \
+       --peOverlapMMp ~{peOvMMp} \
+       --outFilterMultimapNmax ~{outFilterMultimapNmax} \
+       --runThreadN ~{threads} --chimOutType ~{chimOutType} \
+       --chimScoreDropMax ~{chimScoreDropMax} \
+       --chimScoreSeparation ~{chimScoreSeparation} \
+       --chimSegmentReadGapMax ~{chimSegmentReadGapMax} ~{addParam}
+ 
+ ### Process Chimeric junctions file for downstream use by STAR-Fusion
+ 
+  awk 'NR<2{print $0;next}{print $0| "sort -V"}' ~{outputFileNamePrefix}.~{chimericjunctionSuffix}.junction \
+  > tmp && mv tmp ~{outputFileNamePrefix}.~{chimericjunctionSuffix}.junction
+ 
+ ### Index Bam file for random access
+ 
+  java -Xmx~{jobMemory-6}G -jar $PICARD_ROOT/picard.jar BuildBamIndex \
+                               VALIDATION_STRINGENCY=LENIENT \
+                               OUTPUT="~{basename(inputBam, '.bam')}.bai" \
+                               INPUT=~{inputBam}
+ 
+ ## Support
 
 For support, please file an issue on the [Github project](https://github.com/oicr-gsi) or send an email to gsi@oicr.on.ca .
 
