@@ -41,7 +41,7 @@ workflow star {
    description: "STAR 2.1"
    dependencies: [
       {
-        name: "star/2.7.6a",
+        name: "star/2.7.10b",
         url: "https://github.com/alexdobin/STAR"
       },
       {
@@ -75,8 +75,8 @@ input {
   String chimericjunctionSuffix = "Chimeric.out"
   String genereadSuffix = "ReadsPerGene.out"
   String? addParam
-  String modules = "star/2.7.6a hg38-star-index100/2.7.6a"
-  String chimOutType = "WithinBAM HardClip Junctions"
+  String modules = "hg38-star-index100/2.7.10b"
+  String chimOutType = "WithinBAM SoftClip Junctions"
   Int outFilterMultimapNmax = 50
   Int chimScoreDropMax = 30
   Int uniqMAPQ = 255
@@ -88,7 +88,7 @@ input {
   Int alignMatGapMax = 100000
   Int alignIntMax = 100000
   Int chimMulmapScoRan = 3
-  Int chimScoJunNonGTAG = 0
+  Int chimScoJunNonGTAG = -1
   Int chimScoreSeparation = 1
   Int chimMulmapNmax = 50
   Int chimNonchimScoDMin = 10
