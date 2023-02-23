@@ -1,5 +1,6 @@
 ## 2.2 2023-02-23
 - Update STAR to 2.7.10b
+- Change HardClip to Softclip for Chimeric Reads
 ## 2.1.1 2021-05-31
 - Migrate to Vidarr
 ## 2.1 - 2021-01-14
