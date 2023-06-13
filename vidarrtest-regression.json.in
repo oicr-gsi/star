@@ -152,7 +152,7 @@
             "star.indexBam.jobMemory": null,
             "star.indexBam.modules": null,
             "star.indexBam.timeout": null,
-            "star.reference": "hg38",
+            "star.reference": "hg19",
             "star.inputGroups": [
                 {
                     "fastqR1": {

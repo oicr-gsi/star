@@ -35,7 +35,7 @@ workflow star {
     },
     "hg19": {
       "genomeIndexDir": "$HG19_STAR_INDEX100_ROOT/",
-      "modules": "hg38-star-index100/2.7.10b"
+      "modules": "hg19-star-index100/2.7.3a"
     }
   }
 
