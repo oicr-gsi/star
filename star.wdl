@@ -190,12 +190,12 @@ command <<<
       --chimMultimapScoreRange ~{chimMulmapScoRan} \
       --chimScoreJunctionNonGTAG ~{chimScoJunNonGTAG} \
       --chimMultimapNmax ~{chimMulmapNmax} \
-      --chimNonchimScoreDropMin ~{chimNonchimScoDMin} \
-      ~{"--chimOutJunctionFormat " + chimOutJunForm} \
+      --chimNonchimScoreDropMin ~{chimNonchimScoDMin} ~{"--chimOutJunctionFormat " + chimOutJunForm} \
       --peOverlapNbasesMin ~{peOvNbasesMin} \
       --peOverlapMMp ~{peOvMMp} \
       --outFilterMultimapNmax ~{outFilterMultimapNmax} \
-      --runThreadN ~{threads} --chimOutType ~{chimOutType} \
+      --runThreadN ~{threads} \
+      --chimOutType ~{chimOutType} \
       --chimScoreDropMax ~{chimScoreDropMax} \
       --chimScoreSeparation ~{chimScoreSeparation} \
       --chimSegmentReadGapMax ~{chimSegmentReadGapMax} ~{addParam}
