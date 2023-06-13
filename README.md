@@ -26,12 +26,6 @@ Parameter|Value|Description
 `outputFileNamePrefix`|String|Prefix for filename
 `reference`|String|Reference id, hg19 or hg38
 
-
-#### Optional workflow parameters:
-Parameter|Value|Default|Description
----|---|---|---
-
-
 #### Optional task parameters:
 Parameter|Value|Default|Description
 ---|---|---|---
@@ -119,19 +113,19 @@ Output | Type | Description
        --chimScoreSeparation ~{chimScoreSeparation} \
        --chimSegmentReadGapMax ~{chimSegmentReadGapMax} ~{addParam}
  
- ### Process Chimeric junctions file for downstream use by STAR-Fusion
+### Process Chimeric junctions file for downstream use by STAR-Fusion
  
   awk 'NR<2{print $0;next}{print $0| "sort -V"}' ~{outputFileNamePrefix}.~{chimericjunctionSuffix}.junction \
   > tmp && mv tmp ~{outputFileNamePrefix}.~{chimericjunctionSuffix}.junction
  
- ### Index Bam file for random access
+### Index Bam file for random access
  
   java -Xmx~{jobMemory-6}G -jar $PICARD_ROOT/picard.jar BuildBamIndex \
                                VALIDATION_STRINGENCY=LENIENT \
                                OUTPUT="~{basename(inputBam, '.bam')}.bai" \
                                INPUT=~{inputBam}
  
- ## Support
+## Support
 
 For support, please file an issue on the [Github project](https://github.com/oicr-gsi) or send an email to gsi@oicr.on.ca .
 
