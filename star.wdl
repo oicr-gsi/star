@@ -6,10 +6,19 @@ struct InputGroup {
   String readGroup
 }
 
+struct GenomeResources {
+    String genomeIndexDir
+    String modules
+    Int? chimOutJunForm
+}
+
+
+
 workflow star {
   input {
     Array[InputGroup] inputGroups
     String outputFileNamePrefix
+    String reference
   }
 
   scatter (ig in inputGroups) {
@@ -18,9 +27,23 @@ workflow star {
     String readGroups = ig.readGroup
   }
 
+  Map[String,GenomeResources] resources = {
+    "hg38": {
+      "genomeIndexDir": "$HG38_STAR_INDEX100_ROOT/",
+      "modules": "hg38-star-index100/2.7.10b",
+      "chimOutJunForm": 1
+    },
+    "hg19": {
+      "genomeIndexDir": "$HG19_STAR_INDEX100_ROOT/",
+      "modules": "hg38-star-index100/2.7.10b"
+    }
+  }
+
+
   parameter_meta {
     inputGroups: "Array of fastq files to align with STAR and the merged filename"
     outputFileNamePrefix: "Prefix for filename"
+    reference: "Reference id, hg19 or hg38"
   }
 
   call runStar {
@@ -28,6 +51,9 @@ workflow star {
     read1s = read1s,
     read2s = read2s,
     readGroups = readGroups,
+    genomeIndexDir = resources [reference].genomeIndexDir,
+    modules = resources [reference].modules,
+    chimOutJunForm = resources [reference].chimOutJunForm,
     outputFileNamePrefix = outputFileNamePrefix
   }
 
@@ -38,7 +64,7 @@ workflow star {
   meta {
    author: "Peter Ruzanov, Alexander Fortuna"
    email: "peter.ruzanov@oicr.on.ca, alexander.fortuna@oicr.on.ca"
-   description: "STAR 2.1"
+   description: "STAR 2.3"
    dependencies: [
       {
         name: "star/2.7.10b",

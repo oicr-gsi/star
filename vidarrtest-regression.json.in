@@ -4,6 +4,7 @@
             "star.indexBam.jobMemory": null,
             "star.indexBam.modules": null,
             "star.indexBam.timeout": null,
+            "star.reference": "hg38",
             "star.inputGroups": [
                 {
                     "fastqR1": {
@@ -69,7 +70,6 @@
             "star.runStar.chimMulmapNmax": null,
             "star.runStar.chimMulmapScoRan": null,
             "star.runStar.chimNonchimScoDMin": null,
-            "star.runStar.chimOutJunForm": null,
             "star.runStar.chimOutType": null,
             "star.runStar.chimScoJunNonGTAG": null,
             "star.runStar.chimScoreDropMax": null,
@@ -78,9 +78,7 @@
             "star.runStar.chimSegmin": null,
             "star.runStar.chimericjunctionSuffix": null,
             "star.runStar.genereadSuffix": null,
-            "star.runStar.genomeIndexDir": null,
             "star.runStar.jobMemory": null,
-            "star.runStar.modules": null,
             "star.runStar.multiMax": null,
             "star.runStar.outFilterMultimapNmax": null,
             "star.runStar.peOvMMp": null,
@@ -154,6 +152,7 @@
             "star.indexBam.jobMemory": null,
             "star.indexBam.modules": null,
             "star.indexBam.timeout": null,
+            "star.reference": "hg38",
             "star.inputGroups": [
                 {
                     "fastqR1": {
@@ -219,7 +218,6 @@
             "star.runStar.chimMulmapNmax": null,
             "star.runStar.chimMulmapScoRan": null,
             "star.runStar.chimNonchimScoDMin": null,
-            "star.runStar.chimOutJunForm": 1,
             "star.runStar.chimOutType": null,
             "star.runStar.chimScoJunNonGTAG": null,
             "star.runStar.chimScoreDropMax": null,
@@ -228,9 +226,7 @@
             "star.runStar.chimSegmin": null,
             "star.runStar.chimericjunctionSuffix": null,
             "star.runStar.genereadSuffix": null,
-            "star.runStar.genomeIndexDir": null,
             "star.runStar.jobMemory": null,
-            "star.runStar.modules": null,
             "star.runStar.multiMax": null,
             "star.runStar.outFilterMultimapNmax": null,
             "star.runStar.peOvMMp": null,
