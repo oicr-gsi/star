@@ -35,7 +35,7 @@ workflow star {
     },
     "hg19": {
       "genomeIndexDir": "$HG19_STAR_INDEX100_ROOT/",
-      "modules": "hg19-star-index100/2.7.3a"
+      "modules": "hg19-star-index100/2.7.10b"
     }
   }
 
@@ -94,14 +94,14 @@ input {
   Array[File]+ read1s
   Array[File]+ read2s
   Array[String]+ readGroups
-  String genomeIndexDir = "$HG38_STAR_INDEX100_ROOT/"
+  String genomeIndexDir 
   String outputFileNamePrefix
   String starSuffix = "Aligned.sortedByCoord.out"
   String transcriptomeSuffix = "Aligned.toTranscriptome.out"
   String chimericjunctionSuffix = "Chimeric.out"
   String genereadSuffix = "ReadsPerGene.out"
   String? addParam
-  String modules = "hg38-star-index100/2.7.10b"
+  String modules 
   String chimOutType = "WithinBAM SoftClip Junctions"
   Int outFilterMultimapNmax = 50
   Int chimScoreDropMax = 30
@@ -222,7 +222,7 @@ output {
 meta {
   output_meta: {
     outputBam:        "Output bam aligned to genome",
-      outputChimeric:   "Output chimeric junctions file",
+    outputChimeric:   "Output chimeric junctions file",
     transcriptomeBam: "Output bam aligned to transcriptome",
     geneReads:        "Output raw read counts per transcript"
   }
