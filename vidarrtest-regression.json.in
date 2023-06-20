@@ -142,7 +142,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/STAR/2.2/output_metrics/k562_RNAseqTest.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/STAR/2.3/output_metrics/k562_RNAseqTest.metrics",
                 "type": "script"
             }
         ]
@@ -290,7 +290,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/STAR/2.2/output_metrics/EPT105_RNAseqTest.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/STAR/2.3/output_metrics/EPT105_RNAseqTest.metrics",
                 "type": "script"
             }
         ]
