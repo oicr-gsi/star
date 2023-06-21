@@ -1,3 +1,5 @@
+## 2.3 2023-06-13
+- Move assembly-specific settings into the wdl
 ## 2.2 2023-02-23
 - Update STAR to 2.7.10b
 - Change HardClip to Softclip for Chimeric Reads
