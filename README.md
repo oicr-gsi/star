@@ -1,6 +1,6 @@
 # star
 
-STAR 2.1
+STAR 2.3
 
 ## Overview
 
