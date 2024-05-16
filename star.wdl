@@ -64,7 +64,7 @@ workflow star {
   meta {
    author: "Peter Ruzanov, Alexander Fortuna"
    email: "peter.ruzanov@oicr.on.ca, alexander.fortuna@oicr.on.ca"
-   description: "STAR 2.3"
+   description: "STAR (Spliced Transcripts Alignment to a Reference) is an RNA-seq mapper that performs highly accurate spliced sequence alignment at an ultrafast speed. STAR alignment algorithm can be controlled by many user-defined parameters. Mammal genomes require at least 16GB of RAM, ideally 32GB. The outputs include both short reads aligned to reference genome and transcriptome. In addition, chimeric alignments may be used to produce a separate output file with supporting alignments for putative gene fusion events."
    dependencies: [
       {
         name: "star/2.7.10b",

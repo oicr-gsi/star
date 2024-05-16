@@ -1,6 +1,6 @@
-# star
+# STAR
 
-STAR 2.3
+STAR (Spliced Transcripts Alignment to a Reference) is an RNA-seq mapper that performs highly accurate spliced sequence alignment at an ultrafast speed. STAR alignment algorithm can be controlled by many user-defined parameters. Mammal genomes require at least 16GB of RAM, ideally 32GB. The outputs include both short reads aligned to reference genome and transcriptome. In addition, chimeric alignments may be used to produce a separate output file with supporting alignments for putative gene fusion events.
 
 ## Overview
 
