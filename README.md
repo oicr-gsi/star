@@ -29,13 +29,11 @@ Parameter|Value|Description
 #### Optional task parameters:
 Parameter|Value|Default|Description
 ---|---|---|---
-`runStar.genomeIndexDir`|String|"$HG38_STAR_INDEX100_ROOT/"|Path to STAR index
 `runStar.starSuffix`|String|"Aligned.sortedByCoord.out"|Suffix for sorted file
 `runStar.transcriptomeSuffix`|String|"Aligned.toTranscriptome.out"|Suffix for transcriptome-aligned file
 `runStar.chimericjunctionSuffix`|String|"Chimeric.out"|Suffix for chimeric junction file
 `runStar.genereadSuffix`|String|"ReadsPerGene.out"|ReadsPerGene file suffix
 `runStar.addParam`|String?|None|Additional STAR parameters
-`runStar.modules`|String|"hg38-star-index100/2.7.10b"|modules for running STAR
 `runStar.chimOutType`|String|"WithinBAM SoftClip Junctions"|Indicate where chimeric reads are to be written
 `runStar.outFilterMultimapNmax`|Int|50|max number of multiple alignments allowed for a read: if exceeded, the read is considered unmapped
 `runStar.chimScoreDropMax`|Int|30|max drop (difference) of chimeric score (the sum of scores of allchimeric segments) from the read length
@@ -52,7 +50,6 @@ Parameter|Value|Default|Description
 `runStar.chimScoreSeparation`|Int|1|minimum difference (separation) between the best chimeric score and the next one
 `runStar.chimMulmapNmax`|Int|50|maximum number of chimeric multi-alignments
 `runStar.chimNonchimScoDMin`|Int|10|to trigger chimeric detection, the drop in the best non-chimeric alignment score with respect to the read length has to be greater than this value
-`runStar.chimOutJunForm`|Int?|None|flag to add metadata to chimeric junction output for functionality with starFusion - 1 for metadata, 0 for no metadata
 `runStar.peOvNbasesMin`|Int|10|minimum number of overlap bases to trigger mates merging and realignment
 `runStar.chimSegmentReadGapMax`|Int|3|maximum gap in the read sequence between chimeric segments
 `runStar.peOvMMp`|Float|0.1|maximum proportion of mismatched bases in the overlap area
@@ -66,20 +63,21 @@ Parameter|Value|Default|Description
 
 ### Outputs
 
-Output | Type | Description
----|---|---
-`starBam`|File|Output bam aligned to genome
-`starIndex`|File|Output index file for bam aligned to genome
-`transcriptomeBam`|File|Output bam aligned to transcriptome
-`starChimeric`|File|Output chimeric junctions file
-`geneReadFile`|File|Output raw read counts per transcript
+Output | Type | Description | Labels
+---|---|---|---
+`starBam`|File|{'description': 'Output bam aligned to genome', 'vidarr_label': 'outputBam'}|
+`starIndex`|File|Output index file for bam aligned to genome|
+`transcriptomeBam`|File|{'description': 'Output bam aligned to transcriptome', 'vidarr_label': 'transcriptomeBam'}|
+`starChimeric`|File|{'description': 'Output chimeric junctions file', 'vidarr_label': 'outputChimeric'}|
+`geneReadFile`|File|{'description': 'Output raw read counts per transcript', 'vidarr_label': 'geneReads'}|
 
 
 ## Commands
- This section lists command(s) run by the STAR workflow.
+This section lists command(s) run by the STAR workflow.
  
- ### run STAR aligner
- 
+### run STAR aligner
+
+``` 
   STAR --twopassMode Basic \
        --genomeDir ~{genomeIndexDir} \
        --readFilesIn ~{sep="," read1s} ~{sep="," read2s} \
@@ -112,19 +110,24 @@ Output | Type | Description
        --chimScoreDropMax ~{chimScoreDropMax} \
        --chimScoreSeparation ~{chimScoreSeparation} \
        --chimSegmentReadGapMax ~{chimSegmentReadGapMax} ~{addParam}
- 
+```
+
 ### Process Chimeric junctions file for downstream use by STAR-Fusion
- 
+
+``` 
   awk 'NR<2{print $0;next}{print $0| "sort -V"}' ~{outputFileNamePrefix}.~{chimericjunctionSuffix}.junction \
   > tmp && mv tmp ~{outputFileNamePrefix}.~{chimericjunctionSuffix}.junction
+```
  
 ### Index Bam file for random access
- 
+
+``` 
   java -Xmx~{jobMemory-6}G -jar $PICARD_ROOT/picard.jar BuildBamIndex \
                                VALIDATION_STRINGENCY=LENIENT \
                                OUTPUT="~{basename(inputBam, '.bam')}.bai" \
                                INPUT=~{inputBam}
- 
+```
+
 ## Support
 
 For support, please file an issue on the [Github project](https://github.com/oicr-gsi) or send an email to gsi@oicr.on.ca .
