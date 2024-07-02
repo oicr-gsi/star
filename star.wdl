@@ -220,12 +220,24 @@ output {
 }
 
 meta {
-  output_meta: {
-    outputBam:        "Output bam aligned to genome",
-    outputChimeric:   "Output chimeric junctions file",
-    transcriptomeBam: "Output bam aligned to transcriptome",
-    geneReads:        "Output raw read counts per transcript"
-  }
+    output_meta: {
+    outputBam: {
+        description: "Output bam aligned to genome",
+        vidarr_label: "outputBam"
+    },
+    outputChimeric: {
+        description: "Output chimeric junctions file",
+        vidarr_label: "outputChimeric"
+    },
+    transcriptomeBam: {
+        description: "Output bam aligned to transcriptome",
+        vidarr_label: "transcriptomeBam"
+    },
+    geneReads: {
+        description: "Output raw read counts per transcript",
+        vidarr_label: "geneReads"
+    }
+}
 }
 
 }
