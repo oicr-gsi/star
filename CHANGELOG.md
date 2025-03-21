@@ -8,16 +8,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - [GRD-797](https://jira.oicr.on.ca/browse/GRD-797) - Add vidarr labels to outputs (changes to medata only).
 
-## [2.3] 2023-06-13
+## [2.3] - 2023-06-13
 ### Change
 - Move assembly-specific settings into the wdl.
 
-## [2.2] 2023-02-23
+## [2.2] - 2023-02-23
 ### Change
 - Update STAR to 2.7.10b.
 - Change HardClip to Softclip for Chimeric Reads.
 
-## [2.1.1] 2021-05-31
+## [2.1.1] - 2021-05-31
 ### Change
 - Migrate to Vidarr.
 
@@ -36,7 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Hotfix to expose --chimOutJunctionFormat parameter needed for starFusion.
 
-## [2.0]   - 2019-09-29
+## [2.0] - 2019-09-29
 ### Changed
 - Converting to cromwell wdl with changes to provision junction file and take multiple fastq pairs.
 
@@ -44,7 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fixed a bug with adapter sequences paramtrizing.
 
-## [1.1]   - 2016-10-03
+## [1.1] - 2016-10-03
 ### Added
 - Added new parameter produce_transcriptome_bam (true by default).
 
