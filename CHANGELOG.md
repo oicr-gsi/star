@@ -4,15 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.4] - 2024-06-25
+## [2.4.0] - 2024-06-25
 ### Added
 - [GRD-797](https://jira.oicr.on.ca/browse/GRD-797) - Add vidarr labels to outputs (changes to medata only).
 
-## [2.3] - 2023-06-13
+## [2.3.0] - 2023-06-13
 ### Change
 - Move assembly-specific settings into the wdl.
 
-## [2.2] - 2023-02-23
+## [2.2.0] - 2023-02-23
 ### Change
 - Update STAR to 2.7.10b.
 - Change HardClip to Softclip for Chimeric Reads.
