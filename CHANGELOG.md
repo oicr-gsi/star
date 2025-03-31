@@ -6,7 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.4.0] - 2024-06-25
 ### Added
-- [GRD-797](https://jira.oicr.on.ca/browse/GRD-797) - Add vidarr labels to outputs (changes to medata only).
+- [GRD-797](https://jira.oicr.on.ca/browse/GRD-797) - Add vidarr labels to outputs.
+- Path to STAR index.
+- Module to run STAR.
+- Flag to add metadata to chimeric junction output for functionality with starFusion - 1 for metadata, 0 for no metadata.
+
+### Changed
+- Changes to medata.
 
 ## [2.3.0] - 2023-06-13
 ### Change
