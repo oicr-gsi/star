@@ -23,6 +23,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update STAR to 2.7.10b.
 - Change HardClip to Softclip for Chimeric Reads.
 
+## [2.0.4] - 2022-06-24
+### Change
+- Update calculate.sh for the junction file.
+- Updated README.md
+
 ## [2.1.1] - 2021-05-31
 ### Change
 - Migrate to Vidarr.
