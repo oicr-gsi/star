@@ -9,7 +9,7 @@
                 {
                     "fastqR1": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/STAR/input_data/k562_NoIndex_L001_R1_001.fastq.gz",
+                            "configuration": "/.mounts/labs/gsi/testdata/STAR/test_inputs/kTest_R1.fastq.gz",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -21,7 +21,7 @@
                     },
                     "fastqR2": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/STAR/input_data/k562_NoIndex_L001_R1_001.fastq.gz",
+                            "configuration": "/.mounts/labs/gsi/testdata/STAR/test_inputs/kTest_R2.fastq.gz",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -31,12 +31,12 @@
                         },
                         "type": "EXTERNAL"
                     },
-                    "readGroup": "ID:121005_h804_0096_AD0V4NACXX_4_NoIndex PL:Illumina PU:121005_h804_0096_AD0V4NACXX_4_NoIndex LB:K562_1 SM:K562_1test CM:OICR"
+                    "readGroup": "ID:Test_NoIndex PL:Illumina PU:Test_NoIndex LB:K_1 SM:K_1test CN:OICR"
                 },
                 {
                     "fastqR1": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/STAR/input_data/k562_NoIndex_L001_R1_001.fastq.gz",
+                            "configuration": "/.mounts/labs/gsi/testdata/STAR/test_inputs/kTest_R1.fastq.gz",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -48,7 +48,7 @@
                     },
                     "fastqR2": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/STAR/input_data/k562_NoIndex_L001_R1_001.fastq.gz",
+                            "configuration": "/.mounts/labs/gsi/testdata/STAR/test_inputs/kTest_R2.fastq.gz",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -58,10 +58,10 @@
                         },
                         "type": "EXTERNAL"
                     },
-                    "readGroup": "ID:121005_h804_0096_AD0V4NACXX_4_NoIndex PL:Illumina PU:121005_h804_0096_AD0V4NACXX_4_NoIndex LB:K562_1 SM:K562_1test CM:OICR"
+                    "readGroup": "ID:Test_NoIndex PL:Illumina PU:Test_NoIndex LB:K_1 SM:K_1test CN:OICR"
                 }
             ],
-            "star.outputFileNamePrefix": "K562",
+            "star.outputFileNamePrefix": "K",
             "star.runStar.addParam": null,
             "star.runStar.alignIntMax": null,
             "star.runStar.alignMatGapMax": null,
@@ -95,12 +95,12 @@
            "write_to_cache": false,
            "read_from_cache": false
         },
-        "id": "k562_RNAseqTest",
+        "id": "k_RNAseqTest",
         "metadata": {
             "star.geneReadFile": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k_RNAseqTest_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -108,7 +108,7 @@
             "star.starBam": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k_RNAseqTest_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -116,7 +116,7 @@
             "star.starChimeric": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k_RNAseqTest_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -124,7 +124,7 @@
             "star.starIndex": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k_RNAseqTest_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -132,7 +132,7 @@
             "star.transcriptomeBam": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k_RNAseqTest_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -142,7 +142,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/STAR/2.3/output_metrics/k562_RNAseqTest.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/STAR/output_metrics/workflow_test_01.metrics",
                 "type": "script"
             }
         ]
@@ -157,7 +157,7 @@
                 {
                     "fastqR1": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/STAR/input_data/EPT105_A_R1_001.fastq.gz",
+                            "configuration": "/.mounts/labs/gsi/testdata/STAR/test_inputs/EPT_Test01_R1.fastq.gz",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -169,7 +169,7 @@
                     },
                     "fastqR2": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/STAR/input_data/EPT105_A_R2_001.fastq.gz",
+                            "configuration": "/.mounts/labs/gsi/testdata/STAR/test_inputs/EPT_Test01_R2.fastq.gz",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -179,12 +179,12 @@
                         },
                         "type": "EXTERNAL"
                     },
-                    "readGroup": "ID:191025_NB551056_0121_AH7LW2BGXC LB:TGL24_0115_Bn_U_PE_325_WT SM:EPT105 CM:OICR"
+                    "readGroup": "ID:Test01 LB:TGL_Test SM:EPT01 CN:OICR"
                 },
                 {
                     "fastqR1": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/STAR/input_data/EPT105_B_R1_001.fastq.gz",
+                            "configuration": "/.mounts/labs/gsi/testdata/STAR/test_inputs/EPT_Test02_R1.fastq.gz",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -196,7 +196,7 @@
                     },
                     "fastqR2": {
                         "contents": {
-                            "configuration": "/.mounts/labs/gsi/testdata/STAR/input_data/EPT105_B_R2_001.fastq.gz",
+                            "configuration": "/.mounts/labs/gsi/testdata/STAR/test_inputs/EPT_Test02_R2.fastq.gz",
                             "externalIds": [
                                 {
                                     "id": "TEST",
@@ -206,10 +206,10 @@
                         },
                         "type": "EXTERNAL"
                     },
-                    "readGroup": "ID:191126_NB551056_0130_AHTMW5BGXC LB:TGL24_0115_Bn_U_PE_325_WT SM:EPT105 CM:OICR"
+                    "readGroup": "ID:Test02 LB:TGL_Test SM:EPT02 CN:OICR"
                 }
             ],
-            "star.outputFileNamePrefix": "EPT105",
+            "star.outputFileNamePrefix": "EPT_Test",
             "star.runStar.addParam": null,
             "star.runStar.alignIntMax": null,
             "star.runStar.alignMatGapMax": null,
@@ -243,12 +243,12 @@
            "write_to_cache": false,
            "read_from_cache": false
         },
-        "id": "EPT105_RNAseqTest",
+        "id": "EPT_RNAseqTest",
         "metadata": {
             "star.geneReadFile": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_EPT105_RNAseqTest_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_EPT_RNAseqTest_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -256,7 +256,7 @@
             "star.starBam": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_EPT105_RNAseqTest_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_EPT_RNAseqTest_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -264,7 +264,7 @@
             "star.starChimeric": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_EPT105_RNAseqTest_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_EPT_RNAseqTest_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -272,7 +272,7 @@
             "star.starIndex": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_EPT105_RNAseqTest_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_EPT_RNAseqTest_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -280,7 +280,7 @@
             "star.transcriptomeBam": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_EPT105_RNAseqTest_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_EPT_RNAseqTest_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -290,7 +290,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/STAR/2.3/output_metrics/EPT105_RNAseqTest.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/STAR/output_metrics/workflow_test_02.metrics",
                 "type": "script"
             }
         ]
