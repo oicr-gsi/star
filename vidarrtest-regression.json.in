@@ -61,7 +61,7 @@
                     "readGroup": "ID:Test_NoIndex PL:Illumina PU:Test_NoIndex LB:K_1 SM:K_1test CN:OICR"
                 }
             ],
-            "star.outputFileNamePrefix": "K",
+            "star.outputFileNamePrefix": "K562",
             "star.runStar.addParam": null,
             "star.runStar.alignIntMax": null,
             "star.runStar.alignMatGapMax": null,
@@ -95,12 +95,12 @@
            "write_to_cache": false,
            "read_from_cache": false
         },
-        "id": "k_RNAseqTest",
+        "id": "k562_RNAseqTest",
         "metadata": {
             "star.geneReadFile": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k_RNAseqTest_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -108,7 +108,7 @@
             "star.starBam": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k_RNAseqTest_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -116,7 +116,7 @@
             "star.starChimeric": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k_RNAseqTest_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -124,7 +124,7 @@
             "star.starIndex": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k_RNAseqTest_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -132,7 +132,7 @@
             "star.transcriptomeBam": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k_RNAseqTest_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
