@@ -30,7 +30,7 @@ workflow star {
   Map[String,GenomeResources] resources = {
     "hg38": {
       "genomeIndexDir": "$HG38_STAR_INDEX100_ROOT/",
-      "modules": "hg38-star-index100/2.7.10b",
+      "modules": "hg38-star-index100/2.7.10b-gencode44",
       "chimOutJunForm": 1
     },
     "hg19": {
