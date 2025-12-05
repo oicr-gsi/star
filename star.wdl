@@ -36,6 +36,16 @@ workflow star {
     "hg19": {
       "genomeIndexDir": "$HG19_STAR_INDEX100_ROOT/",
       "modules": "hg19-star-index100/2.7.10b"
+    },
+    "hg38_noAlt": {
+      "genomeIndexDir": "$HG38_NOALT_STAR_INDEX100_ROOT/",
+      "modules": "hg38-noalt-star-index100/2.7.10b-gencode44",
+      "chimOutJunForm": 1
+    },
+    "grch38": {
+      "genomeIndexDir": "$HG38_NCBI_STAR_INDEX100_ROOT/",
+      "modules": "hg38-ncbi-star-index100/2.7.10b-gencode44",
+      "chimOutJunForm": 1
     }
   }
 
