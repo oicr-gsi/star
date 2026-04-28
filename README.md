@@ -25,6 +25,7 @@ Parameter|Value|Description
 `inputGroups`|Array[InputGroup]|Array of fastq files to align with STAR and the merged filename
 `outputFileNamePrefix`|String|Prefix for filename
 `reference`|String|Reference id, hg19 or hg38
+`gencode`|String|Gencode version
 
 #### Optional task parameters:
 Parameter|Value|Default|Description
