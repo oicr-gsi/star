@@ -62,7 +62,7 @@
                     "readGroup": "ID:Test_NoIndex PL:Illumina PU:Test_NoIndex LB:K_1 SM:K_1test CN:OICR"
                 }
             ],
-            "star.outputFileNamePrefix": "K562",
+            "star.outputFileNamePrefix": "K",
             "star.runStar.addParam": null,
             "star.runStar.alignIntMax": null,
             "star.runStar.alignMatGapMax": null,
@@ -143,7 +143,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/STAR/2.3/output_metrics/workflow_test_01.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/STAR/output_metrics/workflow_test_01.metrics",
                 "type": "script"
             }
         ]
@@ -292,7 +292,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/STAR/2.3/output_metrics/workflow_test_01.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/STAR/output_metrics/workflow_test_01a.metrics",
                 "type": "script"
             }
         ]
