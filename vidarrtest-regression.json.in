@@ -5,7 +5,7 @@
             "star.indexBam.modules": null,
             "star.indexBam.timeout": null,
             "star.reference": "hg38",
-            "star.gencode": "44",
+            "star.gencode": "31",
             "star.inputGroups": [
                 {
                     "fastqR1": {
