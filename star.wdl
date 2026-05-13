@@ -12,13 +12,12 @@ struct GenomeResources {
     Int? chimOutJunForm
 }
 
-
-
 workflow star {
   input {
     Array[InputGroup] inputGroups
     String outputFileNamePrefix
     String reference
+    String gencode
   }
 
   scatter (ig in inputGroups) {
@@ -27,15 +26,24 @@ workflow star {
     String readGroups = ig.readGroup
   }
 
-  Map[String,GenomeResources] resources = {
+  Map[String,Map[String,GenomeResources]] resources = {
     "hg38": {
-      "genomeIndexDir": "$HG38_STAR_INDEX100_ROOT/",
-      "modules": "hg38-star-index100/2.7.10b-gencode44",
-      "chimOutJunForm": 1
+      "44":{
+        "genomeIndexDir": "$HG38_STAR_INDEX100_ROOT/",
+        "modules": "hg38-star-index100/2.7.10b-gencode44",
+        "chimOutJunForm": 1
+      },
+      "31":{
+        "genomeIndexDir": "$HG38_STAR_INDEX100_ROOT/",
+        "modules": "hg38-star-index100/2.7.10b",
+        "chimOutJunForm": 1
+      }
     },
     "hg19": {
+      "19":{
       "genomeIndexDir": "$HG19_STAR_INDEX100_ROOT/",
       "modules": "hg19-star-index100/2.7.10b"
+      }
     }
   }
 
@@ -44,6 +52,7 @@ workflow star {
     inputGroups: "Array of fastq files to align with STAR and the merged filename"
     outputFileNamePrefix: "Prefix for filename"
     reference: "Reference id, hg19 or hg38"
+    gencode: "Gencode version e.g. 44"
   }
 
   call runStar {
@@ -51,9 +60,9 @@ workflow star {
     read1s = read1s,
     read2s = read2s,
     readGroups = readGroups,
-    genomeIndexDir = resources [reference].genomeIndexDir,
-    modules = resources [reference].modules,
-    chimOutJunForm = resources [reference].chimOutJunForm,
+    genomeIndexDir = resources [reference][gencode].genomeIndexDir,
+    modules = resources [reference][gencode].modules,
+    chimOutJunForm = resources [reference][gencode].chimOutJunForm,
     outputFileNamePrefix = outputFileNamePrefix
   }
 
@@ -62,8 +71,8 @@ workflow star {
    inputBam = runStar.outputBam }
 
   meta {
-   author: "Peter Ruzanov, Alexander Fortuna"
-   email: "peter.ruzanov@oicr.on.ca, alexander.fortuna@oicr.on.ca"
+   author: "Peter Ruzanov, Alexander Fortuna, Monica L. Rojas-Pena"
+   email: "peter.ruzanov@oicr.on.ca, alexander.fortuna@oicr.on.ca, mrojaspena@oicr.on.ca"
    description: "STAR (Spliced Transcripts Alignment to a Reference) is an RNA-seq mapper that performs highly accurate spliced sequence alignment at an ultrafast speed. STAR alignment algorithm can be controlled by many user-defined parameters. Mammal genomes require at least 16GB of RAM, ideally 32GB. The outputs include both short reads aligned to reference genome and transcriptome. In addition, chimeric alignments may be used to produce a separate output file with supporting alignments for putative gene fusion events."
    dependencies: [
       {

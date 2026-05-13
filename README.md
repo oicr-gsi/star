@@ -1,4 +1,4 @@
-# STAR
+# star
 
 STAR (Spliced Transcripts Alignment to a Reference) is an RNA-seq mapper that performs highly accurate spliced sequence alignment at an ultrafast speed. STAR alignment algorithm can be controlled by many user-defined parameters. Mammal genomes require at least 16GB of RAM, ideally 32GB. The outputs include both short reads aligned to reference genome and transcriptome. In addition, chimeric alignments may be used to produce a separate output file with supporting alignments for putative gene fusion events.
 
@@ -25,6 +25,13 @@ Parameter|Value|Description
 `inputGroups`|Array[InputGroup]|Array of fastq files to align with STAR and the merged filename
 `outputFileNamePrefix`|String|Prefix for filename
 `reference`|String|Reference id, hg19 or hg38
+`gencode`|String|Gencode version e.g. 44
+
+
+#### Optional workflow parameters:
+Parameter|Value|Default|Description
+---|---|---|---
+
 
 #### Optional task parameters:
 Parameter|Value|Default|Description
@@ -73,11 +80,10 @@ Output | Type | Description | Labels
 
 
 ## Commands
-This section lists command(s) run by the STAR workflow.
+ This section lists command(s) run by the STAR workflow.
  
-### run STAR aligner
-
-``` 
+ ### run STAR aligner
+ 
   STAR --twopassMode Basic \
        --genomeDir ~{genomeIndexDir} \
        --readFilesIn ~{sep="," read1s} ~{sep="," read2s} \
@@ -110,25 +116,20 @@ This section lists command(s) run by the STAR workflow.
        --chimScoreDropMax ~{chimScoreDropMax} \
        --chimScoreSeparation ~{chimScoreSeparation} \
        --chimSegmentReadGapMax ~{chimSegmentReadGapMax} ~{addParam}
-```
-
-### Process Chimeric junctions file for downstream use by STAR-Fusion
-
-``` 
+ 
+ ### Process Chimeric junctions file for downstream use by STAR-Fusion
+ 
   awk 'NR<2{print $0;next}{print $0| "sort -V"}' ~{outputFileNamePrefix}.~{chimericjunctionSuffix}.junction \
   > tmp && mv tmp ~{outputFileNamePrefix}.~{chimericjunctionSuffix}.junction
-```
  
-### Index Bam file for random access
-
-``` 
+ ### Index Bam file for random access
+ 
   java -Xmx~{jobMemory-6}G -jar $PICARD_ROOT/picard.jar BuildBamIndex \
                                VALIDATION_STRINGENCY=LENIENT \
                                OUTPUT="~{basename(inputBam, '.bam')}.bai" \
                                INPUT=~{inputBam}
-```
-
-## Support
+ 
+ ## Support
 
 For support, please file an issue on the [Github project](https://github.com/oicr-gsi) or send an email to gsi@oicr.on.ca .
 
