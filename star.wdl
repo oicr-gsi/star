@@ -86,6 +86,28 @@ workflow star {
         url: "https://broadinstitute.github.io/picard/"
       }
     ]
+    output_meta: {
+      starBam: {
+        description: "Output bam aligned to genome",
+        vidarr_label: "starBam"
+      },
+      starIndex: {
+        description: "Output bam index",
+        vidarr_label: "starIndex"
+      },
+      starChimeric: {
+        description: "Output chimeric junctions file",
+        vidarr_label: "starChimeric"
+      },
+      transcriptomeBam: {
+        description: "Output bam aligned to transcriptome",
+        vidarr_label: "transcriptomeBam"
+      },
+      geneReadFile: {
+        description: "Output raw read counts per transcript",
+        vidarr_label: "geneReadFile"
+      }
+    }
 }
 
 output {
@@ -230,27 +252,6 @@ output {
  File geneReads        = "~{outputFileNamePrefix}.~{genereadSuffix}.tab"
 }
 
-meta {
-    output_meta: {
-    outputBam: {
-        description: "Output bam aligned to genome",
-        vidarr_label: "outputBam"
-    },
-    outputChimeric: {
-        description: "Output chimeric junctions file",
-        vidarr_label: "outputChimeric"
-    },
-    transcriptomeBam: {
-        description: "Output bam aligned to transcriptome",
-        vidarr_label: "transcriptomeBam"
-    },
-    geneReads: {
-        description: "Output raw read counts per transcript",
-        vidarr_label: "geneReads"
-    }
-}
-}
-
 }
 
 # ==========================================
@@ -279,19 +280,13 @@ command <<<
 >>>
 
 runtime {
-   memory: "~{jobMemory} GB"
+  memory: "~{jobMemory} GB"
   modules: "~{modules}"
   timeout: "~{timeout}"
 }
 
 output {
   File outputBai = "~{basename(inputBam, '.bam')}.bai"
-}
-
-meta {
-  output_meta: {
-    outputBai: "Output index file for bam aligned to genome"
-  }
 }
 
 }
