@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - gencode parameter for handling different gencode/reference assembly combinations
 ### Changed
 - Gencode parameter will determine additional faceting of genomic resources
+- Moved the output metadata into the main workflow code block
 
 ## [2.4.1] - 2025-09-16
 ### Changed
