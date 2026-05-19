@@ -29,6 +29,12 @@ workflow star {
   }
 
   Map[String, Map[String,GenomeResources]] resources = {
+    "hg19": {
+      "31": {
+        "genomeIndexDir": "$HG19_STAR_INDEX100_ROOT/",
+        "modules": "hg19-star-index100/2.7.10b"
+      }
+    },
     "hg38": {
       "31": {
         "genomeIndexDir": "$HG38_STAR_INDEX100_ROOT/",
@@ -41,10 +47,18 @@ workflow star {
         "chimOutJunForm": 1
       }
     },
-    "hg19": {
-      "31": {
-        "genomeIndexDir": "$HG19_STAR_INDEX100_ROOT/",
-        "modules": "hg19-star-index100/2.7.10b"
+    "hg38_noAlt": {
+      "44": {
+        "genomeIndexDir": "$HG38_NOALT_STAR_INDEX100_ROOT/",
+        "modules": "hg38-noalt-star-index100/2.7.10b-gencode44",
+        "chimOutJunForm": 1
+      }
+    },
+    "grch38": {
+      "44": {
+        "genomeIndexDir": "$HG38_NCBI_STAR_INDEX100_ROOT/",
+        "modules": "hg38-ncbi-star-index100/2.7.10b-gencode44",
+        "chimOutJunForm": 1
       }
     }
   }
