@@ -19,6 +19,7 @@ workflow star {
     Array[InputGroup] inputGroups
     String outputFileNamePrefix
     String reference
+    String gencode
   }
 
   scatter (ig in inputGroups) {
@@ -27,15 +28,38 @@ workflow star {
     String readGroups = ig.readGroup
   }
 
-  Map[String,GenomeResources] resources = {
-    "hg38": {
-      "genomeIndexDir": "$HG38_STAR_INDEX100_ROOT/",
-      "modules": "hg38-star-index100/2.7.10b-gencode44",
-      "chimOutJunForm": 1
-    },
+  Map[String, Map[String,GenomeResources]] resources = {
     "hg19": {
-      "genomeIndexDir": "$HG19_STAR_INDEX100_ROOT/",
-      "modules": "hg19-star-index100/2.7.10b"
+      "31": {
+        "genomeIndexDir": "$HG19_STAR_INDEX100_ROOT/",
+        "modules": "hg19-star-index100/2.7.10b"
+      }
+    },
+    "hg38": {
+      "31": {
+        "genomeIndexDir": "$HG38_STAR_INDEX100_ROOT/",
+        "modules": "hg38-star-index100/2.7.10b",
+        "chimOutJunForm": 1
+      },
+      "44": {
+        "genomeIndexDir": "$HG38_STAR_INDEX100_ROOT/",
+        "modules": "hg38-star-index100/2.7.10b-gencode44",
+        "chimOutJunForm": 1
+      }
+    },
+    "hg38_noAlt": {
+      "44": {
+        "genomeIndexDir": "$HG38_NOALT_STAR_INDEX100_ROOT/",
+        "modules": "hg38-noalt-star-index100/2.7.10b-gencode44",
+        "chimOutJunForm": 1
+      }
+    },
+    "grch38": {
+      "44": {
+        "genomeIndexDir": "$HG38_NCBI_STAR_INDEX100_ROOT/",
+        "modules": "hg38-ncbi-star-index100/2.7.10b-gencode44",
+        "chimOutJunForm": 1
+      }
     }
   }
 
@@ -44,6 +68,7 @@ workflow star {
     inputGroups: "Array of fastq files to align with STAR and the merged filename"
     outputFileNamePrefix: "Prefix for filename"
     reference: "Reference id, hg19 or hg38"
+    gencode: "Gencode version"
   }
 
   call runStar {
@@ -51,9 +76,9 @@ workflow star {
     read1s = read1s,
     read2s = read2s,
     readGroups = readGroups,
-    genomeIndexDir = resources [reference].genomeIndexDir,
-    modules = resources [reference].modules,
-    chimOutJunForm = resources [reference].chimOutJunForm,
+    genomeIndexDir = resources [reference][gencode].genomeIndexDir,
+    modules = resources [reference][gencode].modules,
+    chimOutJunForm = resources [reference][gencode].chimOutJunForm,
     outputFileNamePrefix = outputFileNamePrefix
   }
 
@@ -75,6 +100,28 @@ workflow star {
         url: "https://broadinstitute.github.io/picard/"
       }
     ]
+    output_meta: {
+      starBam: {
+        description: "Output bam aligned to genome",
+        vidarr_label: "starBam"
+      },
+      starIndex: {
+        description: "Output bam index",
+        vidarr_label: "starIndex"
+      },
+      starChimeric: {
+        description: "Output chimeric junctions file",
+        vidarr_label: "starChimeric"
+      },
+      transcriptomeBam: {
+        description: "Output bam aligned to transcriptome",
+        vidarr_label: "transcriptomeBam"
+      },
+      geneReadFile: {
+        description: "Output raw read counts per transcript",
+        vidarr_label: "geneReadFile"
+      }
+    }
 }
 
 output {
@@ -219,27 +266,6 @@ output {
  File geneReads        = "~{outputFileNamePrefix}.~{genereadSuffix}.tab"
 }
 
-meta {
-    output_meta: {
-    outputBam: {
-        description: "Output bam aligned to genome",
-        vidarr_label: "outputBam"
-    },
-    outputChimeric: {
-        description: "Output chimeric junctions file",
-        vidarr_label: "outputChimeric"
-    },
-    transcriptomeBam: {
-        description: "Output bam aligned to transcriptome",
-        vidarr_label: "transcriptomeBam"
-    },
-    geneReads: {
-        description: "Output raw read counts per transcript",
-        vidarr_label: "geneReads"
-    }
-}
-}
-
 }
 
 # ==========================================
@@ -268,19 +294,13 @@ command <<<
 >>>
 
 runtime {
-   memory: "~{jobMemory} GB"
+  memory: "~{jobMemory} GB"
   modules: "~{modules}"
   timeout: "~{timeout}"
 }
 
 output {
   File outputBai = "~{basename(inputBam, '.bam')}.bai"
-}
-
-meta {
-  output_meta: {
-    outputBai: "Output index file for bam aligned to genome"
-  }
 }
 
 }

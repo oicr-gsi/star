@@ -1,10 +1,160 @@
 [
+    { 
+        "arguments": {
+            "star.indexBam.jobMemory": null,
+            "star.indexBam.modules": null,
+            "star.indexBam.timeout": null,
+            "star.reference": "hg38",
+            "star.gencode": "31",
+            "star.inputGroups": [
+                {
+                    "fastqR1": {
+                        "contents": {
+                            "configuration": "/.mounts/labs/gsi/testdata/STAR/test_inputs/kTest_R1.fastq.gz",
+                            "externalIds": [
+                                {
+                                    "id": "TEST",
+                                    "provider": "TEST"
+                                }
+                            ]
+                        },
+                        "type": "EXTERNAL"
+                    },
+                    "fastqR2": {
+                        "contents": {
+                            "configuration": "/.mounts/labs/gsi/testdata/STAR/test_inputs/kTest_R2.fastq.gz",
+                            "externalIds": [
+                                {
+                                    "id": "TEST",
+                                    "provider": "TEST"
+                                }
+                            ]
+                        },
+                        "type": "EXTERNAL"
+                    },
+                    "readGroup": "ID:Test_NoIndex PL:Illumina PU:Test_NoIndex LB:K_1 SM:K_1test CN:OICR"
+                },
+                {
+                    "fastqR1": {
+                        "contents": {
+                            "configuration": "/.mounts/labs/gsi/testdata/STAR/test_inputs/kTest_R1.fastq.gz",
+                            "externalIds": [
+                                {
+                                    "id": "TEST",
+                                    "provider": "TEST"
+                                }
+                            ]
+                        },
+                        "type": "EXTERNAL"
+                    },
+                    "fastqR2": {
+                        "contents": {
+                            "configuration": "/.mounts/labs/gsi/testdata/STAR/test_inputs/kTest_R2.fastq.gz",
+                            "externalIds": [
+                                {
+                                    "id": "TEST",
+                                    "provider": "TEST"
+                                }
+                            ]
+                        },
+                        "type": "EXTERNAL"
+                    },
+                    "readGroup": "ID:Test_NoIndex PL:Illumina PU:Test_NoIndex LB:K_1 SM:K_1test CN:OICR"
+                }
+            ],
+            "star.outputFileNamePrefix": "K",
+            "star.runStar.addParam": null,
+            "star.runStar.alignIntMax": null,
+            "star.runStar.alignMatGapMax": null,
+            "star.runStar.alignSJDBOvMin": null,
+            "star.runStar.chimJunOvMin": null,
+            "star.runStar.chimMulmapNmax": null,
+            "star.runStar.chimMulmapScoRan": null,
+            "star.runStar.chimNonchimScoDMin": null,
+            "star.runStar.chimOutType": null,
+            "star.runStar.chimScoJunNonGTAG": null,
+            "star.runStar.chimScoreDropMax": null,
+            "star.runStar.chimScoreSeparation": null,
+            "star.runStar.chimSegmentReadGapMax": null,
+            "star.runStar.chimSegmin": null,
+            "star.runStar.chimericjunctionSuffix": null,
+            "star.runStar.genereadSuffix": null,
+            "star.runStar.jobMemory": null,
+            "star.runStar.multiMax": null,
+            "star.runStar.outFilterMultimapNmax": null,
+            "star.runStar.peOvMMp": null,
+            "star.runStar.peOvNbasesMin": null,
+            "star.runStar.saSparsed": null,
+            "star.runStar.starSuffix": null,
+            "star.runStar.threads": null,
+            "star.runStar.timeout": null,
+            "star.runStar.transcriptomeSuffix": null,
+            "star.runStar.uniqMAPQ": null
+        },
+        "description": "STAR workflow test with hg38 and gencode v31",
+        "engineArguments": {
+           "write_to_cache": false,
+           "read_from_cache": false
+        },
+        "id": "k562_RNAseqTest31",
+        "metadata": {
+            "star.geneReadFile": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest31_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
+            "star.starBam": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest31_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
+            "star.starChimeric": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest31_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
+            "star.starIndex": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest31_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            },
+            "star.transcriptomeBam": {
+                "contents": [
+                    {
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest31_@JENKINSID@"
+                    }
+                ],
+                "type": "ALL"
+            }
+        },
+        "validators": [
+            {
+                "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
+                "metrics_compare": "@CHECKOUT@/tests/compare.sh",
+                "output_metrics": "/.mounts/labs/gsi/testdata/STAR/output_metrics/workflow_test_01.metrics",
+                "type": "script"
+            }
+        ]
+    },
     {
         "arguments": {
             "star.indexBam.jobMemory": null,
             "star.indexBam.modules": null,
             "star.indexBam.timeout": null,
             "star.reference": "hg38",
+            "star.gencode": "44",
             "star.inputGroups": [
                 {
                     "fastqR1": {
@@ -90,17 +240,17 @@
             "star.runStar.transcriptomeSuffix": null,
             "star.runStar.uniqMAPQ": null
         },
-        "description": "STAR workflow test",
+        "description": "STAR workflow test with hg38 and gencode v44",
         "engineArguments": {
            "write_to_cache": false,
            "read_from_cache": false
         },
-        "id": "k562_RNAseqTest",
+        "id": "k562_RNAseqTest44",
         "metadata": {
             "star.geneReadFile": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest44_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -108,7 +258,7 @@
             "star.starBam": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest44_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -116,7 +266,7 @@
             "star.starChimeric": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest44_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -124,7 +274,7 @@
             "star.starIndex": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest44_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -132,7 +282,7 @@
             "star.transcriptomeBam": {
                 "contents": [
                     {
-                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest_@JENKINSID@"
+                        "outputDirectory": "@SCRATCH@/@DATE@_Workflow_STAR_k562_RNAseqTest44_@JENKINSID@"
                     }
                 ],
                 "type": "ALL"
@@ -142,7 +292,7 @@
             {
                 "metrics_calculate": "@CHECKOUT@/tests/calculate.sh",
                 "metrics_compare": "@CHECKOUT@/tests/compare.sh",
-                "output_metrics": "/.mounts/labs/gsi/testdata/STAR/2.3/output_metrics/workflow_test_01.metrics",
+                "output_metrics": "/.mounts/labs/gsi/testdata/STAR/output_metrics/workflow_test_01a.metrics",
                 "type": "script"
             }
         ]
@@ -153,6 +303,7 @@
             "star.indexBam.modules": null,
             "star.indexBam.timeout": null,
             "star.reference": "hg19",
+            "star.gencode": "31",
             "star.inputGroups": [
                 {
                     "fastqR1": {
@@ -238,7 +389,7 @@
             "star.runStar.transcriptomeSuffix": null,
             "star.runStar.uniqMAPQ": null
         },
-        "description": "STAR workflow test",
+        "description": "STAR workflow test with hg19 and gencode v31",
         "engineArguments": {
            "write_to_cache": false,
            "read_from_cache": false
